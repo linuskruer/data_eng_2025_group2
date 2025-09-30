@@ -106,3 +106,6 @@ collection_timestamp,timezone,weather_category,product_type,price,currency,selle
 2025-09-30T09:25:05.889199-04:00,EDT,cold_products,thermal gloves,9.99,USD,98.6,31518,"{'postalCode': '100**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,67,v1|146817059980|445416260946,EBAY_US
 2025-09-30T09:25:30.693585-04:00,EDT,seasonal_products,beach towel,22.5,USD,99.0,22497,"{'postalCode': '103**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,77,v1|285284217311|587293860720,EBAY_US
 2025-09-30T09:25:30.693585-04:00,EDT,seasonal_products,beach towel,22.95,USD,100.0,26,"{'postalCode': '331**', 'country': 'US'}",Unknown,4.95,False,New with tags,FIXED_PRICE,62,v1|405996165959|676300671992,EBAY_US
+2025-09-30T09:43:36.413094-04:00,EDT,seasonal_products,beach towel,22.5,USD,99.0,22497,"{'postalCode': '103**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,77,v1|285284217311|587909819955,EBAY_US
+2025-09-30T09:55:46.901081-04:00,EDT,seasonal_products,beach towel,22.5,USD,99.0,22497,"{'postalCode': '103**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,77,v1|285284217311|587293860718,EBAY_US
+2025-09-30T10:07:31.583554-04:00,EDT,cold_products,thermal gloves,9.99,USD,98.6,31518,"{'postalCode': '100**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,67,v1|146817059980|445416260961,EBAY_US

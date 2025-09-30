@@ -1,5 +1,15 @@
-"logs/" 
-"__pycache__/" 
-"*.pyc" 
-"ebay_token.json" 
-"ebay_token.txt" 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+pip-log.txt
+
+# Logs
+logs/
+*.log
+
+# Docker
+.dockerignore

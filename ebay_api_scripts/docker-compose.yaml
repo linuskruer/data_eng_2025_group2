@@ -10,8 +10,6 @@ x-airflow-common: &airflow-common
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: 10
-    AIRFLOW__WEBSERVER__RBAC: 'false'
-    AIRFLOW_UID: 50000
   volumes:
     - ./dags:/opt/airflow/dags
     - ./data:/opt/airflow/data
@@ -32,8 +30,6 @@ services:
       POSTGRES_DB: airflow
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 5s
@@ -47,7 +43,7 @@ services:
         airflow webserver --port 8080
       "
     ports:
-      - "8081:8080"  # ← ÄNDERE DIESE ZEILE: 8081 außen, 8080 innen
+      - "8080:8080"  # ← HIER ÄNDERN: 8080:8080 statt 8081:8080
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
       interval: 30s

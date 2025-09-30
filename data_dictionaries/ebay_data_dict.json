@@ -1,0 +1,126 @@
+{
+  "EbayData": {
+    "description": "Schema for collected eBay product listings",
+    "fields": [
+      {
+        "name": "collection_timestamp",
+        "description": "Date and time when data was collected",
+        "type": "datetime",
+        "nullable": false,
+        "example": "2025-09-28T14:30:00Z"
+      },
+      {
+        "name": "timezone",
+        "description": "Timezone of data collection",
+        "type": "string",
+        "nullable": false,
+        "example": "UTC"
+      },
+      {
+        "name": "weather_category",
+        "description": "Weather condition category mapped from weather code",
+        "type": "string",
+        "nullable": true,
+        "example": "Sunny"
+      },
+      {
+        "name": "product_type",
+        "description": "Category/type of listed product",
+        "type": "string",
+        "nullable": false,
+        "example": "Electronics"
+      },
+      {
+        "name": "price",
+        "description": "Price of the listed product",
+        "type": "float",
+        "nullable": false,
+        "example": 199.99
+      },
+      {
+        "name": "currency",
+        "description": "Currency code for the price",
+        "type": "string",
+        "nullable": false,
+        "example": "USD"
+      },
+      {
+        "name": "seller_feedback_percentage",
+        "description": "Seller’s positive feedback percentage",
+        "type": "float",
+        "nullable": true,
+        "example": 99.8
+      },
+      {
+        "name": "seller_feedback_score",
+        "description": "Absolute feedback score of seller",
+        "type": "integer",
+        "nullable": true,
+        "example": 1500
+      },
+      {
+        "name": "item_location",
+        "description": "Location of the listed item",
+        "type": "string",
+        "nullable": true,
+        "example": "California, USA"
+      },
+      {
+        "name": "seller_location",
+        "description": "Location of the seller",
+        "type": "string",
+        "nullable": true,
+        "example": "USA"
+      },
+      {
+        "name": "shipping_cost",
+        "description": "Shipping cost in given currency",
+        "type": "float",
+        "nullable": true,
+        "example": 5.99
+      },
+      {
+        "name": "free_shipping",
+        "description": "Indicator whether shipping is free",
+        "type": "boolean",
+        "nullable": false,
+        "example": true
+      },
+      {
+        "name": "condition",
+        "description": "Condition of item (e.g., new, used)",
+        "type": "string",
+        "nullable": false,
+        "example": "New"
+      },
+      {
+        "name": "buying_options",
+        "description": "Available purchase options (e.g., auction, buy-it-now)",
+        "type": "string",
+        "nullable": false,
+        "example": "Buy It Now"
+      },
+      {
+        "name": "title_length",
+        "description": "Length of the product title in characters",
+        "type": "integer",
+        "nullable": true,
+        "example": 45
+      },
+      {
+        "name": "item_id",
+        "description": "Unique identifier of the listed item",
+        "type": "string",
+        "nullable": false,
+        "example": "EB123456789"
+      },
+      {
+        "name": "marketplace_id",
+        "description": "Identifier for the marketplace",
+        "type": "string",
+        "nullable": false,
+        "example": "ebay_us"
+      }
+    ]
+  }
+}

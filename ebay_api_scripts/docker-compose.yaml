@@ -1,26 +1,4 @@
 version: '3.8'
-
-x-airflow-common: &airflow-common
-  build: .
-  environment:
-    &airflow-common-env
-    AIRFLOW__CORE__EXECUTOR: LocalExecutor
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-    AIRFLOW__CORE__FERNET_KEY: ''
-    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
-    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
-    AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: 10
-  volumes:
-    - ./dags:/opt/airflow/dags
-    - ./data:/opt/airflow/data
-    - ./logs:/opt/airflow/logs
-    - ./ebay_api_client.py:/opt/airflow/ebay_api_client.py
-    - ./config.json:/opt/airflow/config.json
-    - ./ebay_token.json:/opt/airflow/ebay_token.json
-  depends_on:
-    postgres:
-      condition: service_healthy
-
 services:
   postgres:
     image: postgres:13
@@ -28,39 +6,27 @@ services:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
-    volumes:
-      - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
-      interval: 5s
+      interval: 10s
       retries: 5
-    restart: always
 
   airflow-webserver:
-    <<: *airflow-common
-    command: >
-      bash -c "
-        airflow webserver --port 8080
-      "
+    image: apache/airflow:2.7.0
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__FERNET_KEY: 'ACyNOuDCit8vZvhHA71p2e8EvJzNLhbVx2zSua65is0='
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     ports:
-      - "8080:8080"  # ← HIER ÄNDERN: 8080:8080 statt 8081:8080
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-    restart: always
-
-  airflow-scheduler:
-    <<: *airflow-common
-    command: >
-      bash -c "
-        airflow scheduler
-      "
-    restart: always
-
-  airflow-init:
-    <<: *airflow-common
+      - "8080:8080"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./logs:/opt/airflow/logs
+      - ./ebay_api_client.py:/opt/airflow/ebay_api_client.py
+      - ./config.json:/opt/airflow/config.json
+      - ./ebay_token.json:/opt/airflow/ebay_token.json
     command: >
       bash -c "
         airflow db init &&
@@ -70,9 +36,28 @@ services:
           --firstname Admin \
           --lastname User \
           --role Admin \
-          --email admin@example.com
+          --email admin@example.com &&
+        airflow webserver --port 8080
       "
-    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
-volumes:
-  postgres-db-volume:
+  airflow-scheduler:
+    image: apache/airflow:2.7.0
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__FERNET_KEY: 'ACyNOuDCit8vZvhHA71p2e8EvJzNLhbVx2zSua65is0='
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./logs:/opt/airflow/logs
+      - ./ebay_api_client.py:/opt/airflow/ebay_api_client.py
+      - ./config.json:/opt/airflow/config.json
+      - ./ebay_token.json:/opt/airflow/ebay_token.json
+    command: "airflow scheduler"
+    depends_on:
+      postgres:
+        condition: service_healthy

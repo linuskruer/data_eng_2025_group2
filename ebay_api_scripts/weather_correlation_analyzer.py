@@ -26,7 +26,7 @@ class WeatherCorrelationAnalyzer:
             'rain_products': ['umbrella', 'rain jacket'],
             'heat_products': ['air conditioner', 'sunscreen'],
             'cold_products': ['winter coat', 'thermal gloves'],
-            'seasonal_products': ['beach towel', 'snow shovel', 'outdoor furniture']
+            'seasonal_products' : ['beach towel', 'snow shovel', 'outdoor furniture']
         }
 
     def _search_with_pagination(self, query, max_items=2000, location_filter=None):

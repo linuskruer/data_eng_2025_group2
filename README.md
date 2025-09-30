@@ -3,23 +3,27 @@
 
 A large e-commerce marketplace wants to understand how weather patterns in the US East Coast influence online consumer behavior and seller activity. By joining daily weather data with eBay sales listings, the company can analyze seasonal trends, pricing behaviour, and demand shifts under different weather conditions. These insights will help optimize marketing campaigns, inventory management, and pricing strategies across product categories.
 
+KPIs:
+
+1. Average Listings per  – tracks seller activity under different weather conditions.
+2. Average Price Changes – shows how product prices shift depending on the weather.
+3. Free Shipping Rate – measures how often sellers offer free shipping during bad weather.
+
+Stakeholders:
+
+1. Marketplace Managers – need insights to plan promotions and manage overall platform activity.
+2. Category Managers – want to know which products perform better in certain weather conditions.
+3. Sellers – can adjust pricing, shipping, and listing strategies depending on demand.
+4. Logistics Teams – can prepare for changes in shipping patterns or delivery delays caused by weather.
+5. Data Analysts & Scientists – responsible for studying trends and building predictive models.
+
+
+Business questins:
 
 1. How do weather conditions (rain, snow, extreme heat/cold) impact the number of product listings posted per day on eBay across the East Coast?
-
-
 2. Does weather influence pricing behavior? For example, are certain product types (e.g., outdoor gear, electronics, clothing) listed at higher or lower average prices during extreme weather conditions?
-
-
 3. What is the relationship between weather and shipping choices? Do sellers offer more free shipping or adjust shipping costs depending on bad weather days?
-
-
 4. Are there noticeable shifts in product category demand under specific weather conditions? (e.g., umbrellas during rainy days, jackets during colder days).
-
-
 5. Do seller performance metrics (feedback score, percentage) correlate with weather-driven listing activity? For example, do high-feedback sellers dominate the market during adverse weather when casual sellers list less?
-
-
 6. (Bonus) Does weather impact listing quality (e.g., shorter titles, fewer buying options) due to sellers rushing during poor weather?
-
-
 7. (Bonus) Which US East Coast zip code prefixes show the largest variation in pricing and product availability with changing weather?

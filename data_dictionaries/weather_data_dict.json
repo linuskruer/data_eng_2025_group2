@@ -1,0 +1,91 @@
+{
+  "WeatherData": {
+    "description": "Schema for daily weather observations",
+    "fields": [
+      {
+        "name": "location",
+        "description": "Name or identifier of the city/region",
+        "type": "string",
+        "nullable": false,
+        "example": "New York"
+      },
+      {
+        "name": "date",
+        "description": "Date of the weather observation",
+        "type": "date",
+        "nullable": false,
+        "example": "2025-09-28"
+      },
+      {
+        "name": "weather_code",
+        "description": "Numeric code representing weather condition",
+        "type": "integer",
+        "nullable": false,
+        "example": 2
+      },
+      {
+        "name": "temperature_mean",
+        "description": "Average daily temperature in °C",
+        "type": "float",
+        "nullable": true,
+        "example": 18.5
+      },
+      {
+        "name": "temperature_max",
+        "description": "Maximum daily temperature in °C",
+        "type": "float",
+        "nullable": true,
+        "example": 24.3
+      },
+      {
+        "name": "temperature_min",
+        "description": "Minimum daily temperature in °C",
+        "type": "float",
+        "nullable": true,
+        "example": 12.1
+      },
+      {
+        "name": "rain_sum",
+        "description": "Total rainfall in mm",
+        "type": "float",
+        "nullable": true,
+        "example": 5.6
+      },
+      {
+        "name": "snow_sum",
+        "description": "Total snowfall in mm",
+        "type": "float",
+        "nullable": true,
+        "example": 0.0
+      },
+      {
+        "name": "daylight_duration",
+        "description": "Duration of daylight in seconds",
+        "type": "integer",
+        "nullable": false,
+        "example": 43200
+      },
+      {
+        "name": "sunlight_duration",
+        "description": "Duration of direct sunlight in seconds",
+        "type": "integer",
+        "nullable": true,
+        "example": 28800
+      },
+      {
+        "name": "wind_speed",
+        "description": "Average wind speed in m/s",
+        "type": "float",
+        "nullable": true,
+        "example": 3.4
+      },
+      {
+        "name": "uv_index",
+        "description": "Maximum UV index of the day",
+        "type": "float",
+        "nullable": true,
+        "example": 5.2
+      }
+    ]
+  }
+}

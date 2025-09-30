@@ -99,3 +99,10 @@ collection_timestamp,timezone,weather_category,product_type,price,currency,selle
 2025-09-30T06:40:41.477456-04:00,EDT,rain_products,rain jacket,55.21,USD,98.9,20383,"{'postalCode': '112**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,80,v1|372435945630|644663514396,EBAY_US
 2025-09-30T06:40:41.477456-04:00,EDT,rain_products,rain jacket,99.99,USD,98.1,1702,"{'postalCode': '112**', 'country': 'US'}",Unknown,0.0,True,Pre-owned - Good,"FIXED_PRICE,BEST_OFFER",67,v1|397107722089|0,EBAY_US
 2025-09-30T06:54:16.272651-04:00,EDT,seasonal_products,outdoor furniture,111.97,USD,98.3,134,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,77,v1|317142714733|0,EBAY_US
+2025-09-30T09:23:56.431556-04:00,EDT,rain_products,umbrella,8.4,USD,99.3,416,"{'postalCode': '114**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,43,v1|177435739444|0,EBAY_US
+2025-09-30T09:23:59.550631-04:00,EDT,rain_products,umbrella,24.99,USD,100.0,627,"{'postalCode': '191**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,80,v1|162704584924|464175929301,EBAY_US
+2025-09-30T09:24:13.109596-04:00,EDT,rain_products,rain jacket,55.21,USD,98.9,20383,"{'postalCode': '112**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,80,v1|372435945630|644155697924,EBAY_US
+2025-09-30T09:24:38.035545-04:00,EDT,heat_products,sunscreen,19.99,USD,98.9,2716,"{'postalCode': '104**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,69,v1|126620552810|0,EBAY_US
+2025-09-30T09:25:05.889199-04:00,EDT,cold_products,thermal gloves,9.99,USD,98.6,31518,"{'postalCode': '100**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,67,v1|146817059980|445416260946,EBAY_US
+2025-09-30T09:25:30.693585-04:00,EDT,seasonal_products,beach towel,22.5,USD,99.0,22497,"{'postalCode': '103**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,77,v1|285284217311|587293860720,EBAY_US
+2025-09-30T09:25:30.693585-04:00,EDT,seasonal_products,beach towel,22.95,USD,100.0,26,"{'postalCode': '331**', 'country': 'US'}",Unknown,4.95,False,New with tags,FIXED_PRICE,62,v1|405996165959|676300671992,EBAY_US

@@ -69,14 +69,15 @@ class EbayAPIClient:
         print("✅ Token data saved successfully")
     
     def _refresh_access_token(self):
-        """Automatisches Refresh des Access Tokens"""
+        """Automatisches Refresh des Access Tokens - REPARIERT"""
         try:
             token_data = self._load_token_data()
             if not token_data or 'refresh_token' not in token_data:
-                print("❌ No refresh token available")
+                print("❌ No refresh token available - need manual setup")
                 return None
             
             refresh_token = token_data['refresh_token']
+            print(f"🔄 Refreshing token with refresh_token: {refresh_token[:10]}...")
             
             # Token refresh request
             token_url = "https://api.ebay.com/identity/v1/oauth2/token"
@@ -95,21 +96,49 @@ class EbayAPIClient:
                 "scope": "https://api.ebay.com/oauth/api_scope"
             }
             
-            print("🔄 Refreshing access token...")
+            print("🔄 Sending refresh request...")
             response = requests.post(token_url, headers=headers, data=data)
+            
+            print(f"📡 Refresh response: {response.status_code}")
             
             if response.status_code == 200:
                 token_response = response.json()
+                print("✅ Refresh successful!")
                 self._save_token_data(token_response)
-                return token_response['access_token']
+                
+                # WICHTIG: Lade die neuen Token-Daten und gib den access_token zurück
+                new_token_data = self._load_token_data()
+                if new_token_data and 'access_token' in new_token_data:
+                    print("✅ New access token loaded successfully")
+                    return new_token_data['access_token']
+                else:
+                    print("❌ Failed to load new access token after refresh")
+                    return None
             else:
                 print(f"❌ Token refresh failed: {response.status_code}")
-                print(response.json())
+                print("Response:", response.text)
                 return None
                 
         except Exception as e:
             print(f"❌ Error refreshing token: {e}")
             return None
+        
+    def force_token_refresh(self):
+        """Force token refresh and handle failures - REPARIERT"""
+        print("🔄 Forcing token refresh...")
+        
+        # Versuche zuerst automatischen Refresh
+        new_token = self._refresh_access_token()
+        if new_token:
+            self.access_token = new_token
+            print("✅ Token refreshed successfully via refresh_token")
+            return True
+        else:
+            print("❌ Auto-refresh failed, manual setup required")
+            print("\n🔗 Get a NEW auth code from this URL:")
+            print(self.get_auth_url())
+            print("\nThen run: python3 setup_token.py [NEW_AUTH_CODE]")
+            return False
     
     def _get_new_token_via_auth_code(self, auth_code):
         """Hole neuen Token mit Auth Code"""

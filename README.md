@@ -161,16 +161,16 @@ Use the provided Python script to run queries against real data:
 
 ```bash
 # Run all 7 queries
-python run_sql_queries.py
+python sql_analysis/run_sql_queries.py
 
 # Run individual queries
-python run_sql_queries.py 1    # Weather impact on daily listings
-python run_sql_queries.py 2    # Pricing behavior by weather and product
-python run_sql_queries.py 3    # Shipping choices vs weather
-python run_sql_queries.py 4    # Category demand shifts by weather
-python run_sql_queries.py 5    # Seller performance vs weather
-python run_sql_queries.py 6    # Listing quality vs weather
-python run_sql_queries.py 7    # Zip prefix variation
+python sql_analysis/run_sql_queries.py 1    # Weather impact on daily listings
+python sql_analysis/run_sql_queries.py 2    # Pricing behavior by weather and product
+python sql_analysis/run_sql_queries.py 3    # Shipping choices vs weather
+python sql_analysis/run_sql_queries.py 4    # Category demand shifts by weather
+python sql_analysis/run_sql_queries.py 5    # Seller performance vs weather
+python sql_analysis/run_sql_queries.py 6    # Listing quality vs weather
+python sql_analysis/run_sql_queries.py 7    # Zip prefix variation
 ```
 
 #### Option 2: PostgreSQL (Traditional)

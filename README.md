@@ -156,13 +156,13 @@ Each SQL query corresponds to a specific business question:
 
 | Query # | Business Question | SQL File |
 |---------|-------------------|----------|
-| **1** | How do weather conditions impact daily listings on the East Coast? | `impact_listings_by_weather_fixed.sql` |
-| **2** | Does weather influence pricing? Are certain product types priced higher/lower during extreme weather? | `pricing_behavior_by_weather_and_product_fixed.sql` |
-| **3** | What is the relationship between weather and shipping choices (free shipping, shipping cost)? | `shipping_choices_vs_weather_fixed.sql` |
-| **4** | Are there shifts in product category demand under specific weather conditions? | `category_demand_shifts_by_weather_fixed.sql` |
-| **5** | Do seller performance metrics correlate with weather-driven listing activity? | `seller_performance_vs_weather_fixed.sql` |
-| **6** | (Bonus) Does weather impact listing quality (e.g., shorter titles, buying options)? | `bonus_listing_quality_vs_weather_fixed.sql` |
-| **7** | (Bonus) Which US East Coast zip code prefixes show the largest price/availability variation with changing weather? | `bonus_zip_prefix_variation_fixed.sql` |
+| **1** | How do weather conditions impact daily listings on the East Coast? | `impact_listings_by_weather.sql` |
+| **2** | Does weather influence pricing? Are certain product types priced higher/lower during extreme weather? | `pricing_behavior_by_weather_and_product.sql` |
+| **3** | What is the relationship between weather and shipping choices (free shipping, shipping cost)? | `shipping_choices_vs_weather.sql` |
+| **4** | Are there shifts in product category demand under specific weather conditions? | `category_demand_shifts_by_weather.sql` |
+| **5** | Do seller performance metrics correlate with weather-driven listing activity? | `seller_performance_vs_weather.sql` |
+| **6** | (Bonus) Does weather impact listing quality (e.g., shorter titles, buying options)? | `bonus_listing_quality_vs_weather.sql` |
+| **7** | (Bonus) Which US East Coast zip code prefixes show the largest price/availability variation with changing weather? | `bonus_zip_prefix_variation.sql` |
 
 ### Running Queries
 
@@ -170,10 +170,10 @@ Each SQL query corresponds to a specific business question:
 Use the provided Python script to run queries against real data:
 
 ```bash
-# Run all 7 queries
+# Run all 7 queries at once
 python sql_analysis/run_sql_queries.py
 
-# Run individual queries
+# Run individual queries by number (1-7)
 python sql_analysis/run_sql_queries.py 1    # Weather impact on daily listings
 python sql_analysis/run_sql_queries.py 2    # Pricing behavior by weather and product
 python sql_analysis/run_sql_queries.py 3    # Shipping choices vs weather
@@ -183,18 +183,31 @@ python sql_analysis/run_sql_queries.py 6    # Listing quality vs weather
 python sql_analysis/run_sql_queries.py 7    # Zip prefix variation
 ```
 
+**Benefits of Python Script:**
+-  No database setup required** - Works with CSV data files
+-  **Formatted output** - Clean, readable results
+-  **Error handling** - Comprehensive validation and reporting
+-  **Individual query execution** - Run specific queries by number
+-  **Real data analysis** - Uses actual eBay and weather data
+
 #### Option 2: PostgreSQL (Traditional)
-```powershell
-# Windows PowerShell example
-psql -v ON_ERROR_STOP=1 -f "sql_queries\impact_listings_by_weather_fixed.sql"
-psql -v ON_ERROR_STOP=1 -f "sql_queries\pricing_behavior_by_weather_and_product_fixed.sql"
-psql -v ON_ERROR_STOP=1 -f "sql_queries\shipping_choices_vs_weather_fixed.sql"
-psql -v ON_ERROR_STOP=1 -f "sql_queries\category_demand_shifts_by_weather_fixed.sql"
-psql -v ON_ERROR_STOP=1 -f "sql_queries\seller_performance_vs_weather_fixed.sql"
-psql -v ON_ERROR_STOP=1 -f "sql_queries\bonus_listing_quality_vs_weather_fixed.sql"
-psql -v ON_ERROR_STOP=1 -f "sql_queries\bonus_zip_prefix_variation_fixed.sql"
+```bash
+# Run individual SQL files directly
+psql -d your_database_name -f sql_queries/impact_listings_by_weather.sql
+psql -d your_database_name -f sql_queries/pricing_behavior_by_weather_and_product.sql
+psql -d your_database_name -f sql_queries/shipping_choices_vs_weather.sql
+psql -d your_database_name -f sql_queries/category_demand_shifts_by_weather.sql
+psql -d your_database_name -f sql_queries/seller_performance_vs_weather.sql
+psql -d your_database_name -f sql_queries/bonus_listing_quality_vs_weather.sql
+psql -d your_database_name -f sql_queries/bonus_zip_prefix_variation.sql
 ```
-Or use a GUI (DBeaver/pgAdmin) and open each file.
+
+#### Option 3: Database GUI Tools
+Copy and paste SQL content into:
+- **pgAdmin** (PostgreSQL)
+- **DBeaver** (Universal)
+- **DataGrip** (JetBrains)
+- **MySQL Workbench** (MySQL)
 
 ### Weather Buckets Used
 - `Precipitation-Heavy`: `rain > 10` (mm)
@@ -208,6 +221,25 @@ All queries have been validated against real API data:
 - **Success rate**: 100%
 - **Data coverage**: 113 eBay records, 672 weather records
 - **Production ready**: ✅ All queries provide accurate business insights
+
+### Expected Results
+When you run the queries, you should see:
+- **Query 1**: 4 rows showing listings by weather condition (Extreme Cold: 7, Extreme Heat: 33, Normal: 29, Precipitation-Heavy: 44)
+- **Query 2**: 9 rows showing pricing by product type and weather
+- **Query 3**: 4 rows showing shipping analysis (Extreme Heat has 100% free shipping)
+- **Query 4**: 9 rows showing product demand shifts (Umbrellas dominate during precipitation)
+- **Query 5**: 29 rows showing seller performance by weather
+- **Query 6**: 8 rows showing listing quality metrics (Normal weather produces highest quality)
+- **Query 7**: 20 rows showing zip code price variation
+
+### Quick Start Example
+```bash
+# Test with a single query first
+python sql_analysis/run_sql_queries.py 3
+
+# If successful, run all queries
+python sql_analysis/run_sql_queries.py
+```
 
 ## SQL Analysis Tools
 
@@ -253,16 +285,44 @@ For database testing, you'll also need:
 - Database credentials configured in `.env` file
 
 ## Troubleshooting
-- Column not found (e.g., `w.date`):
-  - Align to actual names, e.g., use `w.date_key` if that’s weather date column.
-- No `location_key`:
-  - Create a lookup table mapping `location` text to a surrogate key and reference it from both weather and listings.
-- Empty result sets:
-  - Validate join sanity:
-```sql
-SELECT COUNT(*)
-FROM fact_listings f
-JOIN dim_location l ON f.location_key = l.location_key
-JOIN weather_daily w ON w.location_key = f.location_key AND w.date = f.date_key;
+
+### Common Issues and Solutions
+
+#### **Issue: "No module named 'pandas'" or similar import errors**
+```bash
+# Install required dependencies
+pip install pandas numpy psycopg2-binary python-dotenv
 ```
+
+#### **Issue: "File not found" errors**
+- Ensure you're running commands from the project root directory
+- Check that data files exist in `ebay_data/` and `weather_data/` folders
+
+#### **Issue: Empty query results**
+- This is normal for some queries due to limited data overlap
+- The Python script handles this gracefully and shows available results
+
+#### **Issue: NaN values in results**
+- Some statistical calculations (like standard deviation) show NaN when there's only 1 record
+- This is expected behavior and documented in the analysis
+
+#### **Issue: PostgreSQL connection errors (if using Option 2)**
+- Ensure PostgreSQL is installed and running
+- Check database credentials in `.env` file
+- Use Option 1 (Python script) instead for easier setup
+
+#### **Issue: Permission errors on Windows**
+- Run PowerShell as Administrator
+- Or use the Python script which doesn't require database permissions
+
+### Getting Help
+1. **Check the logs**: The Python script provides detailed logging
+2. **Run individual queries**: Use `python sql_analysis/run_sql_queries.py [1-7]` to test specific queries
+3. **Verify data**: Check that `ebay_data/` and `weather_data/` folders contain CSV files
+4. **Use the analysis tools**: Run `python sql_analysis/data_analysis.py` to validate your data
+
+### Performance Tips
+- **Use Python script**: Faster and more reliable than database setup
+- **Run individual queries**: Test specific queries instead of all at once
+- **Check data size**: Large datasets may take longer to process
 

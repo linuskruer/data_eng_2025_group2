@@ -33,6 +33,16 @@ Artifacts:
 - `weather_data/`: weather dataset(s)
 - `ebay_data/`: captured eBay listings datasets
 - `sql_queries/`: analysis SQL files (ready to run)
+- `sql_analysis/`: SQL analysis tools and testing framework
+  - `run_sql_queries.py` - Main script to run individual or all SQL queries
+  - `data_analysis.py` - Comprehensive data structure analysis
+  - `validate_real_data_queries.py` - Validates SQL queries against real API data
+  - `test_runner.py` - Orchestrates the complete test suite
+  - `test_sql_pipeline.py` - Main test suite for schema validation and query execution
+  - `setup_database.py` - Creates star schema and loads sample data
+  - `quick_test.py` - Quick testing without database connection
+  - `requirements_test.txt` - Python dependencies for testing
+  - Analysis reports and documentation
 - `data_dictionaries/`: machine-readable dictionaries for source fields
 - `logs/`: collection logs
 - `Data_Architecture/`, `Star_Schema/`: diagrams
@@ -198,6 +208,49 @@ All queries have been validated against real API data:
 - **Success rate**: 100%
 - **Data coverage**: 113 eBay records, 672 weather records
 - **Production ready**: ✅ All queries provide accurate business insights
+
+## SQL Analysis Tools
+
+The `sql_analysis/` folder contains comprehensive tools for analyzing the weather-eBay data:
+
+### **Core Analysis Scripts**
+- `run_sql_queries.py` - Main script to run individual or all SQL queries
+- `data_analysis.py` - Comprehensive data structure analysis
+- `validate_real_data_queries.py` - Validates SQL queries against real API data
+
+### **Testing Framework**
+- `test_runner.py` - Orchestrates the complete test suite
+- `test_sql_pipeline.py` - Main test suite for schema validation and query execution
+- `setup_database.py` - Creates star schema and loads sample data
+- `quick_test.py` - Quick testing without database connection
+
+### **Data Analysis**
+```bash
+# Analyze data structure
+python sql_analysis/data_analysis.py
+
+# Validate queries against real data
+python sql_analysis/validate_real_data_queries.py
+```
+
+### **Testing**
+```bash
+# Quick test (no database required)
+python sql_analysis/quick_test.py
+
+# Full test suite (requires PostgreSQL)
+python sql_analysis/test_runner.py
+```
+
+### **Requirements**
+Install testing dependencies:
+```bash
+pip install -r sql_analysis/requirements_test.txt
+```
+
+For database testing, you'll also need:
+- PostgreSQL installed and running
+- Database credentials configured in `.env` file
 
 ## Troubleshooting
 - Column not found (e.g., `w.date`):

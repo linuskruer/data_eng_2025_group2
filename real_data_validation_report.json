@@ -1,0 +1,316 @@
+{
+  "validation_timestamp": "2025-10-04T15:28:32.155600",
+  "data_summary": {
+    "ebay_records": 113,
+    "weather_records": 672
+  },
+  "query_results": {
+    "query_1": {
+      "status": "success",
+      "row_count": 4,
+      "weather_buckets": [
+        "Extreme Cold",
+        "Extreme Heat",
+        "Normal",
+        "Precipitation-Heavy"
+      ],
+      "date_range": [
+        "2025-09-30",
+        "2025-09-30"
+      ],
+      "sample_data": [
+        {
+          "date": "2025-09-30",
+          "weather_bucket": "Extreme Cold",
+          "listings": 7,
+          "unique_items": 7,
+          "avg_price": 25.57
+        },
+        {
+          "date": "2025-09-30",
+          "weather_bucket": "Extreme Heat",
+          "listings": 33,
+          "unique_items": 33,
+          "avg_price": 27.18
+        },
+        {
+          "date": "2025-09-30",
+          "weather_bucket": "Normal",
+          "listings": 29,
+          "unique_items": 29,
+          "avg_price": 49.88
+        }
+      ]
+    },
+    "query_2": {
+      "status": "success",
+      "row_count": 9,
+      "product_types": [
+        "air conditioner",
+        "beach towel",
+        "outdoor furniture",
+        "rain jacket",
+        "snow shovel",
+        "sunscreen",
+        "thermal gloves",
+        "umbrella",
+        "winter coat"
+      ],
+      "weather_buckets": [
+        "Extreme Heat",
+        "Normal",
+        "Precipitation-Heavy",
+        "Extreme Cold"
+      ],
+      "sample_data": [
+        {
+          "product_type": "air conditioner",
+          "weather_bucket": "Extreme Heat",
+          "avg_price": 49.62,
+          "min_price": 12.99,
+          "max_price": 249.99,
+          "price_stddev": 81.83,
+          "listings": 8,
+          "total_count": 8
+        },
+        {
+          "product_type": "beach towel",
+          "weather_bucket": "Normal",
+          "avg_price": 22.16,
+          "min_price": 11.59,
+          "max_price": 49.99,
+          "price_stddev": 9.22,
+          "listings": 14,
+          "total_count": 14
+        },
+        {
+          "product_type": "outdoor furniture",
+          "weather_bucket": "Normal",
+          "avg_price": 135.66,
+          "min_price": 110.11,
+          "max_price": 193.15,
+          "price_stddev": 39.1,
+          "listings": 4,
+          "total_count": 4
+        }
+      ]
+    },
+    "query_3": {
+      "status": "success",
+      "row_count": 4,
+      "free_shipping_rates": [
+        0.932,
+        1.0,
+        0.857,
+        0.897
+      ],
+      "sample_data": [
+        {
+          "weather_bucket": "Precipitation-Heavy",
+          "free_shipping_rate": 0.932,
+          "free_shipping_count": 41,
+          "paid_shipping_count": 3,
+          "avg_paid_shipping_cost": 7.67,
+          "total_listings": 44
+        },
+        {
+          "weather_bucket": "Extreme Heat",
+          "free_shipping_rate": 1.0,
+          "free_shipping_count": 33,
+          "paid_shipping_count": 0,
+          "avg_paid_shipping_cost": 0.0,
+          "total_listings": 33
+        },
+        {
+          "weather_bucket": "Extreme Cold",
+          "free_shipping_rate": 0.857,
+          "free_shipping_count": 6,
+          "paid_shipping_count": 1,
+          "avg_paid_shipping_cost": 5.99,
+          "total_listings": 7
+        },
+        {
+          "weather_bucket": "Normal",
+          "free_shipping_rate": 0.897,
+          "free_shipping_count": 26,
+          "paid_shipping_count": 3,
+          "avg_paid_shipping_cost": 7.3,
+          "total_listings": 29
+        }
+      ]
+    },
+    "query_4": {
+      "status": "success",
+      "row_count": 9,
+      "top_product": "umbrella",
+      "top_listings": 31,
+      "sample_data": [
+        {
+          "product_type": "umbrella",
+          "weather_bucket": "Precipitation-Heavy",
+          "listings": 31,
+          "avg_price": 24.14,
+          "min_price": 6.66,
+          "max_price": 118.0,
+          "percentage_of_weather_bucket": 70.45,
+          "percentage_of_product_type": 100.0
+        },
+        {
+          "product_type": "sunscreen",
+          "weather_bucket": "Extreme Heat",
+          "listings": 25,
+          "avg_price": 19.99,
+          "min_price": 6.9,
+          "max_price": 39.99,
+          "percentage_of_weather_bucket": 75.76,
+          "percentage_of_product_type": 100.0
+        },
+        {
+          "product_type": "beach towel",
+          "weather_bucket": "Normal",
+          "listings": 14,
+          "avg_price": 22.16,
+          "min_price": 11.59,
+          "max_price": 49.99,
+          "percentage_of_weather_bucket": 48.28,
+          "percentage_of_product_type": 100.0
+        }
+      ]
+    },
+    "query_5": {
+      "status": "success",
+      "row_count": 29,
+      "seller_tiers": [
+        "Very High (5000+)",
+        "Low (0-99)",
+        "Medium (100-999)",
+        "High (1000-4999)"
+      ],
+      "sample_data": [
+        {
+          "feedback_score_tier": "Very High (5000+)",
+          "feedback_percentage_tier": "Good (97-99%)",
+          "weather_bucket": "Extreme Cold",
+          "listings": 5,
+          "avg_feedback_score": 25539.2,
+          "avg_price": 17.39,
+          "market_share_percent": 71.43
+        },
+        {
+          "feedback_score_tier": "Low (0-99)",
+          "feedback_percentage_tier": "Excellent (99%+)",
+          "weather_bucket": "Extreme Cold",
+          "listings": 1,
+          "avg_feedback_score": 23.0,
+          "avg_price": 79.8,
+          "market_share_percent": 14.29
+        },
+        {
+          "feedback_score_tier": "Medium (100-999)",
+          "feedback_percentage_tier": "Excellent (99%+)",
+          "weather_bucket": "Extreme Cold",
+          "listings": 1,
+          "avg_feedback_score": 666.0,
+          "avg_price": 12.25,
+          "market_share_percent": 14.29
+        }
+      ]
+    },
+    "query_6": {
+      "status": "success",
+      "row_count": 8,
+      "option_complexities": [
+        "Complex",
+        "Simple"
+      ],
+      "sample_data": [
+        {
+          "weather_bucket": "Extreme Cold",
+          "option_complexity": "Complex",
+          "avg_title_length": 76.0,
+          "min_title_length": 76,
+          "max_title_length": 76,
+          "title_length_stddev": NaN,
+          "listings": 1,
+          "unique_items": 1,
+          "quality_score": 0.076
+        },
+        {
+          "weather_bucket": "Extreme Cold",
+          "option_complexity": "Simple",
+          "avg_title_length": 64.5,
+          "min_title_length": 36,
+          "max_title_length": 79,
+          "title_length_stddev": 14.72,
+          "listings": 6,
+          "unique_items": 6,
+          "quality_score": 0.387
+        },
+        {
+          "weather_bucket": "Extreme Heat",
+          "option_complexity": "Complex",
+          "avg_title_length": 68.08,
+          "min_title_length": 53,
+          "max_title_length": 78,
+          "title_length_stddev": 9.14,
+          "listings": 12,
+          "unique_items": 12,
+          "quality_score": 0.817
+        }
+      ]
+    },
+    "query_7": {
+      "status": "success",
+      "row_count": 20,
+      "zip_codes": [
+        "331",
+        "100",
+        "112",
+        "113",
+        "114",
+        "103",
+        "021",
+        "111",
+        "191"
+      ],
+      "sample_data": [
+        {
+          "zip_prefix": "331",
+          "weather_bucket": "Precipitation-Heavy",
+          "avg_price": 21.18,
+          "price_stddev": 2.93,
+          "listings": 4,
+          "price_variation_coefficient": 0.138,
+          "cross_weather_price_variability": 25.94,
+          "market_share_percent": 9.09
+        },
+        {
+          "zip_prefix": "331",
+          "weather_bucket": "Normal",
+          "avg_price": 66.22,
+          "price_stddev": 63.24,
+          "listings": 14,
+          "price_variation_coefficient": 0.955,
+          "cross_weather_price_variability": 25.94,
+          "market_share_percent": 48.28
+        },
+        {
+          "zip_prefix": "331",
+          "weather_bucket": "Extreme Heat",
+          "avg_price": 21.4,
+          "price_stddev": 14.16,
+          "listings": 8,
+          "price_variation_coefficient": 0.662,
+          "cross_weather_price_variability": 25.94,
+          "market_share_percent": 24.24
+        }
+      ]
+    }
+  },
+  "summary": {
+    "total_queries_tested": 7,
+    "successful_queries": 7,
+    "failed_queries": 0,
+    "overall_success_rate": 100.0
+  }
+}

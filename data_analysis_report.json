@@ -1,0 +1,281 @@
+{
+  "analysis_timestamp": "2025-10-04T15:25:46.927807",
+  "data_summary": {
+    "ebay_records": 113,
+    "weather_records": 672
+  },
+  "detailed_analysis": {
+    "ebay_data": {
+      "total_records": 113,
+      "columns": [
+        "collection_timestamp",
+        "timezone",
+        "weather_category",
+        "product_type",
+        "price",
+        "currency",
+        "seller_feedback_percentage",
+        "seller_feedback_score",
+        "item_location",
+        "seller_location",
+        "shipping_cost",
+        "free_shipping",
+        "condition",
+        "buying_options",
+        "title_length",
+        "item_id",
+        "marketplace_id"
+      ],
+      "data_types": {
+        "collection_timestamp": "object",
+        "timezone": "object",
+        "weather_category": "object",
+        "product_type": "object",
+        "price": "float64",
+        "currency": "object",
+        "seller_feedback_percentage": "float64",
+        "seller_feedback_score": "int64",
+        "item_location": "object",
+        "seller_location": "object",
+        "shipping_cost": "float64",
+        "free_shipping": "bool",
+        "condition": "object",
+        "buying_options": "object",
+        "title_length": "int64",
+        "item_id": "object",
+        "marketplace_id": "object"
+      },
+      "null_counts": {
+        "collection_timestamp": 0,
+        "timezone": 0,
+        "weather_category": 0,
+        "product_type": 0,
+        "price": 0,
+        "currency": 0,
+        "seller_feedback_percentage": 0,
+        "seller_feedback_score": 0,
+        "item_location": 0,
+        "seller_location": 0,
+        "shipping_cost": 0,
+        "free_shipping": 0,
+        "condition": 0,
+        "buying_options": 0,
+        "title_length": 0,
+        "item_id": 0,
+        "marketplace_id": 0
+      },
+      "date_range": {
+        "earliest": "2025-09-30 06:04:21.082806-04:00",
+        "latest": "2025-09-30 11:07:42.360706-04:00",
+        "span_days": 0
+      },
+      "product_analysis": {
+        "unique_products": 9,
+        "top_products": {
+          "umbrella": 31,
+          "sunscreen": 25,
+          "beach towel": 14,
+          "rain jacket": 13,
+          "snow shovel": 11,
+          "air conditioner": 8,
+          "thermal gloves": 6,
+          "outdoor furniture": 4,
+          "winter coat": 1
+        },
+        "product_distribution": {
+          "umbrella": 27.43,
+          "sunscreen": 22.12,
+          "beach towel": 12.39,
+          "rain jacket": 11.5,
+          "snow shovel": 9.73,
+          "air conditioner": 7.08,
+          "thermal gloves": 5.31,
+          "outdoor furniture": 3.54,
+          "winter coat": 0.88
+        }
+      },
+      "location_analysis": {
+        "unique_locations": 11,
+        "zip_codes_found": 11,
+        "top_zip_codes": {
+          "112": 29,
+          "331": 26,
+          "113": 21,
+          "114": 10,
+          "103": 8,
+          "100": 7,
+          "111": 4,
+          "191": 4,
+          "021": 2,
+          "022": 1
+        }
+      },
+      "price_analysis": {
+        "min_price": 6.66,
+        "max_price": 249.99,
+        "avg_price": 34.51424778761062,
+        "median_price": 21.99,
+        "std_price": 38.751239307493435,
+        "price_range": 243.33
+      },
+      "weather_category_analysis": {
+        "unique_categories": 4,
+        "category_distribution": {
+          "rain_products": 44,
+          "heat_products": 33,
+          "seasonal_products": 29,
+          "cold_products": 7
+        },
+        "category_percentages": {
+          "rain_products": 38.94,
+          "heat_products": 29.2,
+          "seasonal_products": 25.66,
+          "cold_products": 6.19
+        }
+      }
+    },
+    "weather_data": {
+      "total_records": 672,
+      "columns": [
+        "time",
+        "weather_code (wmo code)",
+        "temperature_2m (\u00b0C)",
+        "relative_humidity_2m (%)",
+        "cloudcover (%)",
+        "rain (mm)",
+        "sunshine_duration (s)",
+        "windspeed_10m (km/h)"
+      ],
+      "data_types": {
+        "time": "object",
+        "weather_code (wmo code)": "float64",
+        "temperature_2m (\u00b0C)": "float64",
+        "relative_humidity_2m (%)": "float64",
+        "cloudcover (%)": "float64",
+        "rain (mm)": "float64",
+        "sunshine_duration (s)": "float64",
+        "windspeed_10m (km/h)": "float64"
+      },
+      "null_counts": {
+        "time": 0,
+        "weather_code (wmo code)": 3,
+        "temperature_2m (\u00b0C)": 3,
+        "relative_humidity_2m (%)": 3,
+        "cloudcover (%)": 3,
+        "rain (mm)": 3,
+        "sunshine_duration (s)": 3,
+        "windspeed_10m (km/h)": 3
+      },
+      "date_range": {
+        "earliest": "2025-09-01 00:00:00",
+        "latest": "2025-09-28 23:00:00",
+        "span_days": 27
+      },
+      "temperature_analysis": {
+        "min_temp": 12.0,
+        "max_temp": 30.0,
+        "avg_temp": 20.581763826606878,
+        "median_temp": 20.1,
+        "std_temp": 3.6128259376166842,
+        "temp_range": 18.0
+      },
+      "precipitation_analysis": {
+        "min_rain": 0.0,
+        "max_rain": 15.4,
+        "avg_rain": 0.1887892376681614,
+        "median_rain": 0.0,
+        "rainy_days": "88",
+        "heavy_rain_days": "1"
+      },
+      "weather_code_analysis": {
+        "unique_codes": 10,
+        "code_distribution": {
+          "0.0": 276,
+          "3.0": 193,
+          "1.0": 60,
+          "2.0": 52,
+          "51.0": 38,
+          "53.0": 20,
+          "61.0": 14,
+          "63.0": 10,
+          "55.0": 4,
+          "65.0": 2
+        }
+      }
+    },
+    "sql_validation": {
+      "column_validation": {
+        "ebay_available": [
+          "collection_timestamp",
+          "product_type",
+          "price",
+          "currency",
+          "seller_feedback_percentage",
+          "seller_feedback_score",
+          "item_location",
+          "shipping_cost",
+          "free_shipping",
+          "condition",
+          "buying_options",
+          "title_length",
+          "item_id",
+          "marketplace_id"
+        ],
+        "ebay_missing": [],
+        "weather_available": [
+          "time",
+          "weather_code (wmo code)",
+          "temperature_2m (\u00b0C)",
+          "relative_humidity_2m (%)",
+          "cloudcover (%)",
+          "rain (mm)",
+          "sunshine_duration (s)",
+          "windspeed_10m (km/h)"
+        ],
+        "weather_missing": [],
+        "ebay_coverage": 100.0,
+        "weather_coverage": 100.0
+      },
+      "join_analysis": {
+        "ebay_unique_dates": 1,
+        "weather_unique_dates": 28,
+        "overlapping_dates": 0,
+        "join_coverage": 0.0,
+        "sample_overlapping_dates": []
+      },
+      "bucket_analysis": {
+        "bucket_distribution": {
+          "Normal": 668,
+          "Unknown": 3,
+          "Precipitation-Heavy": 1
+        },
+        "bucket_percentages": {
+          "Normal": 99.4,
+          "Unknown": 0.45,
+          "Precipitation-Heavy": 0.15
+        },
+        "total_classified": 672,
+        "unknown_count": "3"
+      }
+    },
+    "recommendations": [
+      {
+        "type": "data_quality",
+        "priority": "medium",
+        "message": "Low join coverage: 0.0%",
+        "action": "Consider data alignment or additional data sources"
+      },
+      {
+        "type": "data_quality",
+        "priority": "low",
+        "message": "Unknown weather conditions: 3 records",
+        "action": "Review weather data quality and bucket logic"
+      }
+    ]
+  },
+  "summary": {
+    "data_quality_score": 75.0,
+    "sql_compatibility_score": 100.0,
+    "overall_readiness": "Needs Minor Adjustments"
+  }
+}

@@ -510,3 +510,39 @@ collection_timestamp,timezone,weather_category,product_type,price,currency,selle
 2025-10-06T02:04:11.726188-04:00,EDT,seasonal_products,gardening tools,9.38,USD,100.0,31,"{'postalCode': '113**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,80,v1|357702524238|0,EBAY_US
 2025-10-06T02:04:11.726188-04:00,EDT,seasonal_products,gardening tools,39.99,USD,99.5,463,"{'postalCode': '112**', 'country': 'US'}",Unknown,0.0,True,New,"FIXED_PRICE,BEST_OFFER",79,v1|405661970030|0,EBAY_US
 2025-10-06T02:05:43.756590-04:00,EDT,seasonal_products,lawn mower,185.0,USD,98.9,181,"{'postalCode': '100**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,78,v1|357610354166|0,EBAY_US
+2025-10-06T02:18:44.553104-04:00,EDT,rain_products,gaiters,47.07,USD,99.6,509,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,77,v1|316737849478|0,EBAY_US
+2025-10-06T02:25:53.152851-04:00,EDT,seasonal_products,bird feeder,26.6,USD,100.0,1,"{'postalCode': '112**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,79,v1|286835467564|0,EBAY_US
+2025-10-06T03:05:16.377081-04:00,EDT,cold_products,hand warmers,33.99,USD,99.0,22643,"{'postalCode': '103**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,80,v1|286061263521|588162501566,EBAY_US
+2025-10-06T03:05:52.105295-04:00,EDT,cold_products,ear muffs,11.99,USD,99.1,144807,"{'postalCode': '021**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,69,v1|405400909023|675738584370,EBAY_US
+2025-10-06T03:06:07.865241-04:00,EDT,cold_products,balaclava,11.99,USD,96.4,35911,"{'postalCode': '113**', 'country': 'US'}",Unknown,0.0,True,New without tags,FIXED_PRICE,80,v1|135437338864|434813538541,EBAY_US
+2025-10-06T03:06:07.866421-04:00,EDT,cold_products,balaclava,9.95,USD,99.6,1191,"{'postalCode': '112**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,79,v1|124700925198|425668466739,EBAY_US
+2025-10-06T03:06:07.866815-04:00,EDT,cold_products,balaclava,12.29,USD,98.7,869,"{'postalCode': '104**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,79,v1|397024749978|0,EBAY_US
+2025-10-06T03:07:59.115933-04:00,EDT,seasonal_products,christmas decorations,38.49,USD,98.8,53019,"{'postalCode': '100**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,78,v1|385298475795|0,EBAY_US
+2025-10-06T03:08:07.608245-04:00,EDT,seasonal_products,halloween costumes,26.14,USD,100.0,23,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,77,v1|297662643627|0,EBAY_US
+2025-10-06T06:57:52.234921-04:00,EDT,rain_products,rain jacket,35.99,USD,99.4,250568,"{'postalCode': '112**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,66,v1|273925316402|573811198779,EBAY_US
+2025-10-06T06:57:52.234921-04:00,EDT,rain_products,rain jacket,45.0,USD,100.0,45,"{'postalCode': '111**', 'country': 'US'}",Unknown,0.0,True,Pre-owned - Good,"FIXED_PRICE,BEST_OFFER",68,v1|136549137542|0,EBAY_US
+2025-10-06T06:59:22.890366-04:00,EDT,rain_products,trench coat,39.94,USD,99.5,297,"{'postalCode': '320**', 'country': 'US'}",Unknown,0.0,True,New with tags,"FIXED_PRICE,BEST_OFFER",77,v1|389058095729|0,EBAY_US
+2025-10-06T06:59:22.890366-04:00,EDT,rain_products,trench coat,29.95,USD,100.0,370,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,Pre-owned - Good,"FIXED_PRICE,BEST_OFFER",76,v1|187625581434|0,EBAY_US
+2025-10-06T07:04:35.179758-04:00,EDT,cold_products,hand warmers,22.34,USD,97.1,1280,"{'postalCode': '112**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,62,v1|306534483841|0,EBAY_US
+2025-10-06T07:06:15.894238-04:00,EDT,seasonal_products,beach towel,38.88,USD,100.0,751,"{'postalCode': '322**', 'country': 'US'}",Unknown,8.95,False,Pre-owned,"FIXED_PRICE,BEST_OFFER",80,v1|157370162742|0,EBAY_US
+2025-10-06T07:07:48.278763-04:00,EDT,seasonal_products,bird feeder,37.97,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,78,v1|389058158799|0,EBAY_US
+2025-10-06T07:07:48.278763-04:00,EDT,seasonal_products,bird feeder,68.81,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,79,v1|389058194298|0,EBAY_US
+2025-10-06T07:07:48.278763-04:00,EDT,seasonal_products,bird feeder,31.45,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,75,v1|389058169941|0,EBAY_US
+2025-10-06T07:07:48.278763-04:00,EDT,seasonal_products,bird feeder,31.14,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,76,v1|389058194229|0,EBAY_US
+2025-10-06T07:07:48.278763-04:00,EDT,seasonal_products,bird feeder,62.62,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,77,v1|389058193637|0,EBAY_US
+2025-10-06T07:07:48.278763-04:00,EDT,seasonal_products,bird feeder,22.1,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,77,v1|389058178679|0,EBAY_US
+2025-10-06T07:07:48.279794-04:00,EDT,seasonal_products,bird feeder,53.27,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,78,v1|389058191748|0,EBAY_US
+2025-10-06T07:07:48.279794-04:00,EDT,seasonal_products,bird feeder,78.21,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,79,v1|389058172557|0,EBAY_US
+2025-10-06T07:07:48.279794-04:00,EDT,seasonal_products,bird feeder,78.21,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,71,v1|389058177960|0,EBAY_US
+2025-10-06T07:07:48.279794-04:00,EDT,seasonal_products,bird feeder,57.95,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,79,v1|389058193323|0,EBAY_US
+2025-10-06T07:07:48.279794-04:00,EDT,seasonal_products,bird feeder,70.41,USD,98.8,345,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,77,v1|389058157534|0,EBAY_US
+2025-10-06T07:08:11.879677-04:00,EDT,seasonal_products,camping gear,64.19,USD,100.0,84,"{'postalCode': '100**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,80,v1|389058230911|0,EBAY_US
+2025-10-06T07:21:36.509524-04:00,EDT,rain_products,rain boots,24.99,USD,98.9,27311,"{'postalCode': '112**', 'country': 'US'}",Unknown,0.0,True,New without box,"FIXED_PRICE,BEST_OFFER",64,v1|187391259268|0,EBAY_US
+2025-10-06T07:21:41.431255-04:00,EDT,rain_products,rain boots,28.99,USD,99.3,230,"{'postalCode': '112**', 'country': 'US'}",Unknown,4.99,False,New without box,FIXED_PRICE,78,v1|236345894678|0,EBAY_US
+2025-10-06T07:21:41.431255-04:00,EDT,rain_products,rain boots,22.38,USD,98.9,287746,"{'postalCode': '112**', 'country': 'US'}",Unknown,9.99,False,New with box,"FIXED_PRICE,BEST_OFFER",64,v1|227002397773|0,EBAY_US
+2025-10-06T07:25:12.642330-04:00,EDT,heat_products,sunglasses,349.99,USD,100.0,542,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New without tags,"FIXED_PRICE,BEST_OFFER",79,v1|336215812232|0,EBAY_US
+2025-10-06T07:25:12.642330-04:00,EDT,heat_products,sunglasses,15.95,USD,98.4,47061,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,78,v1|302235335511|601076769782,EBAY_US
+2025-10-06T07:25:12.642330-04:00,EDT,heat_products,sunglasses,23.74,USD,97.1,686,"{'postalCode': '113**', 'country': 'US'}",Unknown,2.99,False,Pre-owned - Good,FIXED_PRICE,60,v1|157340386260|0,EBAY_US
+2025-10-06T07:25:12.642330-04:00,EDT,heat_products,sunglasses,10.95,USD,98.4,47061,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New with tags,FIXED_PRICE,77,v1|292045561475|592171429498,EBAY_US
+2025-10-06T07:30:36.531381-04:00,EDT,seasonal_products,christmas decorations,13.71,USD,95.8,72,"{'postalCode': '331**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,78,v1|306534556502|0,EBAY_US
+2025-10-06T07:31:07.248566-04:00,EDT,seasonal_products,bird feeder,11.41,USD,99.0,150075,"{'postalCode': '113**', 'country': 'US'}",Unknown,0.0,True,New,FIXED_PRICE,80,v1|167135979080|0,EBAY_US

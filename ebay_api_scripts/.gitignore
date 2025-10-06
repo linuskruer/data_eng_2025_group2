@@ -12,4 +12,6 @@ logs/
 *.log
 
 # Docker
-.dockerignore
+.dockerignore"credentials.env" 
+"ebay_token.json" 
+"config.json" 

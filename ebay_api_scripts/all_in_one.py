@@ -300,22 +300,36 @@ class CombinedEbayWeatherAnalyzer:
     def get_east_coast_weather_products(self):
         """East Coast specific products for weather correlation"""
         return {
-            'rain_products': ['umbrella', 'rain jacket'],
-            'heat_products': ['air conditioner', 'sunscreen'],
-            'cold_products': ['winter coat', 'thermal gloves'],
-            'seasonal_products': ['beach towel', 'snow shovel', 'outdoor furniture']
+            # 'rain_products': ['umbrella', 'rain jacket'],
+            # 'heat_products': ['air conditioner', 'sunscreen'],
+            # 'cold_products': ['winter coat', 'thermal gloves'],
+            # 'seasonal_products': ['beach towel', 'snow shovel', 'outdoor furniture']
+            'rain_products': ['umbrella', 'rain jacket', 'rain boots', 'waterproof pants', 
+                              'rain cover for backpack', 'waterproof phone case', 'quick-dry towel', 
+                              'moisture-wicking socks', 'anti-fog spray for glasses', 'trench coat', 'waterproof hat',
+                                'shoe waterproofing spray', 'drying rack for wet clothes', 'portable rain poncho', 'gaiters'],
+            'heat_products': ['air conditioner', 'sunscreen', 'portable fan', 'cooling towel', 'sun hat', 
+                              'sunglasses', 'UV-protective clothing', 'insulated water bottle', 
+                              'misting spray bottle', 'lightweight linen clothing', 'cooling neck gaiter', 
+                              'beach umbrella', 'solar charger', 'aloe vera gel', 'heat-reflective window film'],
+            'cold_products': ['winter coat', 'thermal gloves', 'wool beanie', 'scarf', 'thermal underwear', 
+                              'insulated boots', 'hand warmers', 'fleece jacket', 'thermal socks', 'ear muffs', 
+                              'balaclava', 'windproof jacket', 'heated vest', 'ski pants', 'lip balm with SPF'],
+            'seasonal_products': ['beach towel', 'snow shovel', 'outdoor furniture', 'gardening tools', 
+                                  'swimming pool', 'christmas decorations', 'halloween costumes', 'spring flower seeds', 
+                                  'bird feeder', 'picnic basket', 'camping gear', 'holiday lights', 'lawn mower', 'fall leaf rake', 
+                                  'beach chairs']
         }
 
-    def _search_with_pagination(self, query, max_items=2000, location_filter=None):
-        """Fetch multiple pages of results for a query"""
+    def _search_with_pagination(self, query, max_items=1000, location_filter=None):
         all_items = []
         offset = 0
-        limit = 200
+        limit = 200  # Maximum das eBay erlaubt
 
         while len(all_items) < max_items:
             result = self.search_products(
                 query,
-                limit=limit,
+                limit=limit,  # 200 verwenden
                 offset=offset,
                 location_filter=location_filter
             )
@@ -325,12 +339,15 @@ class CombinedEbayWeatherAnalyzer:
 
             items = result["itemSummaries"]
             all_items.extend(items)
+            
+            print(f"📄 Page {offset//200 + 1}: {len(items)} items (Total: {len(all_items)})")
 
-            if len(items) < limit:
+            # Stoppe wenn keine weiteren Items oder Limit erreicht
+            if len(items) < limit or len(all_items) >= max_items:
                 break
 
             offset += limit
-            time.sleep(1.5)
+            time.sleep(1.5)  # Rate Limit einhalten
 
         return all_items
 
@@ -434,7 +451,7 @@ class CombinedEbayWeatherAnalyzer:
 
         return data_record
 
-    def collect_east_coast_data(self, items_per_product=200):
+    def collect_east_coast_data(self, items_per_product=1000):
         """Collect data for SPECIFIC 5 East Coast cities only"""
         if not self.access_token:
             return []

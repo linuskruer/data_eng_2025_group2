@@ -1,0 +1,63 @@
+# --- Python general ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.env
+.venv/
+venv/
+env/
+*.log
+*.sqlite
+
+# --- Airflow specific ---
+logs/
+airflow/logs/
+airflow_home/
+*/logs/*
+*/airflow_home/*
+
+# DAG output data (optional)
+dags/data/*.csv
+dags/data/*.parquet
+dags/data/*.json
+
+# DAG test or backup files
+dags/__pycache__/
+dags/*/__pycache__/
+dags/*.bak
+dags/*.tmp
+dags/*.swp
+
+# Local Airflow configuration and secrets
+airflow.cfg
+webserver_config.py
+unittests.cfg
+
+# --- Docker ---
+*.pid
+*.pid.lock
+pgdata_airflow/
+pgdata_prices/
+*.db
+tmp/
+.env.docker
+
+# --- System & IDE ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.code-workspace
+
+# --- Optional for your team ---
+*/airflow_local_settings.py
+
+# --- Pipenv / Poetry ---
+Pipfile.lock
+poetry.lock
+
+# --- Other caches ---
+.cache/
+__pypackages__/

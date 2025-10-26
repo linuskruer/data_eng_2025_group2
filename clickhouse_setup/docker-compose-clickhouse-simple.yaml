@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  clickhouse-server:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse-server
+    ports:
+      - "8123:8123"  # HTTP interface
+      - "9000:9000"  # Native interface
+    environment:
+      CLICKHOUSE_DB: default
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: ""
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    networks:
+      - clickhouse_network
+    restart: unless-stopped
+
+  clickhouse-client:
+    image: clickhouse/clickhouse-client:latest
+    container_name: clickhouse-client
+    depends_on:
+      - clickhouse-server
+    networks:
+      - clickhouse_network
+    profiles:
+      - tools
+
+volumes:
+  clickhouse_data:
+
+networks:
+  clickhouse_network:
+    driver: bridge

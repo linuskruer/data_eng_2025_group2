@@ -1,0 +1,322 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Bronze layer tables containing raw data"
+    tables:
+      - name: ebay_raw_data
+        description: "Raw eBay listing data"
+        columns:
+          - name: item_id
+            description: "Unique identifier for each eBay listing"
+          - name: collection_timestamp
+            description: "Timestamp when the listing data was collected"
+          - name: weather_category
+            description: "Weather category associated with the product"
+          - name: product_type
+            description: "Type of product"
+          - name: price
+            description: "Price of the listing"
+          - name: postal_code
+            description: "Postal code of the item location"
+          - name: country
+            description: "Country of the item location"
+          - name: seller_feedback_percentage
+            description: "Seller's feedback percentage"
+          - name: seller_feedback_score
+            description: "Seller's total feedback score"
+          - name: shipping_cost
+            description: "Cost of shipping"
+          - name: free_shipping
+            description: "Boolean flag for free shipping"
+          - name: condition
+            description: "Condition of the item"
+          - name: buying_options
+            description: "Available buying options"
+          - name: title_length
+            description: "Length of the listing title"
+          - name: price_quality_flag
+            description: "Data quality flag for price"
+          - name: feedback_quality_flag
+            description: "Data quality flag for feedback"
+      - name: weather_raw_data
+        description: "Raw weather data"
+        columns:
+          - name: time
+            description: "Timestamp for weather data"
+          - name: weather_code_wmo_code
+            description: "Weather code"
+          - name: temperature_2m_c
+            description: "Temperature at 2m height in Celsius"
+          - name: relative_humidity_2m_percent
+            description: "Relative humidity percentage"
+          - name: cloudcover_percent
+            description: "Cloud cover percentage"
+          - name: rain_mm
+            description: "Rainfall in mm"
+          - name: sunshine_duration_s
+            description: "Sunshine duration in seconds"
+          - name: windspeed_10m_kmh
+            description: "Wind speed at 10m height in km/h"
+
+models:
+  - name: fact_listings
+    description: "Main fact table containing eBay listing transactions with weather correlation data"
+    columns:
+      - name: item_id
+        description: "Unique identifier for each eBay listing"
+        tests:
+          - not_null
+      - name: product_key
+        description: "Foreign key to dim_product"
+        tests:
+          - not_null
+      - name: location_key
+        description: "Foreign key to dim_location"
+        tests:
+          - not_null
+      - name: seller_key
+        description: "Foreign key to dim_seller"
+        tests:
+          - not_null
+      - name: collection_timestamp
+        description: "Timestamp when the listing data was collected"
+        tests:
+          - not_null
+      - name: date_key
+        description: "Date dimension key for joining with date tables"
+        tests:
+          - not_null
+      - name: price
+        description: "Price of the listing in USD"
+        tests:
+          - not_null
+      - name: shipping_cost
+        description: "Cost of shipping for the item"
+      - name: free_shipping
+        description: "Boolean flag indicating if shipping is free"
+      - name: seller_feedback_percentage
+        description: "Seller's feedback percentage (0-100)"
+      - name: seller_feedback_score
+        description: "Seller's total feedback score"
+      - name: title_length
+        description: "Length of the listing title"
+      - name: condition
+        description: "Condition of the item (New, Used, etc.)"
+      - name: buying_options
+        description: "Available buying options (FIXED_PRICE, AUCTION, etc.)"
+      - name: price_quality_flag
+        description: "Data quality flag for price validation"
+      - name: feedback_quality_flag
+        description: "Data quality flag for feedback validation"
+
+  - name: dim_product
+    description: "Product dimension table with weather category mapping"
+    columns:
+      - name: product_key
+        description: "Surrogate key for the product dimension"
+        tests:
+          - unique
+          - not_null
+      - name: product_type
+        description: "Type of product (umbrella, rain jacket, etc.)"
+        tests:
+          - not_null
+      - name: weather_category
+        description: "Weather category associated with the product"
+        tests:
+          - not_null
+      - name: weather_bucket
+        description: "Weather bucket classification (Extreme Heat, Extreme Cold, etc.)"
+        tests:
+          - not_null
+      - name: product_category
+        description: "Product category classification (Rain Protection, Heat Protection, etc.)"
+      - name: weather_sensitivity
+        description: "Indicates if the product is weather-sensitive or general"
+
+  - name: dim_location
+    description: "Location dimension table with East Coast geographic mapping"
+    columns:
+      - name: location_key
+        description: "Surrogate key for the location dimension"
+        tests:
+          - unique
+          - not_null
+      - name: postal_code
+        description: "Postal code of the location"
+        tests:
+          - not_null
+      - name: country
+        description: "Country code"
+        tests:
+          - not_null
+      - name: city
+        description: "City name derived from postal code"
+        tests:
+          - not_null
+      - name: state_code
+        description: "State code derived from postal code"
+        tests:
+          - not_null
+      - name: country_code
+        description: "Standardized country code"
+      - name: region
+        description: "Geographic region (East Coast)"
+      - name: region_group
+        description: "Regional grouping (Northeast, Mid-Atlantic, Southeast)"
+
+  - name: dim_seller
+    description: "Seller dimension table with performance tiers"
+    columns:
+      - name: seller_key
+        description: "Surrogate key for the seller dimension"
+        tests:
+          - unique
+          - not_null
+      - name: seller_feedback_score
+        description: "Seller's total feedback score"
+        tests:
+          - not_null
+      - name: seller_feedback_percentage
+        description: "Seller's feedback percentage"
+        tests:
+          - not_null
+      - name: feedback_score_tier
+        description: "Feedback score tier (Low, Medium, High, Very High)"
+        tests:
+          - not_null
+      - name: feedback_percentage_tier
+        description: "Feedback percentage tier (Poor, Fair, Good, Excellent)"
+        tests:
+          - not_null
+      - name: seller_tier
+        description: "Overall seller tier classification"
+
+  - name: dim_weather
+    description: "Weather dimension table with daily weather aggregations"
+    columns:
+      - name: weather_key
+        description: "Surrogate key for the weather dimension"
+        tests:
+          - unique
+          - not_null
+      - name: date
+        description: "Date for the weather data"
+        tests:
+          - unique
+          - not_null
+      - name: weather_bucket
+        description: "Weather bucket classification based on temperature and precipitation"
+        tests:
+          - not_null
+      - name: avg_temperature
+        description: "Average temperature for the day in Celsius"
+      - name: min_temperature
+        description: "Minimum temperature for the day in Celsius"
+      - name: max_temperature
+        description: "Maximum temperature for the day in Celsius"
+      - name: temperature_category
+        description: "Temperature category (Hot, Warm, Mild, Cool, Cold)"
+      - name: total_rain
+        description: "Total rainfall for the day in mm"
+      - name: rain_category
+        description: "Rain category (Heavy Rain, Moderate Rain, Light Rain, No Rain)"
+      - name: total_sunshine
+        description: "Total sunshine duration for the day in seconds"
+      - name: avg_wind_speed
+        description: "Average wind speed for the day in km/h"
+      - name: avg_humidity
+        description: "Average humidity percentage for the day"
+      - name: avg_cloudcover
+        description: "Average cloud cover percentage for the day"
+      - name: season
+        description: "Season based on the month (Winter, Spring, Summer, Fall)"
+
+  - name: analytics_weather_impact
+    description: "Analytical model showing impact of weather conditions on daily listings"
+    columns:
+      - name: date
+        description: "Date of the analysis"
+      - name: weather_bucket
+        description: "Weather bucket classification"
+      - name: listings
+        description: "Number of listings for the weather condition"
+      - name: unique_items
+        description: "Number of unique items listed"
+      - name: avg_price
+        description: "Average price of listings"
+      - name: avg_seller_feedback
+        description: "Average seller feedback percentage"
+      - name: daily_market_share_percent
+        description: "Percentage of daily market share"
+      - name: avg_listings_7day
+        description: "7-day rolling average of listings"
+
+  - name: analytics_pricing_behavior
+    description: "Analytical model showing pricing behavior by weather and product type"
+    columns:
+      - name: product_type
+        description: "Type of product"
+      - name: weather_bucket
+        description: "Weather bucket classification"
+      - name: avg_price
+        description: "Average price for the product-weather combination"
+      - name: min_price
+        description: "Minimum price observed"
+      - name: max_price
+        description: "Maximum price observed"
+      - name: listings
+        description: "Number of listings"
+      - name: price_stddev
+        description: "Standard deviation of prices"
+      - name: median_price
+        description: "Median price"
+      - name: q1_price
+        description: "First quartile price"
+      - name: q3_price
+        description: "Third quartile price"
+      - name: price_range
+        description: "Range between max and min prices"
+      - name: price_coefficient_variation
+        description: "Coefficient of variation for price stability"
+
+  - name: analytics_seller_performance
+    description: "Analytical model showing seller performance tiers vs weather conditions"
+    columns:
+      - name: feedback_score_tier
+        description: "Seller feedback score tier (Low, Medium, High, Very High)"
+      - name: feedback_percentage_tier
+        description: "Seller feedback percentage tier (Poor, Fair, Good, Excellent)"
+      - name: weather_bucket
+        description: "Weather bucket classification"
+      - name: listings
+        description: "Number of listings by seller tier and weather"
+      - name: unique_items
+        description: "Number of unique items"
+      - name: avg_price
+        description: "Average listing price"
+      - name: avg_feedback_score
+        description: "Average feedback score"
+      - name: avg_feedback_percentage
+        description: "Average feedback percentage"
+      - name: market_share_percent
+        description: "Market share percentage within weather bucket"
+      - name: avg_title_length
+        description: "Average title length"
+      - name: free_shipping_count
+        description: "Number of listings with free shipping"
+      - name: price_quality_issues
+        description: "Number of price quality issues"
+
+tests:
+  - name: test_fact_listings_not_null
+    description: "Ensures critical fields are not null in fact_listings"
+  - name: test_dim_product_unique_key
+    description: "Ensures each product_key appears only once in dim_product"
+  - name: test_dim_location_unique_key
+    description: "Ensures each location_key appears only once in dim_location"
+  - name: test_dim_seller_unique_key
+    description: "Ensures each seller_key appears only once in dim_seller"
+  - name: test_dim_weather_unique_key
+    description: "Ensures each weather_key appears only once in dim_weather"

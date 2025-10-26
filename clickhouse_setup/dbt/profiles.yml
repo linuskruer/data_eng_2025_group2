@@ -1,0 +1,10 @@
+clickhouse_profile:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      host: localhost
+      port: 9000
+      user: default
+      password: ""
+      database: default

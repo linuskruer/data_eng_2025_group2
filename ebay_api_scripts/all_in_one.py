@@ -1,358 +1,174 @@
 import os
 import requests
 import time
-import json
-import base64
 import csv
-from datetime import datetime, timedelta, timezone
-from urllib.parse import unquote
 import re
+from datetime import datetime, timedelta, timezone
+
+from ebay_auth import EbayAuth
+
 
 class CombinedEbayWeatherAnalyzer:
     def __init__(self, base_directory=None):
-        # Initialize paths
+        # —— Paths & output file ——
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
-        self.config_path = os.path.join(self.current_dir, "config.json")
-        self.token_file = os.path.join(self.current_dir, "ebay_token.json")
-        
-        # Set up data directory - saves to "ebay_data" folder in project root
+
+        # Set up data directory – saves to "ebay_data" folder in project root by default
         if base_directory is None:
             script_dir = os.path.dirname(os.path.abspath(__file__))
             project_root = os.path.dirname(script_dir)
             base_directory = os.path.join(project_root, "ebay_data")
-        
         os.makedirs(base_directory, exist_ok=True)
+
         self.base_directory = base_directory
         self.data_file = os.path.join(base_directory, "east_coast_weather_data.csv")
-        
-        # Load configuration
-        self.config = self._load_config()
-        self.access_token = None
-        self.token_expiry = None
-        self.refresh_token = None
-        
-        # ONLY THESE 5 CITIES - Updated ZIP prefixes
+
+        # —— Credentials from ENV (A2) ——
+        client_id = os.getenv("EBAY_CLIENT_ID")
+        client_secret = os.getenv("EBAY_CLIENT_SECRET")
+        if not client_id or not client_secret:
+            raise RuntimeError(
+                "Missing EBAY_CLIENT_ID or EBAY_CLIENT_SECRET environment variables."
+            )
+
+        # —— Auth helper (uses Application Access Token flow) ——
+        self.ebay_auth = EbayAuth(client_id=client_id, client_secret=client_secret)
+
+        # —— City ZIP prefixes (East Coast target subset) ——
         self.city_zip_prefixes = {
             "new_york": ["100", "101", "102", "103", "104", "111", "112", "113", "114", "116"],
             "boston": ["021", "022", "023"],
             "washington_dc": ["200", "202", "203", "204"],
             "miami": ["331", "332", "333"],
-            "jacksonville": ["320", "322", "322"]  # Jacksonville, FL ZIP prefixes
+            "jacksonville": ["320", "322", "322"]
         }
-        
-        self._initialize_token()
-    
-    def _load_config(self):
-        """Load configuration from config.json"""
-        try:
-            with open(self.config_path, 'r') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            print(f"❌ config.json not found at: {self.config_path}")
-            raise
-    
-    def _load_token_data(self):
-        """Load token data from file"""
-        try:
-            if not os.path.exists(self.token_file):
-                return None
-                
-            with open(self.token_file, 'r') as f:
-                token_data = json.load(f)
-            
-            if 'expiry_time' in token_data:
-                expiry_time = datetime.fromisoformat(token_data['expiry_time'])
-                if datetime.now() < expiry_time:
-                    return token_data
-                else:
-                    print("🔄 Token expired, refreshing...")
-                    return None
-            return token_data
-                
-        except Exception as e:
-            print(f"❌ Error loading token: {e}")
-            return None
-    
-    def _save_token_data(self, token_response):
-        """Save token data to file"""
-        expiry_time = datetime.now() + timedelta(seconds=token_response['expires_in'] - 300)
-        
-        token_data = {
-            'access_token': token_response['access_token'],
-            'refresh_token': token_response['refresh_token'],
-            'expiry_time': expiry_time.isoformat(),
-            'last_updated': datetime.now().isoformat()
-        }
-        
-        with open(self.token_file, 'w') as f:
-            json.dump(token_data, f, indent=2)
-        
-        print("✅ Token data saved successfully")
-    
-    def _refresh_access_token(self):
-        """Automatic access token refresh"""
-        try:
-            token_data = self._load_token_data()
-            if not token_data or 'refresh_token' not in token_data:
-                print("❌ No refresh token available - need manual setup")
-                return None
-            
-            refresh_token = token_data['refresh_token']
-            print(f"🔄 Refreshing token with refresh_token: {refresh_token[:10]}...")
-            
-            token_url = "https://api.ebay.com/identity/v1/oauth2/token"
-            
-            credentials = f"{self.config['client_id']}:{self.config['client_secret']}"
-            encoded_credentials = base64.b64encode(credentials.encode()).decode()
-            
-            headers = {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": f"Basic {encoded_credentials}"
-            }
-            
-            data = {
-                "grant_type": "refresh_token",
-                "refresh_token": refresh_token,
-                "scope": "https://api.ebay.com/oauth/api_scope"
-            }
-            
-            print("🔄 Sending refresh request...")
-            response = requests.post(token_url, headers=headers, data=data)
-            
-            print(f"📡 Refresh response: {response.status_code}")
-            
-            if response.status_code == 200:
-                token_response = response.json()
-                print("✅ Refresh successful!")
-                self._save_token_data(token_response)
-                
-                new_token_data = self._load_token_data()
-                if new_token_data and 'access_token' in new_token_data:
-                    print("✅ New access token loaded successfully")
-                    return new_token_data['access_token']
-                else:
-                    print("❌ Failed to load new access token after refresh")
-                    return None
-            else:
-                print(f"❌ Token refresh failed: {response.status_code}")
-                print("Response:", response.text)
-                return None
-                
-        except Exception as e:
-            print(f"❌ Error refreshing token: {e}")
-            return None
-    
-    def _get_new_token_via_auth_code(self, auth_code):
-        """Get new token with Auth Code"""
-        decoded_code = unquote(auth_code)
-        print(f"Using auth code: {decoded_code}")
-        
-        token_url = "https://api.ebay.com/identity/v1/oauth2/token"
-        
-        credentials = f"{self.config['client_id']}:{self.config['client_secret']}"
-        encoded_credentials = base64.b64encode(credentials.encode()).decode()
-        
-        headers = {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": f"Basic {encoded_credentials}"
-        }
-        
-        data = {
-            "grant_type": "authorization_code",
-            "code": decoded_code,
-            "redirect_uri": self.config['runame']
-        }
-        
-        print("🔄 Exchanging auth code for token...")
-        response = requests.post(token_url, headers=headers, data=data)
-        
-        print(f"Status Code: {response.status_code}")
-        
-        if response.status_code == 200:
-            token_response = response.json()
-            self._save_token_data(token_response)
-            return token_response['access_token']
-        else:
-            print(f"❌ Token exchange failed: {response.status_code}")
-            print("Response:", response.json())
-            return None
-    
-    def _initialize_token(self):
-        """Initialize or load token"""
-        token_data = self._load_token_data()
-        
-        if token_data:
-            self.access_token = token_data['access_token']
-            self.refresh_token = token_data['refresh_token']
-            if 'expiry_time' in token_data:
-                self.token_expiry = datetime.fromisoformat(token_data['expiry_time'])
-            print("✅ Token loaded from file")
-        else:
-            print("❌ No valid token available.")
-    
-    def get_auth_url(self):
-        """Return Auth URL"""
-        auth_url = (f"https://auth.ebay.com/oauth2/authorize?"
-                   f"client_id={self.config['client_id']}&"
-                   f"redirect_uri={self.config['runame']}&"
-                   f"response_type=code&"
-                   f"scope=https://api.ebay.com/oauth/api_scope")
-        return auth_url
-    
-    def setup_initial_token(self, auth_code):
-        """Manual initial token setup"""
-        token = self._get_new_token_via_auth_code(auth_code)
-        if token:
-            self.access_token = token
-            print("✅ Initial token setup successful!")
-            return True
-        return False
-    
-    def _ensure_valid_token(self):
-        """Ensure token is valid"""
-        if not self.access_token:
-            token_data = self._load_token_data()
-            if token_data:
-                self.access_token = token_data['access_token']
-                if 'expiry_time' in token_data:
-                    self.token_expiry = datetime.fromisoformat(token_data['expiry_time'])
-            else:
-                raise Exception("No valid token available. Please run setup first.")
-        
-        if self.token_expiry and datetime.now() > self.token_expiry - timedelta(minutes=10):
-            print("🔄 Token expiring soon, refreshing...")
-            new_token = self._refresh_access_token()
-            if new_token:
-                self.access_token = new_token
-    
+
+    # ----------------------------
+    # eBay Search
+    # ----------------------------
     def search_products(self, keyword, category_id=None, limit=50, location_filter=None, offset=0):
-        """Search for products with automatic token management"""
-        self._ensure_valid_token()
-        
-        if not self.access_token:
-            print("❌ No access token available")
-            return None
-            
+        """Search for products using eBay Browse API with automatic token management."""
+        token = self.ebay_auth.get_access_token()
+
         url = "https://api.ebay.com/buy/browse/v1/item_summary/search"
-        
         headers = {
-            'Authorization': f'Bearer {self.access_token}',
-            'Content-Type': 'application/json',
-            'X-EBAY-C-MARKETPLACE-ID': 'EBAY_US'
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+            "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"
         }
-        
+
         filters = ['buyingOptions:{FIXED_PRICE}']
-        
         if location_filter:
+            # Note: itemLocation filter accepts strings like city or region; we pass city name
             filters.append(f'itemLocation:{location_filter}')
-        
+
         params = {
-            'q': keyword,
-            'limit': min(limit, 200),
-            'offset': offset,
-            'filter': ','.join(filters),
+            "q": keyword,
+            "limit": min(limit, 200),
+            "offset": offset,
+            "filter": ",".join(filters),
         }
-        
         if category_id:
-            params['category_ids'] = category_id
-            
+            params["category_ids"] = category_id
+
         try:
-            response = requests.get(url, headers=headers, params=params)
-            
+            response = requests.get(url, headers=headers, params=params, timeout=30)
             if response.status_code == 200:
                 return response.json()
-            elif response.status_code == 401:
-                print("❌ Token invalid, attempting refresh...")
-                new_token = self._refresh_access_token()
-                if new_token:
-                    self.access_token = new_token
-                    headers['Authorization'] = f'Bearer {self.access_token}'
-                    response = requests.get(url, headers=headers, params=params)
-                    if response.status_code == 200:
-                        return response.json()
-                return None
             else:
-                print(f"❌ Search error for '{keyword}': {response.status_code}")
+                print(f"❌ Search error for '{keyword}' [{response.status_code}]: {response.text}")
                 return None
-                
         except Exception as e:
             print(f"❌ Request failed: {e}")
             return None
-        
+
     def test_connection(self):
-        """Test if the API connection works"""
+        """Test if the API connection works."""
         try:
-            self._ensure_valid_token()
-            if not self.access_token:
-                return False
-            result = self.search_products("umbrella", limit=1)
-            return result is not None
+            token = self.ebay_auth.get_access_token()
+            headers = {
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+                "X-EBAY-C-MARKETPLACE-ID": "EBAY_US"
+            }
+            resp = requests.get(
+                "https://api.ebay.com/buy/browse/v1/item_summary/search?q=umbrella&limit=1",
+                headers=headers,
+                timeout=30
+            )
+            if resp.status_code == 200:
+                print("✅ eBay API connection successful!")
+                return True
+            print(f"❌ eBay API error: {resp.status_code} - {resp.text}")
+            return False
         except Exception as e:
             print(f"❌ Connection test failed: {e}")
             return False
 
-    def _get_east_coast_time(self):
-        """Get current East Coast USA time (EDT/EST)."""
-        utc_now = datetime.now(timezone.utc)
-        east_coast_tz = timezone(timedelta(hours=-4))
-        return utc_now.astimezone(east_coast_tz)
-
+    # ----------------------------
+    # Product sets & pagination
+    # ----------------------------
     def get_east_coast_weather_products(self):
-        """East Coast specific products for weather correlation"""
+        """Products grouped for weather correlation."""
         return {
-            # 'rain_products': ['umbrella', 'rain jacket'],
-            # 'heat_products': ['air conditioner', 'sunscreen'],
-            # 'cold_products': ['winter coat', 'thermal gloves'],
-            # 'seasonal_products': ['beach towel', 'snow shovel', 'outdoor furniture']
-            'rain_products': ['umbrella', 'rain jacket', 'rain boots', 'waterproof pants', 
-                              'rain cover for backpack', 'waterproof phone case', 'quick-dry towel', 
-                              'moisture-wicking socks', 'anti-fog spray for glasses', 'trench coat', 'waterproof hat',
-                                'shoe waterproofing spray', 'drying rack for wet clothes', 'portable rain poncho', 'gaiters'],
-            'heat_products': ['air conditioner', 'sunscreen', 'portable fan', 'cooling towel', 'sun hat', 
-                              'sunglasses', 'UV-protective clothing', 'insulated water bottle', 
-                              'misting spray bottle', 'lightweight linen clothing', 'cooling neck gaiter', 
-                              'beach umbrella', 'solar charger', 'aloe vera gel', 'heat-reflective window film'],
-            'cold_products': ['winter coat', 'thermal gloves', 'wool beanie', 'scarf', 'thermal underwear', 
-                              'insulated boots', 'hand warmers', 'fleece jacket', 'thermal socks', 'ear muffs', 
-                              'balaclava', 'windproof jacket', 'heated vest', 'ski pants', 'lip balm with SPF'],
-            'seasonal_products': ['beach towel', 'snow shovel', 'outdoor furniture', 'gardening tools', 
-                                  'swimming pool', 'christmas decorations', 'halloween costumes', 'spring flower seeds', 
-                                  'bird feeder', 'picnic basket', 'camping gear', 'holiday lights', 'lawn mower', 'fall leaf rake', 
-                                  'beach chairs']
+            "rain_products": [
+                "umbrella", "rain jacket", "rain boots", "waterproof pants",
+                "rain cover for backpack", "waterproof phone case", "quick-dry towel",
+                "moisture-wicking socks", "anti-fog spray for glasses", "trench coat", "waterproof hat",
+                "shoe waterproofing spray", "drying rack for wet clothes", "portable rain poncho", "gaiters"
+            ],
+            "heat_products": [
+                "air conditioner", "sunscreen", "portable fan", "cooling towel", "sun hat",
+                "sunglasses", "UV-protective clothing", "insulated water bottle",
+                "misting spray bottle", "lightweight linen clothing", "cooling neck gaiter",
+                "beach umbrella", "solar charger", "aloe vera gel", "heat-reflective window film"
+            ],
+            "cold_products": [
+                "winter coat", "thermal gloves", "wool beanie", "scarf", "thermal underwear",
+                "insulated boots", "hand warmers", "fleece jacket", "thermal socks", "ear muffs",
+                "balaclava", "windproof jacket", "heated vest", "ski pants", "lip balm with SPF"
+            ],
+            "seasonal_products": [
+                "beach towel", "snow shovel", "outdoor furniture", "gardening tools",
+                "swimming pool", "christmas decorations", "halloween costumes", "spring flower seeds",
+                "bird feeder", "picnic basket", "camping gear", "holiday lights", "lawn mower",
+                "fall leaf rake", "beach chairs"
+            ]
         }
 
     def _search_with_pagination(self, query, max_items=1000, location_filter=None):
+        """Fetch up to max_items by paging through the Browse API."""
         all_items = []
         offset = 0
-        limit = 200  # Maximum das eBay erlaubt
+        limit = 200  # eBay max
 
         while len(all_items) < max_items:
             result = self.search_products(
                 query,
-                limit=limit,  # 200 verwenden
+                limit=limit,
                 offset=offset,
                 location_filter=location_filter
             )
-
             if not result or "itemSummaries" not in result:
                 break
 
             items = result["itemSummaries"]
             all_items.extend(items)
-            
-            print(f"📄 Page {offset//200 + 1}: {len(items)} items (Total: {len(all_items)})")
+            print(f"📄 Page {offset // limit + 1}: {len(items)} items (Total: {len(all_items)})")
 
-            # Stoppe wenn keine weiteren Items oder Limit erreicht
             if len(items) < limit or len(all_items) >= max_items:
                 break
 
             offset += limit
-            time.sleep(1.5)  # Rate Limit einhalten
+            time.sleep(1.5)  # Gentle rate limiting
 
         return all_items
 
+    # ----------------------------
+    # Filters & extraction
+    # ----------------------------
     def _is_allowed_city_zip(self, postal_code):
-        """Check if postal code belongs to allowed cities"""
+        """Check if postal code belongs to allowed cities (based on 3-digit prefix)."""
         if not postal_code:
             return False
         prefix = str(postal_code)[:3]
@@ -361,12 +177,17 @@ class CombinedEbayWeatherAnalyzer:
                 return True
         return False
 
+    def _get_east_coast_time(self):
+        """Get current East Coast USA time (EDT/EST approximation)."""
+        utc_now = datetime.now(timezone.utc)
+        east_coast_tz = timezone(timedelta(hours=-4))  # Simple offset; OK for correlation
+        return utc_now.astimezone(east_coast_tz)
+
     def _extract_complete_item_data(self, item, weather_category, product_type):
-        """Extract ONLY the specified columns from eBay API response"""
-        price_value = item.get('price', {}).get('value')
+        """Extract ONLY the specified columns from eBay item."""
+        price_value = item.get("price", {}).get("value")
         if not price_value:
             return None
-
         try:
             price = float(price_value)
         except (TypeError, ValueError):
@@ -378,15 +199,14 @@ class CombinedEbayWeatherAnalyzer:
 
         east_coast_time = self._get_east_coast_time()
 
-        # Extract location data for filtering
-        item_location = item.get('itemLocation', 'Unknown')
-        seller_info = item.get('seller', {})
-        seller_location = seller_info.get('location', 'Unknown')
+        # Location fields
+        item_location = item.get("itemLocation", "Unknown")
+        seller_info = item.get("seller", {})
+        seller_location = seller_info.get("location", "Unknown")
         zip_prefix = None
 
-        # Extract ZIP prefix for filtering
         if item_location and isinstance(item_location, dict):
-            postal_code = item_location.get('postalCode', '')
+            postal_code = item_location.get("postalCode", "")
             zip_prefix = postal_code[:3] if postal_code else None
         elif item_location and isinstance(item_location, str):
             # Try to extract ZIP from string representation
@@ -394,68 +214,66 @@ class CombinedEbayWeatherAnalyzer:
             if zip_match:
                 zip_prefix = zip_match.group(1)
 
-        # Skip if not allowed city
+        # Skip if not an allowed city
         if not self._is_allowed_city_zip(zip_prefix):
             return None
 
         # Shipping info
-        shipping_options = item.get('shippingOptions', [])
+        shipping_options = item.get("shippingOptions", [])
         shipping_cost = 0.0
         free_shipping = False
         if shipping_options:
-            shipping_cost_value = shipping_options[0].get('shippingCost', {}).get('value', 0)
+            shipping_cost_value = shipping_options[0].get("shippingCost", {}).get("value", 0)
             try:
                 shipping_cost = float(shipping_cost_value)
-                free_shipping = shipping_cost == 0
+                free_shipping = (shipping_cost == 0)
             except (TypeError, ValueError):
                 shipping_cost = 0.0
                 free_shipping = True
 
-        # Build data record with ONLY the specified columns
         data_record = {
             # Collection info
-            'collection_timestamp': east_coast_time.isoformat(),
-            'timezone': 'EDT',
-            
-            # Weather/product category
-            'weather_category': weather_category,
-            'product_type': product_type,
-            
-            # Price info
-            'price': price,
-            'currency': item.get('price', {}).get('currency', 'USD'),
-            
-            # Seller info
-            'seller_feedback_percentage': float(seller_info.get('feedbackPercentage', 0)) if seller_info.get('feedbackPercentage') else 0,
-            'seller_feedback_score': int(seller_info.get('feedbackScore', 0)) if seller_info.get('feedbackScore') else 0,
-            
-            # Location info - KEEP RAW FORMAT
-            'item_location': str(item_location),  # Convert dict to string for CSV
-            'seller_location': seller_location,
-            
-            # Shipping info
-            'shipping_cost': shipping_cost,
-            'free_shipping': free_shipping,
-            
-            # Product details
-            'condition': item.get('condition', ''),
-            'buying_options': ','.join(item.get('buyingOptions', [])),
-            
-            # Title info
-            'title_length': len(item.get('title', '')),
-            
-            # IDs
-            'item_id': item.get('itemId'),
-            'marketplace_id': 'EBAY_US'
-        }
+            "collection_timestamp": east_coast_time.isoformat(),
+            "timezone": "EDT",
 
+            # Weather/product category
+            "weather_category": weather_category,
+            "product_type": product_type,
+
+            # Price info
+            "price": price,
+            "currency": item.get("price", {}).get("currency", "USD"),
+
+            # Seller info
+            "seller_feedback_percentage": float(seller_info.get("feedbackPercentage", 0)) if seller_info.get("feedbackPercentage") else 0,
+            "seller_feedback_score": int(seller_info.get("feedbackScore", 0)) if seller_info.get("feedbackScore") else 0,
+
+            # Location info - keep raw format for CSV
+            "item_location": str(item_location),
+            "seller_location": seller_location,
+
+            # Shipping info
+            "shipping_cost": shipping_cost,
+            "free_shipping": free_shipping,
+
+            # Product details
+            "condition": item.get("condition", ""),
+            "buying_options": ",".join(item.get("buyingOptions", [])),
+
+            # Misc
+            "title_length": len(item.get("title", "")),
+
+            # IDs
+            "item_id": item.get("itemId"),
+            "marketplace_id": "EBAY_US"
+        }
         return data_record
 
+    # ----------------------------
+    # Collection & storage
+    # ----------------------------
     def collect_east_coast_data(self, items_per_product=1000):
-        """Collect data for SPECIFIC 5 East Coast cities only"""
-        if not self.access_token:
-            return []
-
+        """Collect data for SPECIFIC 5 East Coast cities only."""
         weather_products = self.get_east_coast_weather_products()
         all_data = []
 
@@ -463,13 +281,12 @@ class CombinedEbayWeatherAnalyzer:
 
         for weather_category, products in weather_products.items():
             print(f"🌤️ Collecting {weather_category} data from 5 target cities...")
-
             for product in products:
                 for city_name in self.city_zip_prefixes.keys():
                     print(f"   🔍 Searching '{product}' in {city_name}...")
                     items = self._search_with_pagination(
-                        product, 
-                        max_items=items_per_product, 
+                        product,
+                        max_items=items_per_product,
                         location_filter=city_name
                     )
 
@@ -485,64 +302,12 @@ class CombinedEbayWeatherAnalyzer:
 
         return all_data
 
-    def save_data(self, new_data, append=True):
-        """Save data to CSV file with proper error handling"""
-        # Check if csv module is available
-        try:
-            import csv
-        except ImportError:
-            print("❌ CSV module not available")
-            return None
-            
-        if not new_data:
-            print("📭 No data to save")
-            return None
-
-        existing_ids = self._get_existing_ids()
-        filtered_data = []
-        for row in new_data:
-            item_id = row.get("item_id")
-            if not item_id:
-                continue
-            if item_id not in existing_ids:
-                filtered_data.append(row)
-                existing_ids.add(item_id)
-
-        if not filtered_data:
-            print("📭 No new unique records to save")
-            return None
-
-        file_mode = 'a' if append and os.path.exists(self.data_file) else 'w'
-        write_header = file_mode == 'w' or not os.path.exists(self.data_file)
-
-        try:
-            with open(self.data_file, file_mode, newline='', encoding='utf-8') as f:
-                writer = csv.DictWriter(f, fieldnames=filtered_data[0].keys())
-                if write_header:
-                    writer.writeheader()
-                writer.writerows(filtered_data)
-
-            action = "appended to" if file_mode == 'a' else "saved to"
-            print(f"💾 {len(filtered_data)} new unique records {action} {self.data_file}")
-            
-            return self.data_file
-        except Exception as e:
-            print(f"❌ Error saving data: {e}")
-            return None
-        
     def _get_existing_ids(self):
-        """Load existing IDs from CSV"""
-        # Check if csv module is available
-        try:
-            import csv
-        except ImportError:
-            print("❌ CSV module not available")
-            return set()
-            
+        """Load existing item_ids from CSV (to avoid duplicates)."""
         existing_ids = set()
         if os.path.exists(self.data_file):
             try:
-                with open(self.data_file, 'r', encoding='utf-8') as f:
+                with open(self.data_file, "r", encoding="utf-8") as f:
                     reader = csv.DictReader(f)
                     for row in reader:
                         item_id = row.get("item_id")
@@ -553,40 +318,77 @@ class CombinedEbayWeatherAnalyzer:
                 print(f"⚠️ Could not read existing file for duplicates: {e}")
         return existing_ids
 
+    def save_data(self, new_data, append=True):
+        """Save data to CSV file with deduplication (B1 – CSV only)."""
+        if not new_data:
+            print("📭 No data to save")
+            return None
+
+        existing_ids = self._get_existing_ids()
+        filtered_data = []
+        for row in new_data:
+            item_id = row.get("item_id")
+            if item_id and item_id not in existing_ids:
+                filtered_data.append(row)
+                existing_ids.add(item_id)
+
+        if not filtered_data:
+            print("📭 No new unique records to save")
+            return None
+
+        file_mode = "a" if append and os.path.exists(self.data_file) else "w"
+        write_header = (file_mode == "w") or (not os.path.exists(self.data_file))
+
+        try:
+            with open(self.data_file, file_mode, newline="", encoding="utf-8") as f:
+                writer = csv.DictWriter(f, fieldnames=filtered_data[0].keys())
+                if write_header:
+                    writer.writeheader()
+                writer.writerows(filtered_data)
+
+            action = "appended to" if file_mode == "a" else "saved to"
+            print(f"💾 {len(filtered_data)} new unique records {action} {self.data_file}")
+            return self.data_file
+        except Exception as e:
+            print(f"❌ Error saving data: {e}")
+            return None
+
     def get_data_stats(self):
-        """Return statistics about collected data"""
+        """Return simple statistics over the CSV."""
         if not os.path.exists(self.data_file):
             return {"total_records": 0, "file_exists": False, "data_file_path": self.data_file}
-        
+
         try:
-            with open(self.data_file, 'r', encoding='utf-8') as f:
+            with open(self.data_file, "r", encoding="utf-8") as f:
                 reader = csv.DictReader(f)
                 records = list(reader)
-            
+
             category_counts = {}
             city_counts = {}
             for record in records:
-                category = record.get('weather_category', 'UNKNOWN')
+                category = record.get("weather_category", "UNKNOWN")
                 category_counts[category] = category_counts.get(category, 0) + 1
-                
-                city = record.get('item_location', 'Unknown')
+
+                city = record.get("item_location", "Unknown")
                 if city:
                     city_counts[city] = city_counts.get(city, 0) + 1
-            
+
             return {
                 "total_records": len(records),
                 "file_exists": True,
                 "category_distribution": category_counts,
                 "city_distribution": city_counts,
-                "data_file_path": self.data_file  # This line ensures the key always exists
+                "data_file_path": self.data_file
             }
-            
         except Exception as e:
             print(f"❌ Error reading statistics: {e}")
             return {"total_records": 0, "file_exists": False, "data_file_path": self.data_file}
 
+    # ----------------------------
+    # Simple loop runner (for local testing)
+    # ----------------------------
     def simple_auto_collector(self):
-        """Automatic collector for 5 specific East Coast cities"""
+        """Automatic collector for 5 specific East Coast cities."""
         collection_count = 0
 
         print("🚀 Starting automatic data collection...")
@@ -617,45 +419,41 @@ class CombinedEbayWeatherAnalyzer:
                     stats = self.get_data_stats()
                     print(f"✅ {len(new_data)} new records collected")
                     print(f"📊 Total in database: {stats['total_records']} records")
-                    
-                    # Safe way to print file path
-                    file_path = stats.get('data_file_path', saved_file or self.data_file)
+
+                    file_path = stats.get("data_file_path", saved_file or self.data_file)
                     print(f"📁 Saved to: {file_path}")
-                    
-                    if 'city_distribution' in stats:
+
+                    if "city_distribution" in stats:
                         print("🏙️ City distribution:")
-                        for city, count in stats['city_distribution'].items():
+                        for city, count in stats["city_distribution"].items():
                             print(f"   {city}: {count} records")
                 else:
                     print("❌ No new data collected.")
 
                 # Wait 10 minutes
-                print(f"\n⏰ Waiting 10 minutes until next collection...")
+                print("\n⏰ Waiting 10 minutes until next collection...")
                 for i in range(600, 0, -60):
                     minutes = i // 60
-                    print(f"   {minutes} minutes remaining...", end='\r')
+                    print(f"   {minutes} minutes remaining...", end="\r")
                     time.sleep(60)
 
         except KeyboardInterrupt:
             stats = self.get_data_stats()
             print(f"\n\n🛑 Collection stopped after {collection_count} runs")
             print(f"📈 Final statistics: {stats['total_records']} records")
-            file_path = stats.get('data_file_path', self.data_file)
+            file_path = stats.get("data_file_path", self.data_file)
             print(f"💾 Data saved to: {file_path}")
 
 
 def main():
-    """Main function to run the combined analyzer"""
     analyzer = CombinedEbayWeatherAnalyzer()
-    
-    # Show save location
     print(f"💾 Data will be saved to: {analyzer.data_file}")
-    
+
     if not analyzer.test_connection():
-        print("❌ API connection failed. Please check your token setup.")
+        print("❌ API connection failed. Check EBAY_CLIENT_ID / EBAY_CLIENT_SECRET.")
         return
-    
-    # Start automatic collection
+
+    # Start automatic collection loop (local testing)
     analyzer.simple_auto_collector()
 
 

@@ -1,17 +1,10 @@
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-pip-log.txt
-
-# Logs
-logs/
-*.log
-
 # Docker
-.dockerignore"credentials.env" 
-"ebay_token.json" 
-"config.json" 
+.dockerignore
+
+# Secrets
+credentials.env
+config.json
+ebay_token.json
+ebay_token.txt
+*.env
+

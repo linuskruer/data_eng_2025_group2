@@ -33,13 +33,8 @@ Make sure you have:
 
 ## 🧩 Setup Instructions
 
-### 1️⃣ Clone the repository
-```bash
-git clone <your_repo_url>
-cd airflow
-```
 
-### 2️⃣1️⃣ Initialize Airflow
+### 1️⃣ Initialize Airflow
 This sets up the Airflow database, installs requirements, and creates the admin user.
 
 ```bash

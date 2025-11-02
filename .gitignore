@@ -23,3 +23,11 @@ project/airflow/dags/utils/__pycache__/
 # dbt compiled files (generated)
 project/airflow/dbt/target/
 project/airflow/dbt/dbt_packages/
+
+# Credentials and secrets (DO NOT COMMIT)
+credentials.env
+*.env
+ebay_api_scripts/credentials.env
+ebay_api_scripts/config.json
+ebay_api_scripts/ebay_token.json
+ebay_api_scripts/ebay_token.txt

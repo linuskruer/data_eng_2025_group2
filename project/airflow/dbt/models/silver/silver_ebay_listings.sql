@@ -106,7 +106,7 @@ WITH cleaned AS (
         
         -- Extract date for partitioning
         toDate(collection_timestamp) AS collection_date
-    FROM {{ source('bronze', 'ebay_raw_data') }}
+    FROM bronze.ebay_raw_data
     WHERE item_id IS NOT NULL
       AND item_id != ''
       AND collection_timestamp IS NOT NULL

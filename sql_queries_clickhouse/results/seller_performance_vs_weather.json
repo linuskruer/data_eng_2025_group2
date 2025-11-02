@@ -1,0 +1,359 @@
+﻿{
+    "data":  [
+                 {
+                     "feedback_score_tier":  "Very High (5000+)",
+                     "unique_sellers":  "45",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "44.00931643375582",
+                     "avg_price":  "11.426923076924428",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "8125"
+                 },
+                 {
+                     "feedback_score_tier":  "Very High (5000+)",
+                     "unique_sellers":  "38",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "34.80121330300076",
+                     "avg_price":  "36.216342412448675",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "6425"
+                 },
+                 {
+                     "feedback_score_tier":  "Medium (100-999)",
+                     "unique_sellers":  "15",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "8.260210161412632",
+                     "avg_price":  "17.3719672131151",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "1525"
+                 },
+                 {
+                     "feedback_score_tier":  "Medium (100-999)",
+                     "unique_sellers":  "24",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "6.8302459105189035",
+                     "avg_price":  "16.65633624107874",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "1261"
+                 },
+                 {
+                     "feedback_score_tier":  "High (1000-4999)",
+                     "unique_sellers":  "15",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "4.880294659300184",
+                     "avg_price":  "12.190332963374013",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "901"
+                 },
+                 {
+                     "feedback_score_tier":  "High (1000-4999)",
+                     "unique_sellers":  "5",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "0.8124796880077998",
+                     "avg_price":  "16.5833333333333",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "150"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "1",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "0.1354132813346333",
+                     "avg_price":  "17.990000000000006",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "25"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "1",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "0.1354132813346333",
+                     "avg_price":  "169",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "25"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "1",
+                     "feedback_percentage_tier":  "Poor (\u003c95%)",
+                     "market_share_percent":  "0.1354132813346333",
+                     "avg_price":  "22.68",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "25"
+                 },
+                 {
+                     "feedback_score_tier":  "Very High (5000+)",
+                     "unique_sellers":  "32",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "67.0867309117865",
+                     "avg_price":  "54.26740331491365",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "4525"
+                 },
+                 {
+                     "feedback_score_tier":  "High (1000-4999)",
+                     "unique_sellers":  "16",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "8.895478131949591",
+                     "avg_price":  "79.17041666666513",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "600"
+                 },
+                 {
+                     "feedback_score_tier":  "Medium (100-999)",
+                     "unique_sellers":  "9",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "7.783543365455893",
+                     "avg_price":  "105.42333333333313",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "525"
+                 },
+                 {
+                     "feedback_score_tier":  "High (1000-4999)",
+                     "unique_sellers":  "7",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "5.559673832468495",
+                     "avg_price":  "66.37599999999998",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "375"
+                 },
+                 {
+                     "feedback_score_tier":  "Very High (5000+)",
+                     "unique_sellers":  "10",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "4.447739065974796",
+                     "avg_price":  "13.659166666666579",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "300"
+                 },
+                 {
+                     "feedback_score_tier":  "Medium (100-999)",
+                     "unique_sellers":  "9",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "4.373610081541883",
+                     "avg_price":  "55.51627118644081",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "295"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "2",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "0.7412898443291327",
+                     "avg_price":  "33.22",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "50"
+                 },
+                 {
+                     "feedback_score_tier":  "High (1000-4999)",
+                     "unique_sellers":  "2",
+                     "feedback_percentage_tier":  "Fair (95-97%)",
+                     "market_share_percent":  "0.7412898443291327",
+                     "avg_price":  "19.94",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "50"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "1",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "0.37064492216456635",
+                     "avg_price":  "9.97",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "25"
+                 },
+                 {
+                     "feedback_score_tier":  "High (1000-4999)",
+                     "unique_sellers":  "12",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "30.558096980786825",
+                     "avg_price":  "26.23303892215549",
+                     "weather_bucket":  "Normal",
+                     "listings":  "668"
+                 },
+                 {
+                     "feedback_score_tier":  "Medium (100-999)",
+                     "unique_sellers":  "17",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "24.65690759377859",
+                     "avg_price":  "82.27302411873931",
+                     "weather_bucket":  "Normal",
+                     "listings":  "539"
+                 },
+                 {
+                     "feedback_score_tier":  "Very High (5000+)",
+                     "unique_sellers":  "4",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "11.436413540713632",
+                     "avg_price":  "161.8359999999998",
+                     "weather_bucket":  "Normal",
+                     "listings":  "250"
+                 },
+                 {
+                     "feedback_score_tier":  "High (1000-4999)",
+                     "unique_sellers":  "3",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "10.292772186642269",
+                     "avg_price":  "23.989999999999867",
+                     "weather_bucket":  "Normal",
+                     "listings":  "225"
+                 },
+                 {
+                     "feedback_score_tier":  "Medium (100-999)",
+                     "unique_sellers":  "7",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "9.332113449222323",
+                     "avg_price":  "44.56720588235296",
+                     "weather_bucket":  "Normal",
+                     "listings":  "204"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "4",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "6.861848124428179",
+                     "avg_price":  "71.075",
+                     "weather_bucket":  "Normal",
+                     "listings":  "150"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "2",
+                     "feedback_percentage_tier":  "Fair (95-97%)",
+                     "market_share_percent":  "2.2872827081427265",
+                     "avg_price":  "16.610000000000017",
+                     "weather_bucket":  "Normal",
+                     "listings":  "50"
+                 },
+                 {
+                     "feedback_score_tier":  "Very High (5000+)",
+                     "unique_sellers":  "2",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "2.2872827081427265",
+                     "avg_price":  "63.48999999999985",
+                     "weather_bucket":  "Normal",
+                     "listings":  "50"
+                 },
+                 {
+                     "feedback_score_tier":  "High (1000-4999)",
+                     "unique_sellers":  "1",
+                     "feedback_percentage_tier":  "Fair (95-97%)",
+                     "market_share_percent":  "1.1436413540713632",
+                     "avg_price":  "719.99",
+                     "weather_bucket":  "Normal",
+                     "listings":  "25"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "1",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "1.1436413540713632",
+                     "avg_price":  "29.990000000000006",
+                     "weather_bucket":  "Normal",
+                     "listings":  "25"
+                 },
+                 {
+                     "feedback_score_tier":  "High (1000-4999)",
+                     "unique_sellers":  "15",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "51.40845070422535",
+                     "avg_price":  "17.22821917808232",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "1825"
+                 },
+                 {
+                     "feedback_score_tier":  "Very High (5000+)",
+                     "unique_sellers":  "10",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "16.197183098591548",
+                     "avg_price":  "24.4552173913041",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "575"
+                 },
+                 {
+                     "feedback_score_tier":  "High (1000-4999)",
+                     "unique_sellers":  "9",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "14.788732394366198",
+                     "avg_price":  "25.653333333333062",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "525"
+                 },
+                 {
+                     "feedback_score_tier":  "Medium (100-999)",
+                     "unique_sellers":  "9",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "6.338028169014085",
+                     "avg_price":  "90.39555555555538",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "225"
+                 },
+                 {
+                     "feedback_score_tier":  "Very High (5000+)",
+                     "unique_sellers":  "3",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "6.338028169014085",
+                     "avg_price":  "24.323333333333196",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "225"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "3",
+                     "feedback_percentage_tier":  "Excellent (99%+)",
+                     "market_share_percent":  "2.112676056338028",
+                     "avg_price":  "20.11",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "75"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "1",
+                     "feedback_percentage_tier":  "Poor (\u003c95%)",
+                     "market_share_percent":  "0.704225352112676",
+                     "avg_price":  "60",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "25"
+                 },
+                 {
+                     "feedback_score_tier":  "Medium (100-999)",
+                     "unique_sellers":  "1",
+                     "feedback_percentage_tier":  "Fair (95-97%)",
+                     "market_share_percent":  "0.704225352112676",
+                     "avg_price":  "69",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "25"
+                 },
+                 {
+                     "feedback_score_tier":  "Low (0-99)",
+                     "unique_sellers":  "1",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "0.704225352112676",
+                     "avg_price":  "17.83999999999999",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "25"
+                 },
+                 {
+                     "feedback_score_tier":  "Medium (100-999)",
+                     "unique_sellers":  "1",
+                     "feedback_percentage_tier":  "Good (97-99%)",
+                     "market_share_percent":  "0.704225352112676",
+                     "avg_price":  "1",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "25"
+                 }
+             ],
+    "columns":  [
+                    "feedback_score_tier",
+                    "feedback_percentage_tier",
+                    "weather_bucket",
+                    "listings",
+                    "unique_sellers",
+                    "avg_price",
+                    "market_share_percent"
+                ],
+    "execution_time":  "2025-11-02 17:53:25",
+    "query_name":  "seller_performance_vs_weather",
+    "row_count":  38,
+    "status":  "success"
+}

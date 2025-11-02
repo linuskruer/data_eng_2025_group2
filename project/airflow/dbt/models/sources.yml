@@ -23,8 +23,8 @@ sources:
       
       - name: ebay_raw_data
         description: "Raw eBay listing data from Browse API"
-        database: default
-        schema: bronze
+        database: bronze
+        schema: default
         identifier: ebay_raw_data
         columns:
           - name: item_id

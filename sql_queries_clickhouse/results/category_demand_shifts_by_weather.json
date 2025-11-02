@@ -1,0 +1,428 @@
+﻿{
+    "data":  [
+                 {
+                     "avg_price":  "23.313829787233953",
+                     "max_price":  "47.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "12.99",
+                     "percentage_of_weather_bucket":  "33.57142857142857",
+                     "p.product_type":  "hand warmers",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "235"
+                 },
+                 {
+                     "avg_price":  "11.266222222222185",
+                     "max_price":  "37.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "5.99",
+                     "percentage_of_weather_bucket":  "32.142857142857146",
+                     "p.product_type":  "scarf",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "225"
+                 },
+                 {
+                     "avg_price":  "61.77921052631574",
+                     "max_price":  "207.2",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "6.45",
+                     "percentage_of_weather_bucket":  "43.18181818181818",
+                     "p.product_type":  "sunglasses",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "190"
+                 },
+                 {
+                     "avg_price":  "46.11833333333336",
+                     "max_price":  "550",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "1",
+                     "percentage_of_weather_bucket":  "45.283018867924525",
+                     "p.product_type":  "umbrella",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "120"
+                 },
+                 {
+                     "avg_price":  "15.520000000000008",
+                     "max_price":  "26.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "7.99",
+                     "percentage_of_weather_bucket":  "10",
+                     "p.product_type":  "ear muffs",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "70"
+                 },
+                 {
+                     "avg_price":  "29.457500000000003",
+                     "max_price":  "169.95",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "8.95",
+                     "percentage_of_weather_bucket":  "13.636363636363637",
+                     "p.product_type":  "aloe vera gel",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "60"
+                 },
+                 {
+                     "avg_price":  "19.425833333333337",
+                     "max_price":  "25.85",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "14.99",
+                     "percentage_of_weather_bucket":  "23.25581395348837",
+                     "p.product_type":  "beach towel",
+                     "weather_bucket":  "Normal",
+                     "listings":  "60"
+                 },
+                 {
+                     "avg_price":  "41.96833333333331",
+                     "max_price":  "109.95",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "7.9",
+                     "percentage_of_weather_bucket":  "23.25581395348837",
+                     "p.product_type":  "bird feeder",
+                     "weather_bucket":  "Normal",
+                     "listings":  "60"
+                 },
+                 {
+                     "avg_price":  "93.36699999999993",
+                     "max_price":  "683.57",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "9.17",
+                     "percentage_of_weather_bucket":  "11.363636363636363",
+                     "p.product_type":  "air conditioner",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "50"
+                 },
+                 {
+                     "avg_price":  "46.63699999999998",
+                     "max_price":  "99.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "16.99",
+                     "percentage_of_weather_bucket":  "18.867924528301888",
+                     "p.product_type":  "rain boots",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "50"
+                 },
+                 {
+                     "avg_price":  "37.241250000000015",
+                     "max_price":  "75",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "17.19",
+                     "percentage_of_weather_bucket":  "15.503875968992247",
+                     "p.product_type":  "christmas decorations",
+                     "weather_bucket":  "Normal",
+                     "listings":  "40"
+                 },
+                 {
+                     "avg_price":  "14.3075",
+                     "max_price":  "36.18",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "4.99",
+                     "percentage_of_weather_bucket":  "9.090909090909092",
+                     "p.product_type":  "cooling towel",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "40"
+                 },
+                 {
+                     "avg_price":  "24.780000000000005",
+                     "max_price":  "33.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "12.29",
+                     "percentage_of_weather_bucket":  "9.090909090909092",
+                     "p.product_type":  "sunscreen",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "40"
+                 },
+                 {
+                     "avg_price":  "26.220000000000006",
+                     "max_price":  "57.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "12.95",
+                     "percentage_of_weather_bucket":  "5.714285714285714",
+                     "p.product_type":  "thermal underwear",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "40"
+                 },
+                 {
+                     "avg_price":  "9.930000000000001",
+                     "max_price":  "11.3",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "6.99",
+                     "percentage_of_weather_bucket":  "5",
+                     "p.product_type":  "balaclava",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "35"
+                 },
+                 {
+                     "avg_price":  "69.66727272727275",
+                     "max_price":  "168.54",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "12.46",
+                     "percentage_of_weather_bucket":  "12.790697674418604",
+                     "p.product_type":  "snow shovel",
+                     "weather_bucket":  "Normal",
+                     "listings":  "33"
+                 },
+                 {
+                     "avg_price":  "74.51166666666664",
+                     "max_price":  "110.74",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "22.99",
+                     "percentage_of_weather_bucket":  "6.818181818181818",
+                     "p.product_type":  "beach umbrella",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "30"
+                 },
+                 {
+                     "avg_price":  "15.938333333333338",
+                     "max_price":  "19.48",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "9.99",
+                     "percentage_of_weather_bucket":  "11.320754716981131",
+                     "p.product_type":  "rain cover for backpack",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "30"
+                 },
+                 {
+                     "avg_price":  "136.75499999999997",
+                     "max_price":  "355.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "17.75",
+                     "percentage_of_weather_bucket":  "11.627906976744185",
+                     "p.product_type":  "swimming pool",
+                     "weather_bucket":  "Normal",
+                     "listings":  "30"
+                 },
+                 {
+                     "avg_price":  "17.656666666666673",
+                     "max_price":  "21.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "12.99",
+                     "percentage_of_weather_bucket":  "4.285714285714286",
+                     "p.product_type":  "thermal socks",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "30"
+                 },
+                 {
+                     "avg_price":  "64.99",
+                     "max_price":  "79.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "53.99",
+                     "percentage_of_weather_bucket":  "2.857142857142857",
+                     "p.product_type":  "fleece jacket",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "20"
+                 },
+                 {
+                     "avg_price":  "27.953333333333326",
+                     "max_price":  "37.96",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "21.99",
+                     "percentage_of_weather_bucket":  "5.660377358490566",
+                     "p.product_type":  "gaiters",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "15"
+                 },
+                 {
+                     "avg_price":  "26.476666666666667",
+                     "max_price":  "39.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "17.95",
+                     "percentage_of_weather_bucket":  "2.142857142857143",
+                     "p.product_type":  "heated vest",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "15"
+                 },
+                 {
+                     "avg_price":  "368.99333333333317",
+                     "max_price":  "600",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "6.99",
+                     "percentage_of_weather_bucket":  "5.813953488372093",
+                     "p.product_type":  "lawn mower",
+                     "weather_bucket":  "Normal",
+                     "listings":  "15"
+                 },
+                 {
+                     "avg_price":  "14.993333333333334",
+                     "max_price":  "18.36",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "8.78",
+                     "percentage_of_weather_bucket":  "5.660377358490566",
+                     "p.product_type":  "portable rain poncho",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "15"
+                 },
+                 {
+                     "avg_price":  "28.42333333333333",
+                     "max_price":  "41.28",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "18",
+                     "percentage_of_weather_bucket":  "5.660377358490566",
+                     "p.product_type":  "rain jacket",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "15"
+                 },
+                 {
+                     "avg_price":  "19.435",
+                     "max_price":  "24.51",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "14.36",
+                     "percentage_of_weather_bucket":  "3.875968992248062",
+                     "p.product_type":  "camping gear",
+                     "weather_bucket":  "Normal",
+                     "listings":  "10"
+                 },
+                 {
+                     "avg_price":  "7.995",
+                     "max_price":  "12",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "3.99",
+                     "percentage_of_weather_bucket":  "1.4285714285714286",
+                     "p.product_type":  "lip balm with SPF",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "10"
+                 },
+                 {
+                     "avg_price":  "12.489999999999998",
+                     "max_price":  "18.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "5.99",
+                     "percentage_of_weather_bucket":  "2.272727272727273",
+                     "p.product_type":  "portable fan",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "10"
+                 },
+                 {
+                     "avg_price":  "18.339999999999996",
+                     "max_price":  "20.89",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "15.79",
+                     "percentage_of_weather_bucket":  "2.272727272727273",
+                     "p.product_type":  "solar charger",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "10"
+                 },
+                 {
+                     "avg_price":  "62.495000000000005",
+                     "max_price":  "75",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "49.99",
+                     "percentage_of_weather_bucket":  "3.7735849056603774",
+                     "p.product_type":  "trench coat",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "10"
+                 },
+                 {
+                     "avg_price":  "10.75",
+                     "max_price":  "10.75",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "10.75",
+                     "percentage_of_weather_bucket":  "1.8867924528301887",
+                     "p.product_type":  "anti-fog spray for glasses",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "5"
+                 },
+                 {
+                     "avg_price":  "15.99",
+                     "max_price":  "15.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "15.99",
+                     "percentage_of_weather_bucket":  "1.1363636363636365",
+                     "p.product_type":  "cooling neck gaiter",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "5"
+                 },
+                 {
+                     "avg_price":  "69.99",
+                     "max_price":  "69.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "69.99",
+                     "percentage_of_weather_bucket":  "0.7142857142857143",
+                     "p.product_type":  "insulated boots",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "5"
+                 },
+                 {
+                     "avg_price":  "719.99",
+                     "max_price":  "719.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "719.99",
+                     "percentage_of_weather_bucket":  "1.937984496124031",
+                     "p.product_type":  "outdoor furniture",
+                     "weather_bucket":  "Normal",
+                     "listings":  "5"
+                 },
+                 {
+                     "avg_price":  "20",
+                     "max_price":  "20",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "20",
+                     "percentage_of_weather_bucket":  "1.937984496124031",
+                     "p.product_type":  "picnic basket",
+                     "weather_bucket":  "Normal",
+                     "listings":  "5"
+                 },
+                 {
+                     "avg_price":  "34.74",
+                     "max_price":  "34.74",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "34.74",
+                     "percentage_of_weather_bucket":  "0.7142857142857143",
+                     "p.product_type":  "ski pants",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "5"
+                 },
+                 {
+                     "avg_price":  "10.45",
+                     "max_price":  "10.45",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "10.45",
+                     "percentage_of_weather_bucket":  "1.1363636363636365",
+                     "p.product_type":  "sun hat",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "5"
+                 },
+                 {
+                     "avg_price":  "4.99",
+                     "max_price":  "4.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "4.99",
+                     "percentage_of_weather_bucket":  "1.8867924528301887",
+                     "p.product_type":  "waterproof phone case",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "5"
+                 },
+                 {
+                     "avg_price":  "169",
+                     "max_price":  "169",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "169",
+                     "percentage_of_weather_bucket":  "0.7142857142857143",
+                     "p.product_type":  "winter coat",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "5"
+                 },
+                 {
+                     "avg_price":  "14.99",
+                     "max_price":  "14.99",
+                     "percentage_of_product_type":  "100",
+                     "min_price":  "14.99",
+                     "percentage_of_weather_bucket":  "0.7142857142857143",
+                     "p.product_type":  "wool beanie",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "5"
+                 }
+             ],
+    "columns":  [
+                    "p.product_type",
+                    "weather_bucket",
+                    "listings",
+                    "percentage_of_weather_bucket",
+                    "percentage_of_product_type",
+                    "avg_price",
+                    "min_price",
+                    "max_price"
+                ],
+    "execution_time":  "2025-11-02 17:53:25",
+    "query_name":  "category_demand_shifts_by_weather",
+    "row_count":  41,
+    "status":  "success"
+}

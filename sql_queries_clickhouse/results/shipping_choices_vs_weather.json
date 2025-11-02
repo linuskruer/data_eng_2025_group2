@@ -1,0 +1,58 @@
+﻿{
+    "data":  [
+                 {
+                     "max_shipping_cost":  "10.99",
+                     "total_listings":  "700",
+                     "avg_paid_shipping_cost":  "5.3770000000000024",
+                     "free_shipping_count":  "650",
+                     "min_shipping_cost":  "2.99",
+                     "paid_shipping_count":  "50",
+                     "weather_bucket":  "Extreme Cold",
+                     "free_shipping_rate":  "0.9285714285714286"
+                 },
+                 {
+                     "max_shipping_cost":  "0",
+                     "total_listings":  "440",
+                     "avg_paid_shipping_cost":  "nan",
+                     "free_shipping_count":  "440",
+                     "min_shipping_cost":  "0",
+                     "paid_shipping_count":  "0",
+                     "weather_bucket":  "Extreme Heat",
+                     "free_shipping_rate":  "1"
+                 },
+                 {
+                     "max_shipping_cost":  "4.95",
+                     "total_listings":  "258",
+                     "avg_paid_shipping_cost":  "1.9885714285714293",
+                     "free_shipping_count":  "223",
+                     "min_shipping_cost":  "0",
+                     "paid_shipping_count":  "35",
+                     "weather_bucket":  "Normal",
+                     "free_shipping_rate":  "0.8643410852713178"
+                 },
+                 {
+                     "max_shipping_cost":  "14.99",
+                     "total_listings":  "265",
+                     "avg_paid_shipping_cost":  "9.1125",
+                     "free_shipping_count":  "225",
+                     "min_shipping_cost":  "0",
+                     "paid_shipping_count":  "40",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "free_shipping_rate":  "0.8490566037735849"
+                 }
+             ],
+    "columns":  [
+                    "weather_bucket",
+                    "free_shipping_rate",
+                    "free_shipping_count",
+                    "paid_shipping_count",
+                    "avg_paid_shipping_cost",
+                    "min_shipping_cost",
+                    "max_shipping_cost",
+                    "total_listings"
+                ],
+    "execution_time":  "2025-11-02 17:53:26",
+    "query_name":  "shipping_choices_vs_weather",
+    "row_count":  4,
+    "status":  "success"
+}

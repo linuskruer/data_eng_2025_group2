@@ -1,0 +1,43 @@
+﻿{
+    "data":  [
+                 {
+                     "date":  "2025-11-02",
+                     "listings":  "700",
+                     "weather_bucket":  "Extreme Cold",
+                     "unique_items":  "145",
+                     "avg_price":  "20.352285714285607"
+                 },
+                 {
+                     "date":  "2025-11-02",
+                     "listings":  "440",
+                     "weather_bucket":  "Extreme Heat",
+                     "unique_items":  "88",
+                     "avg_price":  "50.93909090909123"
+                 },
+                 {
+                     "date":  "2025-11-02",
+                     "listings":  "258",
+                     "weather_bucket":  "Normal",
+                     "unique_items":  "53",
+                     "avg_price":  "81.4115116279071"
+                 },
+                 {
+                     "date":  "2025-11-02",
+                     "listings":  "265",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "unique_items":  "53",
+                     "avg_price":  "38.18264150943388"
+                 }
+             ],
+    "columns":  [
+                    "date",
+                    "weather_bucket",
+                    "listings",
+                    "unique_items",
+                    "avg_price"
+                ],
+    "execution_time":  "2025-11-02 17:53:25",
+    "query_name":  "impact_listings_by_weather",
+    "row_count":  4,
+    "status":  "success"
+}

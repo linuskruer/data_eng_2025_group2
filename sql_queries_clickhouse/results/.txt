@@ -1,0 +1,11 @@
+{
+    "status":  "success",
+    "execution_time":  "2025-11-02 17:50:32",
+    "results":  [
+                    "Extreme Cold\t0.9285714285714286\t650\t50\t5.3770000000000024\t2.99\t10.99\t700",
+                    "Extreme Heat\t1\t440\t0\tnan\t0\t0\t440",
+                    "Normal\t0.8643410852713178\t223\t35\t1.9885714285714293\t0\t4.95\t258",
+                    "Precipitation-Heavy\t0.8490566037735849\t225\t40\t9.1125\t0\t14.99\t265"
+                ],
+    "query_name":  "shipping_choices_vs_weather"
+}

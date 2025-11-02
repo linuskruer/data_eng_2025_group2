@@ -54,4 +54,10 @@ with DAG(
         bash_command="cd /opt/airflow/dags/dbt && dbt run --models gold+"
     )
 
-    fetch_weather >> validate_weather >> load_to_clickhouse >> run_dbt_silver >> run_dbt_gold
+    # --- Run dbt tests ---
+    run_dbt_tests = BashOperator(
+        task_id="run_dbt_tests",
+        bash_command="cd /opt/airflow/dags/dbt && dbt test --models gold+"
+    )
+
+    fetch_weather >> validate_weather >> load_to_clickhouse >> run_dbt_silver >> run_dbt_gold >> run_dbt_tests

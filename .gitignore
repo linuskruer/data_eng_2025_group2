@@ -7,3 +7,19 @@ node_modules/
 # Python cache
 __pycache__/
 *.pyc
+
+# ClickHouse data (runtime data, should not be in Git)
+project/airflow/data/
+
+# Docker volumes and runtime data
+pgdata_airflow/
+*.log
+logs/
+
+# Airflow metadata and cache
+project/airflow/dags/__pycache__/
+project/airflow/dags/utils/__pycache__/
+
+# dbt compiled files (generated)
+project/airflow/dbt/target/
+project/airflow/dbt/dbt_packages/

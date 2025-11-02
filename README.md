@@ -45,7 +45,7 @@ This project analyzes how US East Coast weather affects eBay marketplace activit
    - Parameterized queries grouped by weather buckets and dimensions
 
 ### Architecture Diagrams
-- **System Architecture**: `Data_Architecture/Data_Architecture.drawio.(png|pdf)` - *Note: May show legacy architecture; actual implementation uses Airflow + ClickHouse + dbt*
+- **System Architecture**: `Data_Architecture/Data_Architecture.drawio.(png|pdf)` 
 - **Data Model**: `Star_Schema/Data_Eng_2025_group2.drawio.(png|pdf)` - Star schema design
 - **Visual DAGs**: See "📸 Airflow and dbt DAG Visuals" section below for pipeline screenshots
 

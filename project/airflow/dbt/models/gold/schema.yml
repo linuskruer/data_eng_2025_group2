@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: fact_weather
+    description: "Fact table for weather measurements"
+    columns:
+      - name: time
+        tests:
+          - not_null
+      - name: city
+        tests:
+          - not_null
+      - name: weather_code
+        tests:
+          - unique
+  - name: dim_city
+    description: "City dimension table"
+    columns:
+      - name: city
+        tests:
+          - not_null
+          - unique
+  - name: dim_date
+    description: "Date dimension table"
+    columns:
+      - name: date
+        tests:
+          - not_null
+          - unique
+  - name: dim_weather_code
+    description: "Weather code dimension table"
+    columns:
+      - name: weather_code
+        tests:
+          - not_null
+          - unique

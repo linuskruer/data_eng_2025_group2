@@ -84,7 +84,7 @@ def fetch_weather_all_cities(execution_date=None, file_version="v1", **kwargs):
         combined_df = pd.concat(all_weather_data, ignore_index=True)
 
         # --- Save with version + date ---
-        output_file = os.path.join(data_dir, f"east_coast_weather_{file_version}_{start_date}.csv")
+        output_file = os.path.join(data_dir, f"east_coast_weather_{file_version}_{end_date}.csv")
         combined_df.to_csv(output_file, index=False)
         print(f"✅ Saved weather data → {output_file}")
         print(f"Combined weather data saved to {output_file}")

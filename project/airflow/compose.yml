@@ -44,6 +44,7 @@ services:
       - -c
       - |
         pip install -r /requirements.txt
+        pip install apache-airflow-providers-clickhouse clickhouse-connect
         airflow db init
         airflow users create \
           --username admin \
@@ -56,6 +57,8 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db:5432/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW_CONN_CLICKHOUSE_DEFAULT: clickhouse://default:@clickhouse-server:9000/default
+
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
@@ -69,12 +72,15 @@ services:
   airflow-webserver:
     image: apache/airflow:2.8.1
     container_name: airflow-webserver
-    command: webserver
+    command: >
+      bash -c "pip install -r /requirements.txt && airflow webserver"
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db:5432/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
+      AIRFLOW_CONN_CLICKHOUSE_DEFAULT: clickhouse://default:@clickhouse-server:9000/default
+
     ports:
       - "8080:8080"
     volumes:
@@ -82,6 +88,8 @@ services:
       - ./logs:/opt/airflow/logs
       - ./data:/opt/airflow/dags/data
       - ./requirements.txt:/requirements.txt
+      - ./dbt/profiles.yml:/opt/airflow/.dbt/profiles.yml
+      - ./dbt:/opt/airflow/dags/dbt 
     depends_on:
       airflow-db:
         condition: service_healthy
@@ -93,14 +101,19 @@ services:
   airflow-scheduler:
     image: apache/airflow:2.8.1
     container_name: airflow-scheduler
-    command: scheduler
+    command: >
+      bash -c "pip install -r /requirements.txt && airflow scheduler"
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db:5432/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW_CONN_CLICKHOUSE_DEFAULT: clickhouse://default:@clickhouse-server:9000/default
+
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
+      - ./dbt/profiles.yml:/opt/airflow/.dbt/profiles.yml
+      - ./dbt:/opt/airflow/dags/dbt 
       - ./requirements.txt:/requirements.txt
     depends_on:
       airflow-db:
@@ -109,5 +122,19 @@ services:
         condition: service_completed_successfully
     restart: always
 
+  clickhouse-server:
+    image: clickhouse/clickhouse-server:24.3
+    container_name: clickhouse-server
+    environment:
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: mypassword
+    ports:
+    - "8123:8123"
+    - "9000:9000"
+    volumes:
+      - ./data:/var/lib/clickhouse
+    restart: always
+
 volumes:
   pgdata_airflow:
+

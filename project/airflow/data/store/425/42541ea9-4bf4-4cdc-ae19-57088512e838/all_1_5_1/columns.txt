@@ -1,0 +1,14 @@
+columns format version: 1
+12 columns:
+`time` DateTime
+`weather_code` UInt16
+`temperature_2m` Float32
+`relative_humidity_2m` Float32
+`cloudcover` Float32
+`rain` Float32
+`sunshine_duration` Float32
+`windspeed_10m` Float32
+`city` String
+`postal_prefix` String
+`file_version` String
+`ingestion_timestamp` DateTime

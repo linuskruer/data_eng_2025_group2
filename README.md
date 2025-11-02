@@ -13,16 +13,41 @@ This project analyzes how US East Coast weather affects eBay marketplace activit
 7. (Bonus) Which US East Coast zip code prefixes show the largest price/availability variation with changing weather?
 
 ## Architecture
-- Data collection:
-  - Weather: hourly/daily weather for selected East Coast locations.
-  - eBay: listing snapshots via eBay Browse API.
-- Storage: raw CSV/JSON in the repo's data folders.
-- Transform/Model: star schema in SQL warehouse.
-- Analytics: parameterized SQL grouped by weather buckets and dimensions.
 
-Artifacts:
-- Diagram: `Data_Architecture/Data_Architecture.drawio.(png|pdf)`
-- Star schema: `Star_Schema/Data_Eng_2025_group2.drawio.(png|pdf)`
+### Tech Stack
+- **Orchestration**: Apache Airflow 2.8+ (DAGs for data pipeline automation)
+- **Data Warehouse**: ClickHouse 23+ (columnar database for analytical workloads)
+- **Transformations**: dbt 1.6+ (SQL-based transformations following medallion architecture)
+- **Containerization**: Docker & Docker Compose (service orchestration)
+- **Metadata Store**: PostgreSQL 13+ (Airflow metadata database)
+
+### Data Flow (Medallion Architecture)
+
+**Data Sources:**
+- Weather: Open-Meteo API (hourly/daily weather for East Coast locations)
+- eBay: eBay Browse API (listing snapshots)
+
+**Pipeline Stages:**
+1. **Bronze Layer (Raw Data)**: 
+   - ClickHouse tables: `bronze_weather`, `bronze.ebay_raw_data`
+   - Ingested via Airflow PythonOperators
+   
+2. **Silver Layer (Cleaned Data)**:
+   - dbt models: `silver_weather`, `silver_ebay_listings`
+   - Data quality checks, cleaning, standardization
+   
+3. **Gold Layer (Analytical Models)**:
+   - Star schema: Fact tables (`fact_weather`, `fact_listings`) + Dimension tables (11 dim_* tables)
+   - dbt transformations creating denormalized analytical-ready data
+
+4. **Analytics**:
+   - ClickHouse SQL queries against gold layer
+   - Parameterized queries grouped by weather buckets and dimensions
+
+### Architecture Diagrams
+- **System Architecture**: `Data_Architecture/Data_Architecture.drawio.(png|pdf)` - *Note: May show legacy architecture; actual implementation uses Airflow + ClickHouse + dbt*
+- **Data Model**: `Star_Schema/Data_Eng_2025_group2.drawio.(png|pdf)` - Star schema design
+- **Visual DAGs**: See "📸 Airflow and dbt DAG Visuals" section below for pipeline screenshots
 
 ---
 
@@ -40,7 +65,11 @@ Artifacts:
   - `project/airflow/dags/utils/weather_api.py` - Weather API integration
   - `project/airflow/dags/utils/ebay_ingestion.py` - eBay API integration
   - `project/airflow/dags/utils/clickhouse_loader.py` - ClickHouse data loader
-- **Screenshots**: See "Airflow and dbt DAG Visuals" section below
+- **Screenshots**: Available in `screenshots/` directory and displayed in "📸 Airflow and dbt DAG Visuals" section below
+  - `screenshots/weather-data-ingestion.png` - Weather Data Ingestion DAG
+  - `screenshots/ebay-ingestion.png` - eBay Ingestion DAG
+  - `screenshots/unified-data-pipeline.png` - Unified Data Pipeline DAG
+  - `screenshots/lineage-graph.png` - dbt Lineage Graph (medallion architecture visualization)
 - **Key Features**:
   - ✅ Two distinct data sources (Weather API, eBay API)
   - ✅ Automated ingestion with parameterization (date, file_version, items_per_product)
@@ -161,39 +190,54 @@ Artifacts:
 For detailed file locations, see "Quick Reference: Finding Key Components" section above.
 
 ## Data Dictionary
-### Weather Data (daily snapshot)
-| Column | Description | Type |
-|---|---|---|
-| `location` | City/region of weather record | string |
-| `date` | Date of observation | date |
-| `weather_code` | Weather condition code | integer |
-| `temperature_2m` | Temperature at 2m (°C) | float |
-| `relative_humidity_2m` | Relative humidity at 2m (%) | integer |
-| `cloudcover` | Cloudcover (%) | float |
-| `rain` | Rain amount (mm) | float |
-| `sunshine_duration` | Duration of sunlight (seconds) | integer |
-| `wind_speed_10m` | Average wind speed at 10m (m/s) | float |
 
-### eBay Data (listing snapshot)
-| Column | Description | Type |
-|---|---|---|
-| `collection_timestamp` | Timestamp when data was collected | datetime |
-| `timezone` | Timezone of the item listing | string |
-| `weather_category` | Weather at item location (optional) | string |
-| `product_type` | Type of product | string |
-| `price` | Item price | float |
-| `currency` | Currency of price | string |
-| `seller_feedback_percentage` | Seller feedback percentage | float |
-| `seller_feedback_score` | Seller feedback score | integer |
-| `item_location` | Location of the item | string |
-| `seller_location` | Seller’s registered location | string |
-| `shipping_cost` | Cost of shipping | float |
-| `free_shipping` | Indicates if shipping is free | boolean |
-| `condition` | Condition of the item (new/used) | string |
-| `buying_options` | Available options (auction/buy it now) | string |
-| `title_length` | Length of the item title | integer |
-| `item_id` | Unique item identifier | string |
-| `marketplace_id` | Marketplace identifier (e.g., eBay US) | string |
+Complete data dictionaries are available in JSON format:
+- **Weather Data**: `data_dictionaries/weather_data_dict.json`
+- **eBay Data**: `data_dictionaries/ebay_data_dict.json`
+
+### Weather Data (Bronze Layer)
+
+Raw weather data ingested from Open-Meteo API into `bronze_weather` table:
+
+| Column | Description | Type | Nullable |
+|---|---|---|---|
+| `time` | Timestamp of weather observation | DateTime | No |
+| `city` | City/region name | String | No |
+| `weather_code` | Weather condition code (WMO) | Integer | No |
+| `temperature_2m` | Temperature at 2m height (°C) | Float | Yes |
+| `rain` | Rainfall amount (mm) | Float | Yes |
+| `relative_humidity_2m` | Relative humidity at 2m (%) | Integer | Yes |
+| `cloudcover` | Cloud cover percentage | Float | Yes |
+| `sunshine_duration` | Duration of direct sunlight (seconds) | Integer | Yes |
+| `wind_speed_10m` | Average wind speed at 10m (m/s) | Float | Yes |
+
+**Note**: The JSON dictionary (`weather_data_dict.json`) contains additional fields from the API (e.g., `temperature_mean`, `temperature_max`, `temperature_min`, `rain_sum`, `snow_sum`, `daylight_duration`, `sunlight_duration`, `wind_speed`, `uv_index`) which may be available in future API versions.
+
+### eBay Data (Bronze Layer)
+
+Raw eBay listing data ingested from eBay Browse API into `bronze.ebay_raw_data` table:
+
+| Column | Description | Type | Nullable |
+|---|---|---|---|
+| `item_id` | Unique eBay item identifier | String | No |
+| `collection_timestamp` | Timestamp when data was collected | DateTime | No |
+| `timezone` | Timezone of data collection | String | No |
+| `product_type` | Category/type of listed product | String | No |
+| `price` | Item price | Float | No |
+| `currency` | Currency code (e.g., USD, GBP) | String | No |
+| `seller_feedback_score` | Absolute feedback score of seller | Integer | Yes |
+| `seller_feedback_percentage` | Seller's positive feedback percentage | Float | Yes |
+| `item_location` | Location of the listed item | String | Yes |
+| `seller_location` | Location of the seller | String | Yes |
+| `shipping_cost` | Shipping cost in given currency | Float | Yes |
+| `free_shipping` | Indicator whether shipping is free (0/1) | Boolean | No |
+| `condition` | Condition of item (e.g., New, Used) | String | No |
+| `buying_options` | Available purchase options (e.g., Buy It Now, Auction) | String | No |
+| `title_length` | Length of the product title in characters | Integer | Yes |
+| `marketplace_id` | Identifier for the marketplace (e.g., ebay_us) | String | No |
+| `weather_category` | Weather condition category (optional) | String | Yes |
+
+**Full Schema**: See `data_dictionaries/ebay_data_dict.json` for complete field descriptions and examples.
 
 ## Star Schema (Analytical Model)
 Grain: one row per collected listing event.
@@ -247,6 +291,7 @@ After starting Airflow, set these in the Airflow UI (`Admin > Variables`):
 - `EBAY_CLIENT_ID` = `your_ebay_client_id`
 - `EBAY_CLIENT_SECRET` = `your_ebay_client_secret`
 - `enable_ebay_silver` = `true` (to enable eBay dbt transformations)
+- `EBAY_ITEMS_PER_PRODUCT` = `200` (optional, default: 200 - number of items to fetch per product type)
 
 ### Step 3: Start Docker Containers
 
@@ -305,6 +350,54 @@ Access services:
 
 ---
 
+## ⚙️ Data Ingestion Parameterization
+
+The pipelines support parameterization for flexible data ingestion:
+
+### Weather Data Ingestion Parameters
+
+**Available Parameters:**
+- `execution_date`: Automatically set via Airflow macro `{{ ds }}` (execution date in YYYY-MM-DD format)
+- `file_version`: Currently hardcoded to `"v1"` in DAG (can be customized in `weather_ingestion_dag.py`)
+
+**Usage:**
+- Date parameter: Automatically uses the DAG execution date to fetch weather for the previous day
+- File version: Used for file naming and data lineage tracking
+- Example: For execution date `2025-11-02`, fetches weather for `2025-11-01` and saves as `east_coast_weather_v1_2025-11-02.csv`
+
+### eBay Data Ingestion Parameters
+
+**Available Parameters:**
+- `items_per_product`: Number of items to fetch per product type (configurable via Airflow Variable)
+
+**Configuration:**
+1. **Via Airflow Variables** (recommended):
+   - Variable: `EBAY_ITEMS_PER_PRODUCT`
+   - Default: `200` (if not set)
+   - Range: Typically 1-500 items per product type
+   
+2. **Effect:**
+   - Controls how many eBay listings are collected for each product type
+   - Higher values = more data but longer execution time
+   - Lower values = faster execution but less data coverage
+
+**Example Configuration:**
+```
+# In Airflow UI: Admin > Variables
+EBAY_ITEMS_PER_PRODUCT = 200  # Standard collection
+EBAY_ITEMS_PER_PRODUCT = 100  # Quick test run
+EBAY_ITEMS_PER_PRODUCT = 500  # Comprehensive collection
+```
+
+### Parameter Benefits
+
+✅ **Flexibility**: Adjust data collection volume without code changes  
+✅ **Idempotency**: Date-based parameters ensure consistent file naming and prevent duplicates  
+✅ **Scalability**: Easy to adjust `items_per_product` based on API quotas and processing needs  
+✅ **Traceability**: File versioning helps track different data collection runs
+
+---
+
 ## 📦 Dependencies
 
 ### Docker Services
@@ -329,6 +422,14 @@ dbt-clickhouse
 ---
 
 ## 📸 Airflow and dbt DAG Visuals
+
+This section contains screenshots and visuals of all Airflow DAGs and dbt model dependencies.
+
+**Available Screenshots:**
+- ✅ Weather Data Ingestion DAG (`screenshots/weather-data-ingestion.png`)
+- ✅ eBay Ingestion DAG (`screenshots/ebay-ingestion.png`)
+- ✅ Unified Data Pipeline DAG (`screenshots/unified-data-pipeline.png`)
+- ✅ dbt Lineage Graph (`screenshots/lineage-graph.png`)
 
 ### Airflow DAG Views
 
@@ -445,17 +546,14 @@ This screenshot displays the Apache Airflow UI showing the **Graph View** for th
 
 ### dbt DAG Views
 
-**Viewing dbt Lineage Graph**:
+**dbt Lineage Graph Screenshot**:
 
-1. **Via dbt CLI** (inside container):
-```bash
-docker exec -it airflow-scheduler bash
-cd /opt/airflow/dags/dbt
-dbt docs generate
-dbt docs serve --port 8081
-```
+![dbt Lineage Graph](screenshots/lineage-graph.png)
 
-2. **Access**: http://localhost:8081 (if port forwarded)
+This graph visualizes the complete data flow through the medallion architecture:
+- **Bronze Layer** (sources): `bronze.bronze_weather` and `bronze.ebay_raw_data`
+- **Silver Layer**: `silver_weather` and `silver_ebay_listings` (data cleaning and transformation)
+- **Gold Layer**: Dimension and fact tables for analytical queries
 
 **dbt Model Dependencies**:
 ```

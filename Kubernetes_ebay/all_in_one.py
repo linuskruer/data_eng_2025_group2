@@ -96,7 +96,7 @@ class EbayIngestor:
     def _get_east_coast_time(self):
         utc_now = datetime.now(timezone.utc)
         east_coast_tz = timezone(timedelta(hours=-4))  # simple offset, OK for correlation
-        return utc_now.astimezone(east_coast_tz)
+        return utc_now.astimezone(east_coast_tz).replace(tzinfo=None)
 
     def _is_allowed_city_zip(self, postal_code):
         if not postal_code:

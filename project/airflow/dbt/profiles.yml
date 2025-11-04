@@ -1,0 +1,11 @@
+weather_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      threads: 1
+      host: clickhouse-server
+      port: 8123
+      user: default
+      password: mypassword
+      database: default

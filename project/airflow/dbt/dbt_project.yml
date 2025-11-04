@@ -1,0 +1,24 @@
+name: weather_dbt
+version: 1.0
+config-version: 2
+
+profile: weather_dbt    # must match the name in profiles.yml
+
+# Where your models live
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+data-paths: ["data"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"        # compiled SQL
+clean-targets: ["target", "dbt_modules"]
+
+models:
+  weather_dbt:
+    +materialized: view       # default for models
+    silver:
+      +materialized: table    # Silver: full table materialization
+    gold:
+      +materialized: table    # Gold: fact/dimension tables

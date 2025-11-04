@@ -1,0 +1,107 @@
+﻿{
+    "data":  [
+                 {
+                     "min_title_length":  "62",
+                     "weather_bucket":  "Extreme Cold",
+                     "title_length_stddev":  "6.399070001634058",
+                     "quality_score":  "6.34",
+                     "option_complexity":  "Complex",
+                     "unique_items":  "17",
+                     "listings":  "85",
+                     "avg_title_length":  "74.58823529411765",
+                     "max_title_length":  "80"
+                 },
+                 {
+                     "min_title_length":  "26",
+                     "weather_bucket":  "Extreme Cold",
+                     "title_length_stddev":  "7.021446236422743",
+                     "quality_score":  "46.79",
+                     "option_complexity":  "Simple",
+                     "unique_items":  "128",
+                     "listings":  "615",
+                     "avg_title_length":  "76.08130081300813",
+                     "max_title_length":  "80"
+                 },
+                 {
+                     "min_title_length":  "28",
+                     "weather_bucket":  "Extreme Heat",
+                     "title_length_stddev":  "12.045454350979952",
+                     "quality_score":  "7.625",
+                     "option_complexity":  "Complex",
+                     "unique_items":  "21",
+                     "listings":  "105",
+                     "avg_title_length":  "72.61904761904762",
+                     "max_title_length":  "80"
+                 },
+                 {
+                     "min_title_length":  "45",
+                     "weather_bucket":  "Extreme Heat",
+                     "title_length_stddev":  "10.023096517563886",
+                     "quality_score":  "23.79",
+                     "option_complexity":  "Simple",
+                     "unique_items":  "67",
+                     "listings":  "335",
+                     "avg_title_length":  "71.01492537313433",
+                     "max_title_length":  "80"
+                 },
+                 {
+                     "min_title_length":  "20",
+                     "weather_bucket":  "Normal",
+                     "title_length_stddev":  "20.328955604904042",
+                     "quality_score":  "5.38",
+                     "option_complexity":  "Complex",
+                     "unique_items":  "17",
+                     "listings":  "85",
+                     "avg_title_length":  "63.294117647058826",
+                     "max_title_length":  "80"
+                 },
+                 {
+                     "min_title_length":  "28",
+                     "weather_bucket":  "Normal",
+                     "title_length_stddev":  "12.949798591913249",
+                     "quality_score":  "12.118000000000002",
+                     "option_complexity":  "Simple",
+                     "unique_items":  "36",
+                     "listings":  "173",
+                     "avg_title_length":  "70.04624277456648",
+                     "max_title_length":  "80"
+                 },
+                 {
+                     "min_title_length":  "54",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "title_length_stddev":  "9.086044960143653",
+                     "quality_score":  "4.715",
+                     "option_complexity":  "Complex",
+                     "unique_items":  "13",
+                     "listings":  "65",
+                     "avg_title_length":  "72.53846153846153",
+                     "max_title_length":  "80"
+                 },
+                 {
+                     "min_title_length":  "28",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "title_length_stddev":  "15.473444994570537",
+                     "quality_score":  "13.430000000000001",
+                     "option_complexity":  "Simple",
+                     "unique_items":  "40",
+                     "listings":  "200",
+                     "avg_title_length":  "67.15",
+                     "max_title_length":  "80"
+                 }
+             ],
+    "columns":  [
+                    "weather_bucket",
+                    "option_complexity",
+                    "avg_title_length",
+                    "min_title_length",
+                    "max_title_length",
+                    "title_length_stddev",
+                    "listings",
+                    "unique_items",
+                    "quality_score"
+                ],
+    "execution_time":  "2025-11-02 17:53:24",
+    "query_name":  "bonus_listing_quality_vs_weather",
+    "row_count":  8,
+    "status":  "success"
+}

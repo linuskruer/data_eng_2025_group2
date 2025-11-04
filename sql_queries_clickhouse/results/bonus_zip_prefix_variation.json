@@ -1,0 +1,448 @@
+﻿{
+    "data":  [
+                 {
+                     "price_stddev":  "190.0000000000001",
+                     "market_share_percent":  "3.875968992248062",
+                     "price_variation_coefficient":  "0.6129229975160495",
+                     "cross_weather_price_variability":  "130.56992520772152",
+                     "avg_price":  "309.9899999999999",
+                     "zip_prefix":  "021",
+                     "weather_bucket":  "Normal",
+                     "listings":  "10"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "1.8867924528301887",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "130.56992520772152",
+                     "avg_price":  "1",
+                     "zip_prefix":  "021",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "0.7142857142857143",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "130.56992520772152",
+                     "avg_price":  "12.95",
+                     "zip_prefix":  "021",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "1.1363636363636365",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "130.56992520772152",
+                     "avg_price":  "11.99",
+                     "zip_prefix":  "021",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "4.889012082621895",
+                     "market_share_percent":  "22.714285714285715",
+                     "price_variation_coefficient":  "0.30217683163015235",
+                     "cross_weather_price_variability":  "68.54201974113545",
+                     "avg_price":  "16.17930817610059",
+                     "zip_prefix":  "100",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "159"
+                 },
+                 {
+                     "price_stddev":  "170.5622141945205",
+                     "market_share_percent":  "15.09433962264151",
+                     "price_variation_coefficient":  "1.6435177162426842",
+                     "cross_weather_price_variability":  "68.54201974113545",
+                     "avg_price":  "103.77875000000002",
+                     "zip_prefix":  "100",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "40"
+                 },
+                 {
+                     "price_stddev":  "25.20194334644651",
+                     "market_share_percent":  "9.090909090909092",
+                     "price_variation_coefficient":  "0.9206609743439061",
+                     "cross_weather_price_variability":  "68.54201974113545",
+                     "avg_price":  "27.37375000000001",
+                     "zip_prefix":  "100",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "40"
+                 },
+                 {
+                     "price_stddev":  "266.84327644518237",
+                     "market_share_percent":  "9.689922480620154",
+                     "price_variation_coefficient":  "1.4274732068279843",
+                     "cross_weather_price_variability":  "68.54201974113545",
+                     "avg_price":  "186.93399999999997",
+                     "zip_prefix":  "100",
+                     "weather_bucket":  "Normal",
+                     "listings":  "25"
+                 },
+                 {
+                     "price_stddev":  "117.71564129101786",
+                     "market_share_percent":  "34.09090909090909",
+                     "price_variation_coefficient":  "1.7165302789200267",
+                     "cross_weather_price_variability":  "25.743800819735405",
+                     "avg_price":  "68.57766666666662",
+                     "zip_prefix":  "331",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "150"
+                 },
+                 {
+                     "price_stddev":  "156.6640844160875",
+                     "market_share_percent":  "24.41860465116279",
+                     "price_variation_coefficient":  "1.8500787877029627",
+                     "cross_weather_price_variability":  "25.743800819735405",
+                     "avg_price":  "84.67968253968247",
+                     "zip_prefix":  "331",
+                     "weather_bucket":  "Normal",
+                     "listings":  "63"
+                 },
+                 {
+                     "price_stddev":  "12.475793534102525",
+                     "market_share_percent":  "22.641509433962263",
+                     "price_variation_coefficient":  "0.48668613637147756",
+                     "cross_weather_price_variability":  "25.743800819735405",
+                     "avg_price":  "25.634166666666683",
+                     "zip_prefix":  "331",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "60"
+                 },
+                 {
+                     "price_stddev":  "12.424844817944399",
+                     "market_share_percent":  "2.857142857142857",
+                     "price_variation_coefficient":  "0.45641821353455403",
+                     "cross_weather_price_variability":  "25.743800819735405",
+                     "avg_price":  "27.222500000000004",
+                     "zip_prefix":  "331",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "20"
+                 },
+                 {
+                     "price_stddev":  "39.069753211403786",
+                     "market_share_percent":  "19.37984496124031",
+                     "price_variation_coefficient":  "1.1630671949096147",
+                     "cross_weather_price_variability":  "24.92957655537833",
+                     "avg_price":  "33.592000000000006",
+                     "zip_prefix":  "333",
+                     "weather_bucket":  "Normal",
+                     "listings":  "50"
+                 },
+                 {
+                     "price_stddev":  "9.659339311645514",
+                     "market_share_percent":  "9.090909090909092",
+                     "price_variation_coefficient":  "0.6264670814200576",
+                     "cross_weather_price_variability":  "24.92957655537833",
+                     "avg_price":  "15.418750000000003",
+                     "zip_prefix":  "333",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "40"
+                 },
+                 {
+                     "price_stddev":  "2.973680547738768",
+                     "market_share_percent":  "3.5714285714285716",
+                     "price_variation_coefficient":  "0.23672031107616365",
+                     "cross_weather_price_variability":  "24.92957655537833",
+                     "avg_price":  "12.562000000000001",
+                     "zip_prefix":  "333",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "25"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "1.8867924528301887",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "24.92957655537833",
+                     "avg_price":  "75",
+                     "zip_prefix":  "333",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "64.71968625664192",
+                     "market_share_percent":  "31.818181818181817",
+                     "price_variation_coefficient":  "0.9793347430465874",
+                     "cross_weather_price_variability":  "18.73271866785902",
+                     "avg_price":  "66.0853571428571",
+                     "zip_prefix":  "112",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "140"
+                 },
+                 {
+                     "price_stddev":  "33.92349771117367",
+                     "market_share_percent":  "17.857142857142858",
+                     "price_variation_coefficient":  "0.9755195633382148",
+                     "cross_weather_price_variability":  "18.73271866785902",
+                     "avg_price":  "34.774799999999914",
+                     "zip_prefix":  "112",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "125"
+                 },
+                 {
+                     "price_stddev":  "86.75650422238613",
+                     "market_share_percent":  "29.069767441860463",
+                     "price_variation_coefficient":  "1.248450706885073",
+                     "cross_weather_price_variability":  "18.73271866785902",
+                     "avg_price":  "69.49133333333324",
+                     "zip_prefix":  "112",
+                     "weather_bucket":  "Normal",
+                     "listings":  "75"
+                 },
+                 {
+                     "price_stddev":  "25.20402033406575",
+                     "market_share_percent":  "18.867924528301888",
+                     "price_variation_coefficient":  "0.9381032617733929",
+                     "cross_weather_price_variability":  "18.73271866785902",
+                     "avg_price":  "26.867000000000004",
+                     "zip_prefix":  "112",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "50"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "1.8867924528301887",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "15.690000000000005",
+                     "avg_price":  "43.67",
+                     "zip_prefix":  "104",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "1.1363636363636365",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "15.690000000000005",
+                     "avg_price":  "12.29",
+                     "zip_prefix":  "104",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "13.163966811801918",
+                     "market_share_percent":  "5.660377358490566",
+                     "price_variation_coefficient":  "0.3743662947711229",
+                     "cross_weather_price_variability":  "14.08666666666667",
+                     "avg_price":  "35.163333333333334",
+                     "zip_prefix":  "322",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "15"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "1.937984496124031",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "14.08666666666667",
+                     "avg_price":  "6.99",
+                     "zip_prefix":  "322",
+                     "weather_bucket":  "Normal",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "10.250039219437163",
+                     "market_share_percent":  "3.5714285714285716",
+                     "price_variation_coefficient":  "0.5621388186594911",
+                     "cross_weather_price_variability":  "10.482957979501785",
+                     "avg_price":  "18.234",
+                     "zip_prefix":  "320",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "25"
+                 },
+                 {
+                     "price_stddev":  "3.693564745147149e-7",
+                     "market_share_percent":  "2.272727272727273",
+                     "price_variation_coefficient":  "1.8514108998231327e-8",
+                     "cross_weather_price_variability":  "10.482957979501785",
+                     "avg_price":  "19.949999999999996",
+                     "zip_prefix":  "320",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "10"
+                 },
+                 {
+                     "price_stddev":  "6.03156597169567e-7",
+                     "market_share_percent":  "1.8867924528301887",
+                     "price_variation_coefficient":  "1.4611351675619355e-8",
+                     "cross_weather_price_variability":  "10.482957979501785",
+                     "avg_price":  "41.28",
+                     "zip_prefix":  "320",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "10.904931387745227",
+                     "market_share_percent":  "10",
+                     "price_variation_coefficient":  "0.3083973808751483",
+                     "cross_weather_price_variability":  "6.941666666666694",
+                     "avg_price":  "35.35999999999995",
+                     "zip_prefix":  "103",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "70"
+                 },
+                 {
+                     "price_stddev":  "24.329303775945203",
+                     "market_share_percent":  "5.813953488372093",
+                     "price_variation_coefficient":  "0.49406289398115216",
+                     "cross_weather_price_variability":  "6.941666666666694",
+                     "avg_price":  "49.24333333333333",
+                     "zip_prefix":  "103",
+                     "weather_bucket":  "Normal",
+                     "listings":  "15"
+                 },
+                 {
+                     "price_stddev":  "19.41009337947658",
+                     "market_share_percent":  "7.547169811320755",
+                     "price_variation_coefficient":  "0.7026278146416864",
+                     "cross_weather_price_variability":  "6.645487660811656",
+                     "avg_price":  "27.62499999999999",
+                     "zip_prefix":  "114",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "20"
+                 },
+                 {
+                     "price_stddev":  "3.630503485131987",
+                     "market_share_percent":  "2.142857142857143",
+                     "price_variation_coefficient":  "0.2812890096951436",
+                     "cross_weather_price_variability":  "6.645487660811656",
+                     "avg_price":  "12.906666666666668",
+                     "zip_prefix":  "114",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "15"
+                 },
+                 {
+                     "price_stddev":  "1.3649999999999958",
+                     "market_share_percent":  "2.272727272727273",
+                     "price_variation_coefficient":  "0.11782477341389691",
+                     "cross_weather_price_variability":  "6.645487660811656",
+                     "avg_price":  "11.585",
+                     "zip_prefix":  "114",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "10"
+                 },
+                 {
+                     "price_stddev":  "1.5078914929239175e-7",
+                     "market_share_percent":  "1.937984496124031",
+                     "price_variation_coefficient":  "1.2101857888634971e-8",
+                     "cross_weather_price_variability":  "6.645487660811656",
+                     "avg_price":  "12.46",
+                     "zip_prefix":  "114",
+                     "weather_bucket":  "Normal",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "1.624835034361584",
+                     "market_share_percent":  "5.660377358490566",
+                     "price_variation_coefficient":  "0.04290182276962464",
+                     "cross_weather_price_variability":  "6.011666666666659",
+                     "avg_price":  "37.873333333333335",
+                     "zip_prefix":  "111",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "15"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "1.937984496124031",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "6.011666666666659",
+                     "avg_price":  "25.85",
+                     "zip_prefix":  "111",
+                     "weather_bucket":  "Normal",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "5.4443462284848065",
+                     "market_share_percent":  "34.42857142857143",
+                     "price_variation_coefficient":  "0.4686880256992683",
+                     "cross_weather_price_variability":  "2.9979750626243336",
+                     "avg_price":  "11.616141078838119",
+                     "zip_prefix":  "113",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "241"
+                 },
+                 {
+                     "price_stddev":  "4.438630363769066",
+                     "market_share_percent":  "16.9811320754717",
+                     "price_variation_coefficient":  "0.3155175205269851",
+                     "cross_weather_price_variability":  "2.9979750626243336",
+                     "avg_price":  "14.067777777777781",
+                     "zip_prefix":  "113",
+                     "weather_bucket":  "Precipitation-Heavy",
+                     "listings":  "45"
+                 },
+                 {
+                     "price_stddev":  "9.302509368743227",
+                     "market_share_percent":  "6.818181818181818",
+                     "price_variation_coefficient":  "0.5847570058927118",
+                     "cross_weather_price_variability":  "2.9979750626243336",
+                     "avg_price":  "15.908333333333337",
+                     "zip_prefix":  "113",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "30"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "1.937984496124031",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "2.9979750626243336",
+                     "avg_price":  "7.9",
+                     "zip_prefix":  "113",
+                     "weather_bucket":  "Normal",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "2.611744678045111e-7",
+                     "market_share_percent":  "1.4285714285714286",
+                     "price_variation_coefficient":  "2.0105809684719872e-8",
+                     "cross_weather_price_variability":  "1.400000000000013",
+                     "avg_price":  "12.989999999999998",
+                     "zip_prefix":  "101",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "10"
+                 },
+                 {
+                     "price_stddev":  "3.015782985847835e-7",
+                     "market_share_percent":  "1.1363636363636365",
+                     "price_variation_coefficient":  "1.909932226629408e-8",
+                     "cross_weather_price_variability":  "1.400000000000013",
+                     "avg_price":  "15.789999999999997",
+                     "zip_prefix":  "101",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "1.1363636363636365",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "0",
+                     "avg_price":  "33.99",
+                     "zip_prefix":  "022",
+                     "weather_bucket":  "Extreme Heat",
+                     "listings":  "5"
+                 },
+                 {
+                     "price_stddev":  "0",
+                     "market_share_percent":  "0.7142857142857143",
+                     "price_variation_coefficient":  "0",
+                     "cross_weather_price_variability":  "0",
+                     "avg_price":  "69.99",
+                     "zip_prefix":  "023",
+                     "weather_bucket":  "Extreme Cold",
+                     "listings":  "5"
+                 }
+             ],
+    "columns":  [
+                    "zip_prefix",
+                    "weather_bucket",
+                    "avg_price",
+                    "listings",
+                    "price_stddev",
+                    "price_variation_coefficient",
+                    "cross_weather_price_variability",
+                    "market_share_percent"
+                ],
+    "execution_time":  "2025-11-02 17:53:25",
+    "query_name":  "bonus_zip_prefix_variation",
+    "row_count":  43,
+    "status":  "success"
+}

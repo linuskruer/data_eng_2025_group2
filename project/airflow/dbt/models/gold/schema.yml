@@ -1,0 +1,107 @@
+version: 2
+
+models:
+  - name: fact_weather
+    description: "Fact table for weather measurements"
+    columns:
+      - name: time
+        tests:
+          - not_null
+      - name: city
+        tests:
+          - not_null
+      - name: weather_code
+        description: "Weather code (not unique - multiple records per code)"
+        tests:
+          - not_null
+  - name: dim_city
+    description: "City dimension table"
+    columns:
+      - name: city
+        tests:
+          - not_null
+          - unique
+  - name: dim_date
+    description: "Date dimension table"
+    columns:
+      - name: date_time
+        tests:
+          - not_null
+          - unique
+      - name: date
+        tests:
+          - not_null
+  - name: dim_weather_code
+    description: "Weather code dimension table"
+    columns:
+      - name: weather_code
+        tests:
+          - not_null
+          - unique
+  - name: fact_listings
+    description: "Fact table for eBay listings with measures and foreign keys"
+    columns:
+      - name: item_id
+        description: "Unique item identifier (degenerate dimension)"
+        tests:
+          - not_null
+      - name: date_key
+        tests:
+          - not_null
+      - name: price
+        tests:
+          - not_null
+      - name: product_type
+        tests:
+          - not_null
+  - name: dim_product
+    description: "Product type dimension table"
+    columns:
+      - name: product_type
+        tests:
+          - not_null
+          - unique
+  - name: dim_location
+    description: "Location dimension table for eBay items"
+    columns:
+      - name: location_name
+        tests:
+          - not_null
+          - unique
+  - name: dim_seller
+    description: "Seller dimension with binned feedback scores"
+    columns:
+      - name: feedback_score_bin
+        tests:
+          - not_null
+      - name: feedback_percentage_bin
+        tests:
+          - not_null
+  - name: dim_marketplace
+    description: "Marketplace dimension table"
+    columns:
+      - name: marketplace_id
+        tests:
+          - not_null
+          - unique
+  - name: dim_currency
+    description: "Currency dimension table"
+    columns:
+      - name: currency_code
+        tests:
+          - not_null
+          - unique
+  - name: dim_condition
+    description: "Item condition dimension table"
+    columns:
+      - name: condition_name
+        tests:
+          - not_null
+          - unique
+  - name: dim_buying_option
+    description: "Buying option dimension table"
+    columns:
+      - name: buying_option
+        tests:
+          - not_null
+          - unique

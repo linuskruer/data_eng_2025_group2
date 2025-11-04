@@ -1,0 +1,12 @@
+SELECT
+    time,
+    city,
+    postal_prefix,
+    weather_code,
+    temperature_2m,
+    relative_humidity_2m,
+    cloudcover,
+    rain,
+    sunshine_duration,
+    windspeed_10m
+FROM {{ ref('silver_weather') }}

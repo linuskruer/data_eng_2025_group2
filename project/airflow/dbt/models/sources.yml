@@ -1,0 +1,42 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Bronze layer tables - raw ingested data"
+    database: default
+    schema: default
+    tables:
+      - name: bronze_weather
+        description: "Raw weather data from Open-Meteo API"
+        identifier: bronze_weather
+        columns:
+          - name: time
+            description: "Timestamp of weather observation"
+          - name: city
+            description: "City name"
+          - name: weather_code
+            description: "Weather condition code"
+          - name: temperature_2m
+            description: "Temperature at 2m height in Celsius"
+          - name: rain
+            description: "Rainfall amount in mm"
+      
+      - name: ebay_raw_data
+        description: "Raw eBay listing data from Browse API"
+        database: bronze
+        schema: default
+        identifier: ebay_raw_data
+        columns:
+          - name: item_id
+            description: "Unique eBay item identifier"
+          - name: collection_timestamp
+            description: "When the data was collected"
+          - name: price
+            description: "Item price"
+          - name: product_type
+            description: "Type of product"
+          - name: seller_feedback_score
+            description: "Seller feedback score"
+          - name: item_location
+            description: "Item location"
+

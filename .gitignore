@@ -31,3 +31,7 @@ ebay_api_scripts/credentials.env
 ebay_api_scripts/config.json
 ebay_api_scripts/ebay_token.json
 ebay_api_scripts/ebay_token.txt
+
+# Docker volumes (runtime data, should not be in Git)
+project/airflow/volumes/
+project3/docker/volumes/

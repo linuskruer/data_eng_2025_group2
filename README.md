@@ -20,109 +20,109 @@ This project analyzes how US East Coast weather affects eBay marketplace activit
 ### Architecture Overview
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         DATA SOURCES                                         │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                               │
-│  ┌──────────────────┐                    ┌──────────────────┐               │
-│  │  Open-Meteo API │                    │  eBay Browse API │               │
-│  │  (Weather Data) │                    │  (Listing Data)  │               │
-│  └────────┬─────────┘                    └────────┬─────────┘               │
-│           │                                      │                           │
-│           └──────────────┬───────────────────────┘                           │
-│                          ▼                                                     │
-│              ┌─────────────────────┐                                         │
-│              │  Apache Airflow     │                                         │
-│              │  (Orchestration)   │                                         │
-│              │  - Scheduler        │                                         │
-│              │  - Webserver (8080) │                                         │
-│              └──────────┬──────────┘                                         │
-│                         │                                                     │
-│                         ▼                                                     │
+┌────────────────────────────────────────────────────────────────────────────┐
+│                            DATA SOURCES                                    │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  ┌──────────────────┐                   ┌──────────────────┐               │
+│  │  Open-Meteo API  │                   │  eBay Browse API │               │
+│  │  (Weather Data)  │                   │  (Listing Data)  │               │
+│  └────────┬─────────┘                   └────────┬─────────┘               │
+│           │                                      │                         │
+│           └──────────────┬───────────────────────┘                         │
+│                          ▼                                                 │
+│              ┌─────────────────────┐                                       │
+│              │  Apache Airflow     │                                       │
+│              │  (Orchestration)    │                                       │
+│              │  - Scheduler        │                                       │
+│              │  - Webserver (8080) │                                       │
+│              └──────────┬──────────┘                                       │
+│                         │                                                  │
+│                         ▼                                                  │
 │        ┌──────────────────────────────────────┐                            │
-│        │      Docker Container Environment     │                            │
+│        │      Docker Container Environment    │                            │
 │        │  ┌────────────────────────────────┐  │                            │
 │        │  │    PostgreSQL (Airflow DB)     │  │                            │
 │        │  └────────────────────────────────┘  │                            │
-│        │                                        │                            │
+│        │                                      │                            │
 │        │  ┌────────────────────────────────┐  │                            │
 │        │  │       ClickHouse Server        │  │                            │
 │        │  │      (Data Warehouse)          │  │                            │
 │        │  │      Port: 8123, 9000          │  │                            │
 │        │  └────────────┬───────────────────┘  │                            │
-│        │               │                       │                            │
-│        │               ▼                       │                            │
+│        │               │                      │                            │
+│        │               ▼                      │                            │
 │        │    ┌──────────────────────┐          │                            │
 │        │    │   BRONZE LAYER       │          │                            │
 │        │    │  (Raw Ingestion)     │          │                            │
 │        │    │                      │          │                            │
-│        │    │ • bronze_weather     │          │                            │
-│        │    │ • bronze.ebay_raw_data│         │                            │
+│        │    │ • bronze_weather      │          │                            │
+│        │    │ • bronze.ebay_raw_data│          │                            │
 │        │    └──────────┬───────────┘          │                            │
-│        │               │                       │                            │
-│        │               ▼                       │                            │
+│        │               │                      │                            │
+│        │               ▼                      │                            │
 │        │    ┌──────────────────────┐          │                            │
 │        │    │    SILVER LAYER      │          │                            │
-│        │    │  (dbt Transformations)│          │                            │
+│        │    │ (dbt Transformations)│          │                            │
 │        │    │                      │          │                            │
-│        │    │ • silver_weather     │          │                            │
-│        │    │ • silver_ebay_listings│         │                            │
+│        │    │ • silver_weather      │          │                            │
+│        │    │ • silver_ebay_listings│          │                            │
 │        │    │                      │          │                            │
 │        │    │ Data Quality Checks: │          │                            │
 │        │    │ - Null handling      │          │                            │
-│        │    │ - Deduplication     │          │                            │
-│        │    │ - Standardization   │          │                            │
+│        │    │ - Deduplication      │          │                            │
+│        │    │ - Standardization    │          │                            │
 │        │    └──────────┬───────────┘          │                            │
-│        │               │                       │                            │
-│        │               ▼                       │                            │
+│        │               │                      │                            │
+│        │               ▼                      │                            │
 │        │    ┌──────────────────────┐          │                            │
 │        │    │     GOLD LAYER       │          │                            │
 │        │    │ (Star Schema - dbt)  │          │                            │
 │        │    │                      │          │                            │
 │        │    │ FACT TABLES:         │          │                            │
-│        │    │ • fact_weather      │          │                            │
-│        │    │ • fact_listings     │          │                            │
+│        │    │ • fact_weather       │          │                            │
+│        │    │ • fact_listings      │          │                            │
 │        │    │                      │          │                            │
 │        │    │ DIMENSION TABLES:    │          │                            │
-│        │    │ • dim_date          │          │                            │
-│        │    │ • dim_city          │          │                            │
+│        │    │ • dim_date           │          │                            │
+│        │    │ • dim_city           │          │                            │
 │        │    │ • dim_weather_code   │          │                            │
-│        │    │ • dim_product       │          │                            │
-│        │    │ • dim_location      │          │                            │
-│        │    │ • dim_seller        │          │                            │
-│        │    │ • dim_marketplace   │          │                            │
-│        │    │ • dim_currency      │          │                            │
-│        │    │ • dim_condition     │          │                            │
-│        │    │ • dim_buying_option │          │                            │
+│        │    │ • dim_product        │          │                            │
+│        │    │ • dim_location       │          │                            │
+│        │    │ • dim_seller         │          │                            │
+│        │    │ • dim_marketplace    │          │                            │
+│        │    │ • dim_currency       │          │                            │
+│        │    │ • dim_condition      │          │                            │
+│        │    │ • dim_buying_option  │          │                            │
 │        │    └──────────┬───────────┘          │                            │
-│        └───────────────┼───────────────────────┘                            │
-│                        │                                                     │
-│                        ▼                                                     │
-│              ┌─────────────────────┐                                         │
-│              │  Analytical Queries │                                         │
-│              │  (ClickHouse SQL)   │                                         │
-│              │                     │                                         │
-│              │ • Weather impact on listings                                  │
-│              │ • Pricing behavior analysis                                   │
-│              │ • Shipping choices analysis                                   │
-│              │ • Category demand shifts                                      │
-│              │ • Seller performance metrics                                   │
-│              │ • Listing quality metrics (bonus)                              │
-│              │ • ZIP code variation (bonus)                                   │
-│              └──────────┬───────────┘                                         │
-│                         │                                                     │
-│                         ▼                                                     │
-│              ┌─────────────────────┐                                         │
-│              │  Results & Reports  │                                         │
-│              │                     │                                         │
-│              │ • JSON results      │                                         │
-│              │ • Markdown reports  │                                         │
-│              │ • Business insights │                                         │
-│              └─────────────────────┘                                         │
-└─────────────────────────────────────────────────────────────────────────────┘
+│        └───────────────┼──────────────────────┘                            │
+│                        │                                                   │
+│                        ▼                                                   │
+│              ┌──────────────────────────────────┐                          │
+│              │  Analytical Queries              │                          │
+│              │  (ClickHouse SQL)                │                          │
+│              │                                  │                          │
+│              │ • Weather impact on listings     │                          │
+│              │ • Pricing behavior analysis      │                          │
+│              │ • Shipping choices analysis      │                          │
+│              │ • Category demand shifts         │                          │
+│              │ • Seller performance metrics     │                          │
+│              │ • Listing quality metrics (bonus)│                          │
+│              │ • ZIP code variation (bonus)     │                          │
+│              └──────────┬───────────────────────┘                          │
+│                         │                                                  │
+│                         ▼                                                  │
+│              ┌─────────────────────┐                                       │
+│              │  Results & Reports  │                                       │
+│              │                     │                                       │
+│              │ • JSON results      │                                       │
+│              │ • Markdown reports  │                                       │
+│              │ • Business insights │                                       │
+│              └─────────────────────┘                                       │
+└────────────────────────────────────────────────────────────────────────────┘
 
 KEY COMPONENTS:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 ORCHESTRATION LAYER
   • Apache Airflow 2.8+ (DAGs, scheduling, monitoring)
@@ -146,7 +146,6 @@ ANALYTICS LAYER
   • Automated report generation
 
 DATA FLOW:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 1. APIs → Airflow PythonOperators → ClickHouse Bronze
 2. Bronze → dbt Silver (cleaning & validation)
@@ -625,7 +624,7 @@ run_dbt_tests_ebay (Tests)
 **Visual Structure**:
 ```
 ┌─────────────────────────────────────┐
-│   Unified Data Pipeline            │
+│   Unified Data Pipeline             │
 └─────────────────────────────────────┘
            │         │
            ▼         ▼

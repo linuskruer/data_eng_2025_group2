@@ -85,7 +85,7 @@ ClickHouse can query Iceberg data directly (read-only) using an S3 table engine:
 1. Open Airflow UI: http://localhost:8080
 2. Navigate to **DAGs** → `weather_data_ingestion`
 3. Verify the `load_weather_to_iceberg` task completed successfully
-4. **Evidence**: ![Airflow DAG Graph](screenshots\latest-dag.png)
+4. **Evidence**: ![Airflow DAG Graph](../screenshots/latest-dag.png)
 
 ### 2.2 Verify Iceberg Table in MinIO
 
@@ -93,7 +93,7 @@ ClickHouse can query Iceberg data directly (read-only) using an S3 table engine:
 2. Login: `project3admin / project3admin123`
 3. Navigate to bucket `iceberg-bronze` → `warehouse/project3_bronze.db/weather_hourly/data/`
 4. You should see `.parquet` files
-5. **Evidence**: ![MinIO Iceberg Bucket](screenshots/minio-iceberg-bucket.png)
+5. **Evidence**: ![MinIO Iceberg Bucket](../screenshots/minio-iceberg-bucket.png)
 
 ### 2.3 Verify ClickHouse Can Query Iceberg Data
 
@@ -158,9 +158,9 @@ docker exec -it clickhouse-server clickhouse-client --user analyst_limited_user 
 ```
 
 **Evidence**: 
-- Full view: ![ClickHouse Full View](screenshots/clickhouse-governance-full-view.png)
-- Masked view: ![ClickHouse Masked View](screenshots/clickhouse-governance-masked-view.png)
-- Roles/Grants: ![ClickHouse Roles 1](screenshots/clickhouse-roles-grants-1.png) ![ClickHouse Roles 2](screenshots/clickhouse-roles-grants-2.png)
+- Full view: ![ClickHouse Full View](../screenshots/clickhouse-governance-full-view.png)
+- Masked view: ![ClickHouse Masked View](../screenshots/clickhouse-governance-masked-view.png)
+- Roles/Grants: ![ClickHouse Roles 1](../screenshots/clickhouse-roles-grants-1.png) ![ClickHouse Roles 2](../screenshots/clickhouse-roles-grants-2.png)
 
 ---
 
@@ -181,7 +181,7 @@ docker exec -it clickhouse-server clickhouse-client --user analyst_limited_user 
    - **Database**: `default`
 6. Click **Save**
 
-**Evidence**: ![OpenMetadata ClickHouse Service](screenshots/openmetadata-clickhouse-tables-registered-1.png)
+**Evidence**: ![OpenMetadata ClickHouse Service](../screenshots/openmetadata-clickhouse-tables-registered-1.png)
 
 ### 4.2 Run Metadata Ingestion
 
@@ -191,11 +191,11 @@ docker exec -it project3-openmetadata-ingestion metadata ingest -c /metadata/cli
 
 This registers all ClickHouse tables and views in OpenMetadata.
 
-**Evidence**: ![OpenMetadata Tables Registered](screenshots/openmetadata-clickhouse-tables-registered-2.png) 
+**Evidence**: ![OpenMetadata Tables Registered](../screenshots/openmetadata-clickhouse-tables-registered-2.png) 
 
 ### 4.3 Add Table and Column Descriptions
 
-**Evidence**: ![Table and Column Descriptions](screenshots/fact-table-desc-column-desc.png) ![Table and Column Descriptions 1](screenshots/fact-table-desc-column-desc-1.png) ![Table and Column Descriptions 2](screenshots/fact-table-desc-column-desc-2.png) ![Table and Column Descriptions 3](screenshots/fact-table-desc-column-desc-3.png)
+**Evidence**: ![Table and Column Descriptions](../screenshots/fact-table-desc-column-desc.png) ![Table and Column Descriptions 1](../screenshots/fact-table-desc-column-desc-1.png) ![Table and Column Descriptions 2](../screenshots/fact-table-desc-column-desc-2.png) ![Table and Column Descriptions 3](../screenshots/fact-table-desc-column-desc-3.png)
 
 ### 4.4 Create Data Quality Tests
 
@@ -215,10 +215,10 @@ This registers all ClickHouse tables and views in OpenMetadata.
 - **SQL**: `SELECT item_id FROM default.fact_listings WHERE seller_feedback_percentage < 0 OR seller_feedback_percentage > 100`
 - **Expected**: 0 rows (PASS)
 
-- Test 1: ![Test 1 - Foreign Key Not Null](screenshots/test-1.png)
-- Test 2: ![Test 2 - Surrogate Key Unique](screenshots/test2-surrogate-key-1.png) ![Test 2 - Surrogate Key Unique 1](screenshots/test2-surrogate-key-2.png) ![Test 2 - Surrogate Key Unique 2](screenshots/test2-surrogate-key-3.png)
-- Test 3: ![Test 3 - Feedback Percentage Range](screenshots/test-3.png)
-- All tests for fact_listings table: ![All Tests Summary](screenshots/test-fact-listings-all.png)
+- Test 1: ![Test 1 - Foreign Key Not Null](../screenshots/test-1.png)
+- Test 2: ![Test 2 - Surrogate Key Unique](../screenshots/test2-surrogate-key-1.png) ![Test 2 - Surrogate Key Unique 1](../screenshots/test2-surrogate-key-2.png) ![Test 2 - Surrogate Key Unique 2](../screenshots/test2-surrogate-key-3.png)
+- Test 3: ![Test 3 - Feedback Percentage Range](../screenshots/test-3.png)
+- All tests for fact_listings table: ![All Tests Summary](../screenshots/test-fact-listings-all.png)
 
 ### 4.5 Register Superset Dashboard Service
 
@@ -233,7 +233,7 @@ This registers all ClickHouse tables and views in OpenMetadata.
    - **Verify SSL**: `no-ssl`
 4. Click **Save**
 
-**Evidence**: ![Superset Dashboard Service](screenshots/openmetadata-superset-dashboard.png)
+**Evidence**: ![Superset Dashboard Service](../screenshots/openmetadata-superset-dashboard.png)
 
 ---
 
@@ -265,14 +265,14 @@ docker restart project3-superset
    - **Database**: `default`
 6. Click **Connect**
 
-**Evidence**: ![Superset ClickHouse Connection](screenshots/superset-clickhouse-connection.png)
+**Evidence**: ![Superset ClickHouse Connection](../screenshots/superset-clickhouse-connection.png)
 
 ### 5.3 Dashboard
 
 
-- Dashboard view 1: ![Superset Dashboard 1](screenshots/superset-dashboard-full-1.png)
-- Dashboard view 2: ![Superset Dashboard 2](screenshots/superset-dashboard-full-2.png)
-- Filters active: ![Superset Filters](screenshots/superset-filters-active.png)
+- Dashboard view 1: ![Superset Dashboard 1](../screenshots/superset-dashboard-full-1.png)
+- Dashboard view 2: ![Superset Dashboard 2](../screenshots/superset-dashboard-full-2.png)
+- Filters active: ![Superset Filters](../screenshots/superset-filters-active.png)
 
 ---
 

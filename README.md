@@ -1,3 +1,6 @@
+
+**[Data Governance & Visualization - Project 3 README](project3/README.md)**
+
 ## Project: Weather x eBay Analytics (East Coast)
 
 ### Overview
@@ -16,6 +19,140 @@ This project analyzes how US East Coast weather affects eBay marketplace activit
 
 ### Architecture Overview
 
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         DATA SOURCES                                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  ┌──────────────────┐                    ┌──────────────────┐               │
+│  │  Open-Meteo API │                    │  eBay Browse API │               │
+│  │  (Weather Data) │                    │  (Listing Data)  │               │
+│  └────────┬─────────┘                    └────────┬─────────┘               │
+│           │                                      │                           │
+│           └──────────────┬───────────────────────┘                           │
+│                          ▼                                                     │
+│              ┌─────────────────────┐                                         │
+│              │  Apache Airflow     │                                         │
+│              │  (Orchestration)   │                                         │
+│              │  - Scheduler        │                                         │
+│              │  - Webserver (8080) │                                         │
+│              └──────────┬──────────┘                                         │
+│                         │                                                     │
+│                         ▼                                                     │
+│        ┌──────────────────────────────────────┐                            │
+│        │      Docker Container Environment     │                            │
+│        │  ┌────────────────────────────────┐  │                            │
+│        │  │    PostgreSQL (Airflow DB)     │  │                            │
+│        │  └────────────────────────────────┘  │                            │
+│        │                                        │                            │
+│        │  ┌────────────────────────────────┐  │                            │
+│        │  │       ClickHouse Server        │  │                            │
+│        │  │      (Data Warehouse)          │  │                            │
+│        │  │      Port: 8123, 9000          │  │                            │
+│        │  └────────────┬───────────────────┘  │                            │
+│        │               │                       │                            │
+│        │               ▼                       │                            │
+│        │    ┌──────────────────────┐          │                            │
+│        │    │   BRONZE LAYER       │          │                            │
+│        │    │  (Raw Ingestion)     │          │                            │
+│        │    │                      │          │                            │
+│        │    │ • bronze_weather     │          │                            │
+│        │    │ • bronze.ebay_raw_data│         │                            │
+│        │    └──────────┬───────────┘          │                            │
+│        │               │                       │                            │
+│        │               ▼                       │                            │
+│        │    ┌──────────────────────┐          │                            │
+│        │    │    SILVER LAYER      │          │                            │
+│        │    │  (dbt Transformations)│          │                            │
+│        │    │                      │          │                            │
+│        │    │ • silver_weather     │          │                            │
+│        │    │ • silver_ebay_listings│         │                            │
+│        │    │                      │          │                            │
+│        │    │ Data Quality Checks: │          │                            │
+│        │    │ - Null handling      │          │                            │
+│        │    │ - Deduplication     │          │                            │
+│        │    │ - Standardization   │          │                            │
+│        │    └──────────┬───────────┘          │                            │
+│        │               │                       │                            │
+│        │               ▼                       │                            │
+│        │    ┌──────────────────────┐          │                            │
+│        │    │     GOLD LAYER       │          │                            │
+│        │    │ (Star Schema - dbt)  │          │                            │
+│        │    │                      │          │                            │
+│        │    │ FACT TABLES:         │          │                            │
+│        │    │ • fact_weather      │          │                            │
+│        │    │ • fact_listings     │          │                            │
+│        │    │                      │          │                            │
+│        │    │ DIMENSION TABLES:    │          │                            │
+│        │    │ • dim_date          │          │                            │
+│        │    │ • dim_city          │          │                            │
+│        │    │ • dim_weather_code   │          │                            │
+│        │    │ • dim_product       │          │                            │
+│        │    │ • dim_location      │          │                            │
+│        │    │ • dim_seller        │          │                            │
+│        │    │ • dim_marketplace   │          │                            │
+│        │    │ • dim_currency      │          │                            │
+│        │    │ • dim_condition     │          │                            │
+│        │    │ • dim_buying_option │          │                            │
+│        │    └──────────┬───────────┘          │                            │
+│        └───────────────┼───────────────────────┘                            │
+│                        │                                                     │
+│                        ▼                                                     │
+│              ┌─────────────────────┐                                         │
+│              │  Analytical Queries │                                         │
+│              │  (ClickHouse SQL)   │                                         │
+│              │                     │                                         │
+│              │ • Weather impact on listings                                  │
+│              │ • Pricing behavior analysis                                   │
+│              │ • Shipping choices analysis                                   │
+│              │ • Category demand shifts                                      │
+│              │ • Seller performance metrics                                   │
+│              │ • Listing quality metrics (bonus)                              │
+│              │ • ZIP code variation (bonus)                                   │
+│              └──────────┬───────────┘                                         │
+│                         │                                                     │
+│                         ▼                                                     │
+│              ┌─────────────────────┐                                         │
+│              │  Results & Reports  │                                         │
+│              │                     │                                         │
+│              │ • JSON results      │                                         │
+│              │ • Markdown reports  │                                         │
+│              │ • Business insights │                                         │
+│              └─────────────────────┘                                         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+KEY COMPONENTS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ORCHESTRATION LAYER
+  • Apache Airflow 2.8+ (DAGs, scheduling, monitoring)
+  • Docker Compose (service orchestration)
+  • PostgreSQL (Airflow metadata storage)
+
+DATA STORAGE LAYER
+  • ClickHouse 23+ (columnar database for analytical workloads)
+  • Bronze: Raw ingested data (no transformations)
+  • Silver: Cleaned, standardized data (dbt models)
+  • Gold: Star schema (fact + dimension tables, dbt models)
+
+TRANSFORMATION LAYER
+  • dbt 1.6+ (SQL-based transformations)
+  • Data quality tests (null checks, uniqueness, range validation)
+  • Incremental models for efficiency
+
+ANALYTICS LAYER
+  • ClickHouse SQL queries against gold layer
+  • 7 analytical queries answering business questions
+  • Automated report generation
+
+DATA FLOW:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. APIs → Airflow PythonOperators → ClickHouse Bronze
+2. Bronze → dbt Silver (cleaning & validation)
+3. Silver → dbt Gold (star schema modeling)
+4. Gold → Analytical SQL Queries → Reports
+```
 
 ### Tech Stack
 - **Orchestration**: Apache Airflow 2.8+ (DAGs for data pipeline automation)
@@ -56,11 +193,11 @@ This project analyzes how US East Coast weather affects eBay marketplace activit
 **Additional Diagrams:**
 - **System Architecture Source**: `Data_Architecture/Data_Architecture.drawio.(png|pdf)` - *Note: May show legacy architecture; actual implementation uses Airflow + ClickHouse + dbt*
 - **Data Model**: `Star_Schema/Data_Eng_2025_group2.drawio.(png|pdf)` - Star schema design
-- **Visual DAGs**: See "📸 Airflow and dbt DAG Visuals" section below for pipeline screenshots
+- **Visual DAGs**: See "Airflow and dbt DAG Visuals" section below for pipeline screenshots
 
 ---
 
-## 📋 Project Deliverables 
+## Project Deliverables 
 
 ### Pipeline Design & Airflow DAGs 
 **Location**: 
@@ -74,16 +211,16 @@ This project analyzes how US East Coast weather affects eBay marketplace activit
   - `project/airflow/dags/utils/weather_api.py` - Weather API integration
   - `project/airflow/dags/utils/ebay_ingestion.py` - eBay API integration
   - `project/airflow/dags/utils/clickhouse_loader.py` - ClickHouse data loader
-- **Screenshots**: Available in `screenshots/` directory and displayed in "📸 Airflow and dbt DAG Visuals" section below
+- **Screenshots**: Available in `screenshots/` directory and displayed in "Airflow and dbt DAG Visuals" section below
   - `screenshots/weather-data-ingestion.png` - Weather Data Ingestion DAG
   - `screenshots/ebay-ingestion.png` - eBay Ingestion DAG
   - `screenshots/unified-data-pipeline.png` - Unified Data Pipeline DAG
   - `screenshots/lineage-graph.png` - dbt Lineage Graph (medallion architecture visualization)
 - **Key Features**:
-  - ✅ Two distinct data sources (Weather API, eBay API)
-  - ✅ Automated ingestion with parameterization (date, file_version, items_per_product)
-  - ✅ Data quality checks (nulls, duplicates, range checks)
-  - ✅ Idempotent pipelines (no duplicates on re-run)
+  - Two distinct data sources (Weather API, eBay API)
+  - Automated ingestion with parameterization (date, file_version, items_per_product)
+  - Data quality checks (nulls, duplicates, range checks)
+  - Idempotent pipelines (no duplicates on re-run)
 
 ### ClickHouse Schema & Medallion Layers 
 **Location**:
@@ -136,7 +273,7 @@ This project analyzes how US East Coast weather affects eBay marketplace activit
   - `Data_Architecture/Data_Architecture.drawio.(png|pdf)` - System architecture diagram
   - `Star_Schema/Data_Eng_2025_group2.drawio.(png|pdf)` - Star schema diagram
 - **Setup Instructions**:
-  - See "🚀 Project Setup Instructions" section in README.md
+  - See "Project Setup Instructions" section in README.md
   - Environment variables and dependencies documented
 - **Docker Configuration**:
   - `project/airflow/compose.yml` - Complete Docker Compose setup
@@ -159,7 +296,7 @@ This project analyzes how US East Coast weather affects eBay marketplace activit
   - `sql_queries_clickhouse/run_queries_docker.ps1` - PowerShell script to run all queries
   - `sql_queries_clickhouse/run_analytical_queries.py` - Python script for query execution
   - `sql_queries_clickhouse/generate_report.py` - Report generation script
-- **Results**: See "📊 Analytical Query Results" section below for detailed findings
+- **Results**: See "Analytical Query Results" section below for detailed findings
 
 ### Optional MongoDB Integration  
 **Status**: Not implemented
@@ -265,7 +402,7 @@ Grain: one row per collected listing event.
 
 East Coast filter states: `ME,NH,VT,MA,RI,CT,NY,NJ,PA,DE,MD,DC,VA,NC,SC,GA,FL`.
 
-## 🚀 Project Setup Instructions
+## Project Setup Instructions
 
 This project uses **Docker Compose** to orchestrate Airflow, ClickHouse, and dbt for a complete medallion architecture data pipeline.
 
@@ -359,7 +496,7 @@ Access services:
 
 ---
 
-## ⚙️ Data Ingestion Parameterization
+## Data Ingestion Parameterization
 
 The pipelines support parameterization for flexible data ingestion:
 
@@ -400,10 +537,10 @@ EBAY_ITEMS_PER_PRODUCT = 500  # Comprehensive collection
 
 ### Parameter Benefits
 
-✅ **Flexibility**: Adjust data collection volume without code changes  
-✅ **Idempotency**: Date-based parameters ensure consistent file naming and prevent duplicates  
-✅ **Scalability**: Easy to adjust `items_per_product` based on API quotas and processing needs  
-✅ **Traceability**: File versioning helps track different data collection runs
+**Flexibility**: Adjust data collection volume without code changes  
+**Idempotency**: Date-based parameters ensure consistent file naming and prevent duplicates  
+**Scalability**: Easy to adjust `items_per_product` based on API quotas and processing needs  
+**Traceability**: File versioning helps track different data collection runs
 
 ---
 
@@ -430,15 +567,15 @@ dbt-clickhouse
 
 ---
 
-## 📸 Airflow and dbt DAG Visuals
+## Airflow and dbt DAG Visuals
 
 This section contains screenshots and visuals of all Airflow DAGs and dbt model dependencies.
 
 **Available Screenshots:**
-- ✅ Weather Data Ingestion DAG (`screenshots/weather-data-ingestion.png`)
-- ✅ eBay Ingestion DAG (`screenshots/ebay-ingestion.png`)
-- ✅ Unified Data Pipeline DAG (`screenshots/unified-data-pipeline.png`)
-- ✅ dbt Lineage Graph (`screenshots/lineage-graph.png`)
+- Weather Data Ingestion DAG (`screenshots/weather-data-ingestion.png`)
+- eBay Ingestion DAG (`screenshots/ebay-ingestion.png`)
+- Unified Data Pipeline DAG (`screenshots/unified-data-pipeline.png`)
+- dbt Lineage Graph (`screenshots/lineage-graph.png`)
 
 ### Airflow DAG Views
 
@@ -509,18 +646,18 @@ This screenshot displays the Apache Airflow UI showing the **Graph View** for th
 
 1. **Pipeline Status:**
    - **Weather Pipeline (Bottom Row)**: All tasks completed successfully (green borders)
-     - `fetch_weather_all_cities` ✅ (success)
-     - `validate_weather_data` ✅ (success)
-     - `load_weather_to_clickhouse` ✅ (success)
-     - `run_dbt_silver_weather` ✅ (success)
-     - `run_dbt_gold_weather` ✅ (success)
-     - `run_dbt_tests_weather` ✅ (success)
+     - `fetch_weather_all_cities` (success)
+     - `validate_weather_data` (success)
+     - `load_weather_to_clickhouse` (success)
+     - `run_dbt_silver_weather` (success)
+     - `run_dbt_gold_weather` (success)
+     - `run_dbt_tests_weather` (success)
 
    - **eBay Pipeline (Top Row)**: Tasks executing in sequence
-     - `ingest_ebay_to_clickhouse` 🔄 (running - light blue border)
-     - `run_dbt_silver_ebay` ⏳ (pending - white border)
-     - `run_dbt_gold_ebay` ⏳ (pending - white border)
-     - `run_dbt_tests_ebay` ⏳ (pending - white border)
+     - `ingest_ebay_to_clickhouse` (running - light blue border)
+     - `run_dbt_silver_ebay` (pending - white border)
+     - `run_dbt_gold_ebay` (pending - white border)
+     - `run_dbt_tests_ebay` (pending - white border)
 
 2. **DAG Information:**
    - **DAG Name**: `unified_data_pipeline`
@@ -542,11 +679,11 @@ This screenshot displays the Apache Airflow UI showing the **Graph View** for th
    - **Tests**: Data quality validation (`run_dbt_tests_*`)
 
 **What This Demonstrates:**
-- ✅ Successful orchestration of dual-source data pipeline
-- ✅ Complete medallion architecture implementation (Bronze → Silver → Gold)
-- ✅ Independent pipeline execution (weather and eBay run in parallel)
-- ✅ Automated dbt transformations integrated into Airflow
-- ✅ Real-time task monitoring and status tracking
+- Successful orchestration of dual-source data pipeline
+- Complete medallion architecture implementation (Bronze → Silver → Gold)
+- Independent pipeline execution (weather and eBay run in parallel)
+- Automated dbt transformations integrated into Airflow
+- Real-time task monitoring and status tracking
 
 **To View This Screenshot:**
 1. Navigate to Airflow UI → DAGs → `unified_data_pipeline`
@@ -591,7 +728,7 @@ Gold Layer:
 
 ---
 
-## 📊 Analytical Query Results
+## Analytical Query Results
 
 ### Results Summary
 
@@ -705,7 +842,7 @@ docker exec clickhouse-server clickhouse-client --password mypassword --query "$
 
 ---
 
-## 🛠️ Manual Setup (Alternative to Docker)
+## Manual Setup (Alternative to Docker)
 
 If you prefer not to use Docker, you can set up components manually:
 
@@ -767,7 +904,7 @@ All queries have been validated against real API data:
 - **Total queries**: 7
 - **Success rate**: 100%
 - **Data coverage**: 113 eBay records, 672 weather records
-- **Production ready**: ✅ All queries provide accurate business insights
+- **Production ready**: All queries provide accurate business insights
 
 ## Troubleshooting
 
@@ -803,4 +940,20 @@ pip install pandas numpy psycopg2-binary python-dotenv
 ### Performance Tips
 - **Run queries in Docker**: Use the PowerShell script for reliable execution
 - **Check data size**: Large datasets may take longer to process
+
+---
+
+## Project 3 - Data Governance & Visualization
+
+For Project 3 deliverables (Data Governance & Visualization), see the dedicated README:
+
+**[Project 3 README](project3/README.md)**
+
+This includes:
+- Apache Iceberg integration for bronze layer storage
+- ClickHouse role-based access control (RBAC) with masked views
+- OpenMetadata setup for data discovery and quality tests
+- Apache Superset dashboard creation
+- Step-by-step setup instructions
+- Evidence screenshots for all deliverables
 

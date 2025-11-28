@@ -31,3 +31,27 @@ ebay_api_scripts/credentials.env
 ebay_api_scripts/config.json
 ebay_api_scripts/ebay_token.json
 ebay_api_scripts/ebay_token.txt
+
+# Docker volumes (runtime data, should not be in Git)
+project/airflow/volumes/
+project3/docker/volumes/
+
+# Project 3 helper scripts and documentation (not needed for instructors)
+project3/*.ps1
+project3/README_BACKUP.md
+project3/README_COMPLETE.md
+project3/QUICK_START.md
+project3/EVIDENCE_SCREENSHOTS.md
+project3/OPENMETADATA_EVIDENCE_CHECK.md
+project3/OPENMETADATA_DESCRIPTIONS_GUIDE.md
+project3/SUPERSET_INGESTION_LIMITATION.md
+project3/SUPERSET_OPENMETADATA_SETUP.md
+project3/register_superset_in_openmetadata.md
+project3/REPORT_TEMPLATE.md
+project3/*AIRFLOW*.md
+project3/*CHECK*.md
+project3/*FIX*.md
+project3/*TEST*.md
+project3/*PROFILING*.md
+project3/*SKIP*.md
+project3/clickhouse/README.md

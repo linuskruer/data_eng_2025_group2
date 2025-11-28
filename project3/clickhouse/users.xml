@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<clickhouse>
+    <users>
+        <default>
+            <password>mypassword</password>
+            <access_management>1</access_management>
+            <grants>
+                <grant>GRANT ALL ON *.* TO default WITH GRANT OPTION</grant>
+            </grants>
+        </default>
+    </users>
+</clickhouse>
+

@@ -1,0 +1,35 @@
+source:
+  type: superset
+  serviceName: superset_project3
+  serviceConnection:
+    config:
+      type: Superset
+      hostPort: http://project3-superset:8088
+      connection:
+        type: Postgres
+        username: superset
+        authType:
+          password: superset
+        hostPort: project3-superset-db:5432
+        database: superset
+  sourceConfig:
+    config:
+      type: DashboardMetadata
+      dashboardFilterPattern:
+        includes:
+          - .*
+      chartFilterPattern:
+        includes:
+          - .*
+
+sink:
+  type: metadata-rest
+  config: {}
+
+workflowConfig:
+  openMetadataServerConfig:
+    hostPort: http://openmetadata-server:8585/api
+    authProvider: openmetadata
+    securityConfig:
+      # Replace with a fresh JWT from OpenMetadata UI (Profile -> Copy JWT)
+      jwtToken: "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImFkbWluIiwicm9sZXMiOlsiQWRtaW4iXSwiZW1haWwiOiJhZG1pbkBvcGVubWV0YWRhdGEub3JnIiwiaXNCb3QiOmZhbHNlLCJ0b2tlblR5cGUiOiJQRVJTT05BTF9BQ0NFU1MiLCJpYXQiOjE3NjQzMjAzNzMsImV4cCI6MTc2NDQwNjc3M30.wnuw254w4DsRoPQ-L1OF7PTZYZ4znr-x0o3jGqPst2w5ZFC6qi_pP9gtyPHVrvafHYnz97rzQ0tbNhnYjEFZkAP5HEf5_NI15bZ7D62SVQkMNDKS5tME0gsQ26obenrnmbnk7clz6GkNOnM_CnAXi626Hh0fhToPN9TZeQMDthbIdjn9HzKEuB_n-Fe5EPU_WyQDpKuvt6g1P7pZVjwso1Dm9dHx-SUOw6RMhx32uGn2rJfTSC_He2gK9hJzzP1TP-oSLK7QcG8pZWfLXe9exxdEMKJJjh6JK4xtu6ZZjCZFjLpnNL-CwFpU-csJc5grYfn9NvHvm9G8nYhAwJqF-Q"

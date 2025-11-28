@@ -114,6 +114,9 @@ services:
     restart: unless-stopped
     env_file:
       - ./project3.env
+    networks:
+      - default
+      - airflow
     environment:
       SERVER_PORT: 8585
       OPENMETADATA_DATABASE_HOST: openmetadata-mysql
@@ -121,6 +124,11 @@ services:
       OPENMETADATA_DATABASE_USERNAME: ${PROJECT3_OPENMETADATA_DB_USER}
       OPENMETADATA_DATABASE_PASSWORD: ${PROJECT3_OPENMETADATA_DB_PASSWORD}
       OPENMETADATA_DATABASE_SCHEMA: openmetadata_db
+      DB_HOST: openmetadata-mysql
+      DB_PORT: 3306
+      DB_USER: ${PROJECT3_OPENMETADATA_DB_USER}
+      DB_USER_PASSWORD: ${PROJECT3_OPENMETADATA_DB_PASSWORD}
+      OM_DATABASE: openmetadata_db
       OPENMETADATA_ELASTICSEARCH_HOST: openmetadata-elasticsearch
       OPENMETADATA_ELASTICSEARCH_PORT: 9200
       AUTHORIZER_CLASS_NAME: org.openmetadata.service.security.DefaultAuthorizer
@@ -141,10 +149,23 @@ services:
     restart: unless-stopped
     env_file:
       - ./project3.env
+    networks:
+      - default
+      - airflow
     volumes:
-      - ./../metadata:/metadata
+      - ../../project3/metadata:/metadata
+    # Keep the container alive so we can exec `metadata ingest ...` commands on demand.
+    entrypoint: ["sleep", "infinity"]
     environment:
       OM_SERVER_CONFIG: http://openmetadata-server:8585/api
     depends_on:
-      - openmetadata-server
+      openmetadata-server:
+        condition: service_started
+
+networks:
+  default:
+    name: project3_default
+  airflow:
+    external: true
+    name: airflow_default
 

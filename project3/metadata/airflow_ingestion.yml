@@ -1,0 +1,30 @@
+source:
+  type: airflow
+  serviceName: airflow
+  serviceConnection:
+    config:
+      type: Airflow
+      hostPort: http://airflow-webserver:8080
+      numberOfStatus: 10
+      connection:
+        type: Postgres
+        hostPort: airflow-db:5432
+        username: airflow
+        authType:
+          password: airflow
+        database: airflow
+  sourceConfig:
+    config:
+      type: PipelineMetadata
+
+sink:
+  type: metadata-rest
+  config: {}
+
+workflowConfig:
+  openMetadataServerConfig:
+    hostPort: http://openmetadata-server:8585/api
+    authProvider: openmetadata
+    securityConfig:
+      # Replace with a fresh JWT from OpenMetadata UI (Profile -> Copy JWT)
+      jwtToken: "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImFkbWluIiwicm9sZXMiOlsiQWRtaW4iXSwiZW1haWwiOiJhZG1pbkBvcGVubWV0YWRhdGEub3JnIiwiaXNCb3QiOmZhbHNlLCJ0b2tlblR5cGUiOiJQRVJTT05BTF9BQ0NFU1MiLCJpYXQiOjE3NjQzMTYyNTgsImV4cCI6MTc2NDMxOTg1OH0.SPU9AiP4leu7jn6wttqqe2FfzUBTnn2JPWcqOQKRSG8-rxkFrKcdQvigt1gsDhRaHud9wnzzNy2OHaDjdsY63d507FjEuiHhuHJvbP8OSvPVfM_AX37sBDE6LZktUBGYPcGYhVq2-N3jbQ0qS1671UBBCTY09LVYsnta3OcmBVnrkgHoePCUaFuj8cF8C6Rlem0RcqlUUTGNK8P1n6amI6OcAN-lSoQs3LMLceeSrFbFqf57W6NZzy-XSvXJvnTApUl_Zc0zxWTNt1Dm5xS5ePWneKUHUFxvqu2SsvfBN39e47fHsFsDG-M462bYH-GPlaVaUtFF1Pt9LaZgedKK1w"

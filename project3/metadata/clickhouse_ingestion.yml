@@ -1,0 +1,33 @@
+source:
+  type: clickhouse
+  serviceName: clickhouse_project3
+  serviceConnection:
+    config:
+      type: Clickhouse
+      hostPort: clickhouse-server:8123
+      databaseSchema: default
+      username: default
+      password: mypassword
+  sourceConfig:
+    config:
+      type: DatabaseMetadata
+      markDeletedTables: true
+      includeTables: true
+      includeViews: true
+      schemaFilterPattern:
+        includes:
+          - default
+          - serving_views_full
+          - serving_views_masked
+
+sink:
+  type: metadata-rest
+  config: {}
+
+workflowConfig:
+  openMetadataServerConfig:
+    hostPort: http://openmetadata-server:8585/api
+    authProvider: openmetadata
+    securityConfig:
+      jwtToken: "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImFkbWluIiwicm9sZXMiOlsiQWRtaW4iXSwiZW1haWwiOiJhZG1pbkBvcGVubWV0YWRhdGEub3JnIiwiaXNCb3QiOmZhbHNlLCJ0b2tlblR5cGUiOiJPTV9VU0VSIiwiaWF0IjoxNzY0MjY2MTkwLCJleHAiOjE3NjQyNjk3OTB9.Yf0mFDrHuZBrheGJT4FYdneWhyUeTKdcInGu6Clo8mAr43Kf1BEANFO_sKWchmppp4Efx9icVVGGkb-Q8A1NwQ2_-vq4jYzRscWaVva9_mxk-0H94MQ85POqxsuXDvsCBpkQkwtpfuNEqOy03hcLrdQc4vRzMwaOEgw7U2NqpIzSXQg7JwdYzd7mWy-GBmBgm2HPkjd2nLOJQq8bu6reyy-dg-MFzYxJ2_hQMz82FHASQ1pVXN1g_Au2B_lY4I-E9-tXdCC2wbKlbVjA4pThcXGHzar4dfhu1_rKhvhEGqjez6eETUT9aM3i8dIxSlV78x2m35MuDkjAU7QJtbuwwg"
+

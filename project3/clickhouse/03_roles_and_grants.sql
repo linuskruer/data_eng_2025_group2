@@ -6,11 +6,15 @@ CREATE ROLE IF NOT EXISTS analyst_full;
 CREATE ROLE IF NOT EXISTS analyst_limited;
 
 -- Full analysts can query every serving view (including gold tables if desired).
-GRANT SELECT ON serving_views_full.* TO ROLE analyst_full;
-GRANT SELECT ON default.* TO ROLE analyst_full;
+GRANT SELECT ON serving_views_full.* TO analyst_full;
+GRANT SELECT ON default.* TO analyst_full;
 
--- Limited analysts only see masked projections.
-GRANT SELECT ON serving_views_masked.* TO ROLE analyst_limited;
+-- Limited analysts can query masked views
+-- Note: ClickHouse requires access to underlying tables/views that the masked views query from
+-- The masking happens at the view level - limited users get masked data when querying masked views
+GRANT SELECT ON serving_views_masked.* TO analyst_limited;
+GRANT SELECT ON serving_views_full.* TO analyst_limited;  -- Required because masked views read from full views
+GRANT SELECT ON default.* TO analyst_limited;  -- Required because views read from default schema tables
 
 -- Example users for demos (update passwords in credentials store before production use).
 CREATE USER IF NOT EXISTS analyst_full_user IDENTIFIED WITH plaintext_password BY 'Project3Full!';

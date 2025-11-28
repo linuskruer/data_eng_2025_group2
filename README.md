@@ -56,8 +56,8 @@ This project analyzes how US East Coast weather affects eBay marketplace activit
 │        │    │   BRONZE LAYER       │          │                            │
 │        │    │  (Raw Ingestion)     │          │                            │
 │        │    │                      │          │                            │
-│        │    │ • bronze_weather      │          │                            │
-│        │    │ • bronze.ebay_raw_data│          │                            │
+│        │    │ •bronze_weather      │          │                            │
+│        │    │ •bronze.ebay_raw_data│          │                            │
 │        │    └──────────┬───────────┘          │                            │
 │        │               │                      │                            │
 │        │               ▼                      │                            │
@@ -65,8 +65,8 @@ This project analyzes how US East Coast weather affects eBay marketplace activit
 │        │    │    SILVER LAYER      │          │                            │
 │        │    │ (dbt Transformations)│          │                            │
 │        │    │                      │          │                            │
-│        │    │ • silver_weather      │          │                            │
-│        │    │ • silver_ebay_listings│          │                            │
+│        │    │ •silver_weather      │          │                            │
+│        │    │ •silver_ebay_listings│          │                            │
 │        │    │                      │          │                            │
 │        │    │ Data Quality Checks: │          │                            │
 │        │    │ - Null handling      │          │                            │
